@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(npx --version)",
+      "Read(//home/aistorm/.claude/skills/subagent-driven-development/**)",
+      "Read(//home/aistorm/.agents/skills/subagent-driven-development/**)"
+    ],
+    "additionalDirectories": [
+      "/home/aistorm/projects/luowei/docs"
+    ]
+  }
+}
