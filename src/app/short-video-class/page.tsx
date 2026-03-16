@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import OceanBackground from "@/components/OceanBackground";
 
 const plans = [
   {
@@ -51,12 +50,12 @@ const plans = [
 ];
 
 const services = [
-  { icon: "\u{1F3AF}", title: "帳號定位與 IP 打造", desc: "分析你的優勢，打造獨特個人品牌定位" },
-  { icon: "\u{1F4DD}", title: "腳本企劃與內容策略", desc: "規劃吸睛內容，讓每支影片都有明確目標" },
-  { icon: "\u{1F3AC}", title: "專業拍攝指導", desc: "手把手教你拍出專業感，不需昂貴設備" },
-  { icon: "\u2702\uFE0F", title: "後製剪輯與字幕特效", desc: "節奏、字幕、特效一次搞定" },
-  { icon: "\u{1F4CA}", title: "數據追蹤與優化", desc: "用數據說話，持續優化內容方向" },
-  { icon: "\u{1F4E3}", title: "廣告投放與流量佈局", desc: "精準投放，讓每一分預算都花在刀口上" },
+  { icon: "🎯", title: "帳號定位與\u00A0IP\u00A0打造", desc: "分析你的優勢，打造獨特個人品牌定位" },
+  { icon: "📝", title: "腳本企劃與內容策略", desc: "規劃吸睛內容，讓每支影片都有明確目標" },
+  { icon: "🎬", title: "專業拍攝指導", desc: "手把手教你拍出專業感，不需昂貴設備" },
+  { icon: "✂️", title: "後製剪輯與字幕特效", desc: "節奏、字幕、特效一次搞定" },
+  { icon: "📊", title: "數據追蹤與優化", desc: "用數據說話，持續優化內容方向" },
+  { icon: "📣", title: "廣告投放與流量佈局", desc: "精準投放，讓每一分預算都花在刀口上" },
 ];
 
 const faqs = [
@@ -99,6 +98,32 @@ const galleryImages = [
   "S__4505725_0.webp",
 ];
 
+function FaqItem({ q, a, open, onToggle }: { q: string; a: string; open: boolean; onToggle: () => void }) {
+  return (
+    <div className="border-b border-divider">
+      <button
+        onClick={onToggle}
+        className="flex w-full items-center justify-between py-4 text-left transition-colors"
+      >
+        <span className="text-sm font-medium text-charcoal pr-4">{q}</span>
+        <span className="text-warm-gray text-lg flex-shrink-0 transition-transform duration-300"
+          style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
+        >
+          +
+        </span>
+      </button>
+      <div
+        className="grid transition-[grid-template-rows] duration-300 ease-out"
+        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <p className="pb-4 text-sm text-warm-gray leading-[1.8]">{a}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ShortVideoClass() {
   const [activeTab, setActiveTab] = useState<"service" | "gallery">("service");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -113,92 +138,85 @@ export default function ShortVideoClass() {
   }, []);
 
   return (
-    <main className="relative z-10 flex min-h-dvh flex-col items-center px-6 pt-10 pb-12">
-      <OceanBackground />
-
-      {/* Back link top */}
+    <main className="relative z-10 flex min-h-dvh flex-col px-6 pt-10 pb-12">
+      {/* Back link */}
       <Link
         href="/"
-        className="animate-fade-in self-start text-sm text-gold/60 hover:text-gold-bright transition-colors mb-6"
+        className="animate-fade-in self-start text-sm text-warm-gray transition-colors active:text-terracotta mb-6"
       >
-        ← 返回首頁
+        ← 返回
       </Link>
 
       {/* Tab bar */}
-      <div className="animate-fade-up flex w-full border-b border-gold/20 mb-8">
+      <div className="animate-fade-up flex w-full border-b border-divider mb-10">
         <button
           onClick={() => setActiveTab("service")}
-          className={`flex-1 py-3 text-center text-sm font-semibold tracking-widest transition-colors ${
+          className={`flex-1 py-3 text-center text-sm font-medium tracking-widest transition-colors ${
             activeTab === "service"
-              ? "text-gold border-b-2 border-gold"
-              : "text-gold/50 hover:text-gold/70"
+              ? "text-charcoal border-b-2 border-terracotta"
+              : "text-warm-gray"
           }`}
         >
           短影音代操
         </button>
         <button
           onClick={() => setActiveTab("gallery")}
-          className={`flex-1 py-3 text-center text-sm font-semibold tracking-widest transition-colors ${
+          className={`flex-1 py-3 text-center text-sm font-medium tracking-widest transition-colors ${
             activeTab === "gallery"
-              ? "text-gold border-b-2 border-gold"
-              : "text-gold/50 hover:text-gold/70"
+              ? "text-charcoal border-b-2 border-terracotta"
+              : "text-warm-gray"
           }`}
         >
           活動花絮
         </button>
       </div>
 
-      {/* Tab 1: 短影音代操 */}
+      {/* Tab 1: Service */}
       {activeTab === "service" && (
-        <div className="w-full max-w-lg flex flex-col gap-12">
+        <div className="w-full flex flex-col">
           {/* Hero */}
-          <section className="animate-fade-up text-center">
-            <h1 className="text-xl font-bold tracking-wide text-gold mb-4">
-              打造你的個人 IP，讓短影音為你帶來精準客戶
+          <section className="animate-fade-up mb-12">
+            <h1 className="font-[family-name:var(--font-noto-serif-tc)] text-[22px] font-bold leading-[1.6] text-charcoal mb-3">
+              打造你的個人&nbsp;IP，
+              <br />
+              讓短影音為你
+              <br />
+              帶來精準客戶
             </h1>
-            <p className="text-sm text-gold/60 leading-relaxed">
-              三大方案，從品牌建立到行業壟斷，量身打造你的短影音帝國
+            <p className="text-sm text-warm-gray leading-[1.8]">
+              三大方案，從品牌建立到行業壟斷，
+              <br />
+              量身打造你的短影音帝國
             </p>
           </section>
 
           {/* Plan Cards */}
-          <section className="flex flex-col gap-5">
+          <section className="flex flex-col gap-4 mb-16">
             {plans.map((plan, i) => (
               <div
                 key={plan.name}
-                className={`animate-fade-up relative rounded-xl p-6 backdrop-blur-sm ${
+                className={`animate-fade-up rounded-lg p-5 bg-cream-dark ${
                   plan.recommended
-                    ? "border border-gold/50 bg-ocean-deep/50"
-                    : "border border-gold/20 bg-ocean-deep/50"
+                    ? "border-l-[3px] border-l-terracotta"
+                    : ""
                 }`}
-                style={{ animationDelay: `${200 + i * 120}ms` }}
+                style={{ animationDelay: `${100 + i * 80}ms` }}
               >
                 {plan.recommended && (
-                  <span className="absolute -top-3 left-6 rounded-full bg-gold px-3 py-0.5 text-xs font-bold text-ocean-bg">
+                  <span className="inline-block text-[11px] font-semibold text-terracotta tracking-wider mb-2">
                     推薦
                   </span>
                 )}
-                <h3 className="text-lg font-bold text-gold mb-4">
+                <h3 className="font-[family-name:var(--font-noto-serif-tc)] text-base font-bold text-charcoal mb-3">
                   {plan.name}
                 </h3>
-                <ul className="flex flex-col gap-2">
+                <ul className="flex flex-col gap-1.5">
                   {plan.features.map((f) => (
-                    <li
-                      key={f.label}
-                      className="flex items-center gap-2 text-sm"
-                    >
-                      <span
-                        className={
-                          f.included ? "text-gold" : "text-gold/30"
-                        }
-                      >
+                    <li key={f.label} className="flex items-center gap-2 text-sm">
+                      <span className={f.included ? "text-terracotta" : "text-warm-gray/40"}>
                         {f.included ? "✓" : "—"}
                       </span>
-                      <span
-                        className={
-                          f.included ? "text-gold/90" : "text-gold/40"
-                        }
-                      >
+                      <span className={f.included ? "text-charcoal" : "text-warm-gray/50"}>
                         {f.label}
                       </span>
                     </li>
@@ -208,69 +226,54 @@ export default function ShortVideoClass() {
             ))}
           </section>
 
-          {/* Services Section */}
-          <section className="animate-fade-up" style={{ animationDelay: "600ms" }}>
-            <h2 className="text-lg font-bold text-gold mb-5 text-center">
+          {/* Services */}
+          <section className="animate-fade-up mb-16" style={{ animationDelay: "400ms" }}>
+            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-charcoal mb-6">
               主要服務
             </h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col">
               {services.map((s, i) => (
                 <div
                   key={s.title}
-                  className="animate-fade-up rounded-lg border border-gold/20 bg-ocean-deep/50 p-4 backdrop-blur-sm"
-                  style={{ animationDelay: `${700 + i * 100}ms` }}
+                  className={`py-4 ${i < services.length - 1 ? "border-b border-divider" : ""}`}
                 >
-                  <span className="text-lg mb-1 block">{s.icon}</span>
-                  <h3 className="text-sm font-semibold text-gold mb-1">
-                    {s.title}
-                  </h3>
-                  <p className="text-xs text-gold/50 leading-relaxed">
-                    {s.desc}
-                  </p>
+                  <div className="flex items-start gap-3">
+                    <span className="text-lg mt-0.5">{s.icon}</span>
+                    <div>
+                      <h3 className="text-sm font-semibold text-charcoal mb-1">
+                        {s.title}
+                      </h3>
+                      <p className="text-sm text-warm-gray leading-[1.8]">
+                        {s.desc}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* FAQ Accordion */}
-          <section className="animate-fade-up" style={{ animationDelay: "800ms" }}>
-            <h2 className="text-lg font-bold text-gold mb-5 text-center">
+          {/* FAQ */}
+          <section className="animate-fade-up mb-16" style={{ animationDelay: "500ms" }}>
+            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-charcoal mb-6">
               常見問題
             </h2>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col">
               {faqs.map((faq, i) => (
-                <div
+                <FaqItem
                   key={i}
-                  className="rounded-lg border border-gold/20 bg-ocean-deep/50 backdrop-blur-sm overflow-hidden"
-                >
-                  <button
-                    onClick={() =>
-                      setOpenIndex(openIndex === i ? null : i)
-                    }
-                    className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold text-gold hover:text-gold-bright transition-colors"
-                  >
-                    <span>{faq.q}</span>
-                    <span
-                      className={`ml-2 transition-transform duration-300 ${
-                        openIndex === i ? "rotate-180" : ""
-                      }`}
-                    >
-                      ▼
-                    </span>
-                  </button>
-                  {openIndex === i && (
-                    <div className="px-4 pb-4 text-sm text-gold/60 leading-relaxed">
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
+                  q={faq.q}
+                  a={faq.a}
+                  open={openIndex === i}
+                  onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+                />
               ))}
             </div>
           </section>
 
           {/* Contact Form */}
-          <section className="animate-fade-up" style={{ animationDelay: "900ms" }}>
-            <h2 className="text-lg font-bold text-gold mb-5 text-center">
+          <section className="animate-fade-up mb-12" style={{ animationDelay: "600ms" }}>
+            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-charcoal mb-6">
               立即諮詢
             </h2>
             <form
@@ -278,29 +281,32 @@ export default function ShortVideoClass() {
                 e.preventDefault();
                 alert("感謝您的諮詢！我們會盡快與您聯繫。");
               }}
-              className="flex flex-col gap-4"
+              className="flex flex-col gap-6"
             >
               <input
                 type="text"
                 name="name"
                 placeholder="姓名"
                 required
-                className="bg-ocean-deep/60 border border-gold/20 text-gold rounded-lg px-4 py-3 focus:border-gold-bright focus:outline-none placeholder:text-gold/30"
+                className="bg-transparent border-b border-divider text-charcoal py-3 text-sm focus:border-terracotta focus:outline-none placeholder:text-warm-gray/50 transition-colors"
               />
               <input
                 type="tel"
                 name="phone"
                 placeholder="電話"
                 required
-                className="bg-ocean-deep/60 border border-gold/20 text-gold rounded-lg px-4 py-3 focus:border-gold-bright focus:outline-none placeholder:text-gold/30"
+                className="bg-transparent border-b border-divider text-charcoal py-3 text-sm focus:border-terracotta focus:outline-none placeholder:text-warm-gray/50 transition-colors"
               />
               <input
                 type="text"
                 name="lineId"
                 placeholder="LINE ID"
-                className="bg-ocean-deep/60 border border-gold/20 text-gold rounded-lg px-4 py-3 focus:border-gold-bright focus:outline-none placeholder:text-gold/30"
+                className="bg-transparent border-b border-divider text-charcoal py-3 text-sm focus:border-terracotta focus:outline-none placeholder:text-warm-gray/50 transition-colors"
               />
-              <select name="plan" className="bg-ocean-deep/60 border border-gold/20 text-gold rounded-lg px-4 py-3 focus:border-gold-bright focus:outline-none">
+              <select
+                name="plan"
+                className="bg-transparent border-b border-divider text-charcoal py-3 text-sm focus:border-terracotta focus:outline-none appearance-none"
+              >
                 <option value="">感興趣的方案</option>
                 <option value="品牌啟航方案">品牌啟航方案</option>
                 <option value="流量爆發方案">流量爆發方案</option>
@@ -310,12 +316,12 @@ export default function ShortVideoClass() {
               <textarea
                 name="notes"
                 placeholder="備註"
-                rows={4}
-                className="bg-ocean-deep/60 border border-gold/20 text-gold rounded-lg px-4 py-3 focus:border-gold-bright focus:outline-none placeholder:text-gold/30 resize-none"
+                rows={3}
+                className="bg-transparent border-b border-divider text-charcoal py-3 text-sm focus:border-terracotta focus:outline-none placeholder:text-warm-gray/50 transition-colors resize-none"
               />
               <button
                 type="submit"
-                className="w-full rounded-lg bg-gold py-3 text-center font-bold text-ocean-bg transition-all duration-300 hover:bg-gold-bright active:scale-[0.97]"
+                className="w-full rounded-lg bg-terracotta py-3.5 text-center text-sm font-semibold text-cream tracking-wider transition-colors duration-200 active:bg-terracotta-light"
               >
                 送出諮詢
               </button>
@@ -324,15 +330,15 @@ export default function ShortVideoClass() {
         </div>
       )}
 
-      {/* Tab 2: 活動花絮 */}
+      {/* Tab 2: Gallery */}
       {activeTab === "gallery" && (
-        <div className="w-full max-w-lg">
+        <div className="w-full">
           <div className="grid grid-cols-2 gap-3">
             {galleryImages.map((img, i) => (
               <div
                 key={img}
                 className="animate-fade-up rounded-lg overflow-hidden cursor-pointer"
-                style={{ animationDelay: `${i * 80}ms` }}
+                style={{ animationDelay: `${i * 60}ms` }}
                 onClick={() => setSelectedImage(`/pics/${img}`)}
               >
                 <Image
@@ -351,12 +357,12 @@ export default function ShortVideoClass() {
       {/* Lightbox */}
       {selectedImage && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-charcoal/90"
           onClick={() => setSelectedImage(null)}
         >
           <button
             onClick={() => setSelectedImage(null)}
-            className="absolute top-4 right-4 text-gold text-2xl hover:text-gold-bright transition-colors"
+            className="absolute top-4 right-4 text-cream text-2xl transition-colors"
           >
             ✕
           </button>
@@ -374,7 +380,7 @@ export default function ShortVideoClass() {
       {/* Back link bottom */}
       <Link
         href="/"
-        className="mt-12 text-sm text-gold/60 hover:text-gold-bright transition-colors"
+        className="mt-12 self-start text-sm text-warm-gray transition-colors active:text-terracotta"
       >
         ← 返回首頁
       </Link>
