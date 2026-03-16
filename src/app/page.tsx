@@ -35,7 +35,7 @@ export default function Home() {
         className="animate-fade-up w-full mb-16"
         style={{ animationDelay: "150ms" }}
       >
-        {navItems.map((item, i) => (
+        {navItems.map((item) => (
           <Link
             key={item.href}
             href={item.href}
