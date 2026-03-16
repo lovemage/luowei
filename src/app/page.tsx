@@ -51,9 +51,9 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Avatar Marquee */}
+      {/* Avatar Marquee — break out of parent px-8 to fill screen edge */}
       <div
-        className="animate-fade-in w-full mb-8"
+        className="animate-fade-in w-[100vw] -mx-8 mb-8"
         style={{ animationDelay: "850ms" }}
       >
         <AvatarMarquee />
