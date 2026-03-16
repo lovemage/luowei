@@ -1,73 +1,49 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ocean-bg: #0a0e1a;
-  --color-ocean-deep: #1a2744;
-  --color-ocean-wave1: #162040;
-  --color-ocean-wave2: #1e3a6e;
-  --color-gold: #d4a853;
-  --color-gold-bright: #e8c06a;
-  --color-gold-glow: rgba(212, 168, 83, 0.15);
+  --color-cream: #F5F0EB;
+  --color-cream-dark: #EDE7DF;
+  --color-charcoal: #2C2520;
+  --color-warm-gray: #8A7E74;
+  --color-terracotta: #C2613A;
+  --color-terracotta-light: #D4845F;
+  --color-divider: #DDD5CB;
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --font-serif: "Noto Serif TC", "PingFang TC", "Hiragino Sans", serif;
+  --font-display: "Cormorant Garamond", "Noto Serif TC", serif;
+  --font-body: "PingFang TC", "Hiragino Sans", "Microsoft JhengHei", sans-serif;
 }
 
 html,
 body {
-  background-color: var(--color-ocean-bg);
-  color: var(--color-gold);
+  background-color: var(--color-cream);
+  color: var(--color-charcoal);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  font-family: var(--font-body);
+  word-break: keep-all;
 }
 
-/* ===== Wave Animations (transform-based for cross-browser) ===== */
-
-@keyframes wave-drift-1 {
-  0% { transform: translateX(0%) translateY(0px); }
-  50% { transform: translateX(-25%) translateY(6px); }
-  100% { transform: translateX(-50%) translateY(0px); }
+/* Subtle paper texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
 }
 
-@keyframes wave-drift-2 {
-  0% { transform: translateX(0%) translateY(0px); }
-  50% { transform: translateX(-25%) translateY(-5px); }
-  100% { transform: translateX(-50%) translateY(0px); }
-}
-
-@keyframes wave-drift-3 {
-  0% { transform: translateX(0%) translateY(0px); }
-  50% { transform: translateX(-25%) translateY(4px); }
-  100% { transform: translateX(-50%) translateY(0px); }
-}
-
-@keyframes light-rays {
-  0% { transform: rotate(-2deg) scale(1.05); opacity: 0.07; }
-  50% { transform: rotate(1deg) scale(1.1); opacity: 0.1; }
-  100% { transform: rotate(-2deg) scale(1.05); opacity: 0.07; }
-}
-
-@keyframes light-rays-slow {
-  0% { transform: rotate(1deg); opacity: 0.04; }
-  50% { transform: rotate(-1deg); opacity: 0.06; }
-  100% { transform: rotate(1deg); opacity: 0.04; }
-}
-
-@keyframes shimmer-slide {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0%); }
-}
-
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-}
-
-/* ===== Entrance Animations ===== */
+/* ===== Entrance Animation ===== */
 
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -80,89 +56,25 @@ body {
   to { opacity: 1; }
 }
 
-@keyframes scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes glow-pulse {
-  0%, 100% { filter: drop-shadow(0 0 8px rgba(212, 168, 83, 0.1)); }
-  50% { filter: drop-shadow(0 0 20px rgba(212, 168, 83, 0.25)); }
-}
-
-/* ===== Marquee Animation ===== */
+/* ===== Marquee Animation (avatar carousel) ===== */
 
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-/* ===== Button Press Effect ===== */
-
-@keyframes btn-press {
-  0% { transform: scale(1); }
-  50% { transform: scale(0.97); }
-  100% { transform: scale(1); }
-}
-
 /* ===== Utility Classes ===== */
 
-@utility animate-wave-drift-1 {
-  animation: wave-drift-1 12s ease-in-out infinite;
-}
-
-@utility animate-wave-drift-2 {
-  animation: wave-drift-2 9s ease-in-out infinite;
-}
-
-@utility animate-wave-drift-3 {
-  animation: wave-drift-3 7s ease-in-out infinite;
-}
-
-@utility animate-light-rays {
-  animation: light-rays 12s ease-in-out infinite;
-}
-
-@utility animate-light-rays-slow {
-  animation: light-rays-slow 16s ease-in-out infinite;
-}
-
-@utility animate-shimmer-slide {
-  animation: shimmer-slide 6s ease-in-out infinite;
-}
-
-@utility animate-float-slow {
-  animation: float-slow 20s ease-in-out infinite;
-}
-
 @utility animate-fade-up {
-  animation: fade-up 0.7s var(--ease-out-quart) both;
-}
-
-@utility animate-scale-in {
-  animation: scale-in 0.8s var(--ease-out-quart) both;
+  animation: fade-up 0.5s var(--ease-out-quart) both;
 }
 
 @utility animate-fade-in {
-  animation: fade-in 0.6s var(--ease-out-quart) both;
-}
-
-@utility animate-glow-pulse {
-  animation: glow-pulse 4s ease-in-out infinite;
+  animation: fade-in 0.4s var(--ease-out-quart) both;
 }
 
 @utility animate-marquee {
   animation: marquee 20s linear infinite;
-}
-
-@utility animate-btn-press {
-  animation: btn-press 0.15s var(--ease-out-expo);
 }
 
 /* ===== Reduced Motion ===== */

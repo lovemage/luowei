@@ -1,5 +1,20 @@
 import type { Metadata, Viewport } from "next";
+import { Noto_Serif_TC, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+
+const notoSerifTC = Noto_Serif_TC({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  variable: "--font-noto-serif-tc",
+  display: "swap",
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "LUOWEI MEDIA",
@@ -19,9 +34,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="zh-Hant">
+    <html lang="zh-Hant" className={`${notoSerifTC.variable} ${cormorantGaramond.variable}`}>
       <body>
-        <div className="mx-auto max-w-[430px] min-h-dvh relative overflow-hidden">
+        <div className="mx-auto max-w-[430px] min-h-dvh relative">
           {children}
         </div>
       </body>
