@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import OceanBackground from "@/components/OceanBackground";
@@ -51,12 +51,12 @@ const plans = [
 ];
 
 const services = [
-  { title: "帳號定位與 IP 打造", desc: "分析你的優勢，打造獨特個人品牌定位" },
-  { title: "腳本企劃與內容策略", desc: "規劃吸睛內容，讓每支影片都有明確目標" },
-  { title: "專業拍攝指導", desc: "手把手教你拍出專業感，不需昂貴設備" },
-  { title: "後製剪輯與字幕特效", desc: "節奏、字幕、特效一次搞定" },
-  { title: "數據追蹤與優化", desc: "用數據說話，持續優化內容方向" },
-  { title: "廣告投放與流量佈局", desc: "精準投放，讓每一分預算都花在刀口上" },
+  { icon: "\u{1F3AF}", title: "帳號定位與 IP 打造", desc: "分析你的優勢，打造獨特個人品牌定位" },
+  { icon: "\u{1F4DD}", title: "腳本企劃與內容策略", desc: "規劃吸睛內容，讓每支影片都有明確目標" },
+  { icon: "\u{1F3AC}", title: "專業拍攝指導", desc: "手把手教你拍出專業感，不需昂貴設備" },
+  { icon: "\u2702\uFE0F", title: "後製剪輯與字幕特效", desc: "節奏、字幕、特效一次搞定" },
+  { icon: "\u{1F4CA}", title: "數據追蹤與優化", desc: "用數據說話，持續優化內容方向" },
+  { icon: "\u{1F4E3}", title: "廣告投放與流量佈局", desc: "精準投放，讓每一分預算都花在刀口上" },
 ];
 
 const faqs = [
@@ -103,6 +103,14 @@ export default function ShortVideoClass() {
   const [activeTab, setActiveTab] = useState<"service" | "gallery">("service");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedImage(null);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <main className="relative z-10 flex min-h-dvh flex-col items-center px-6 pt-10 pb-12">
@@ -212,6 +220,7 @@ export default function ShortVideoClass() {
                   className="animate-fade-up rounded-lg border border-gold/20 bg-ocean-deep/50 p-4 backdrop-blur-sm"
                   style={{ animationDelay: `${700 + i * 100}ms` }}
                 >
+                  <span className="text-lg mb-1 block">{s.icon}</span>
                   <h3 className="text-sm font-semibold text-gold mb-1">
                     {s.title}
                   </h3>
@@ -273,22 +282,25 @@ export default function ShortVideoClass() {
             >
               <input
                 type="text"
+                name="name"
                 placeholder="姓名"
                 required
                 className="bg-ocean-deep/60 border border-gold/20 text-gold rounded-lg px-4 py-3 focus:border-gold-bright focus:outline-none placeholder:text-gold/30"
               />
               <input
                 type="tel"
+                name="phone"
                 placeholder="電話"
                 required
                 className="bg-ocean-deep/60 border border-gold/20 text-gold rounded-lg px-4 py-3 focus:border-gold-bright focus:outline-none placeholder:text-gold/30"
               />
               <input
                 type="text"
+                name="lineId"
                 placeholder="LINE ID"
                 className="bg-ocean-deep/60 border border-gold/20 text-gold rounded-lg px-4 py-3 focus:border-gold-bright focus:outline-none placeholder:text-gold/30"
               />
-              <select className="bg-ocean-deep/60 border border-gold/20 text-gold rounded-lg px-4 py-3 focus:border-gold-bright focus:outline-none">
+              <select name="plan" className="bg-ocean-deep/60 border border-gold/20 text-gold rounded-lg px-4 py-3 focus:border-gold-bright focus:outline-none">
                 <option value="">感興趣的方案</option>
                 <option value="品牌啟航方案">品牌啟航方案</option>
                 <option value="流量爆發方案">流量爆發方案</option>
@@ -296,6 +308,7 @@ export default function ShortVideoClass() {
                 <option value="還不確定">還不確定</option>
               </select>
               <textarea
+                name="notes"
                 placeholder="備註"
                 rows={4}
                 className="bg-ocean-deep/60 border border-gold/20 text-gold rounded-lg px-4 py-3 focus:border-gold-bright focus:outline-none placeholder:text-gold/30 resize-none"
