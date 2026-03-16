@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import OceanBackground from "@/components/OceanBackground";
 import SocialLinks from "@/components/SocialLinks";
+import AvatarMarquee from "@/components/AvatarMarquee";
 
 const navButtons = [
   { label: "短影音代操", href: "/short-video-class" },
@@ -50,10 +51,18 @@ export default function Home() {
         ))}
       </div>
 
+      {/* Avatar Marquee */}
+      <div
+        className="animate-fade-in w-full mb-8"
+        style={{ animationDelay: "850ms" }}
+      >
+        <AvatarMarquee />
+      </div>
+
       {/* Slogan — fade in */}
       <p
         className="animate-fade-in text-sm tracking-[0.3em] text-gold/70 mb-8"
-        style={{ animationDelay: "850ms" }}
+        style={{ animationDelay: "1000ms" }}
       >
         無限進步 | 個人成長
       </p>
@@ -61,7 +70,7 @@ export default function Home() {
       {/* Social Links — fade up last */}
       <div
         className="animate-fade-up"
-        style={{ animationDelay: "1000ms" }}
+        style={{ animationDelay: "1150ms" }}
       >
         <SocialLinks />
       </div>
