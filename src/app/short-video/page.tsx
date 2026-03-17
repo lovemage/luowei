@@ -89,7 +89,7 @@ export default async function ShortVideoPage() {
       {/* Back link */}
       <Link
         href="/"
-        className="animate-fade-in self-start text-sm text-text-secondary transition-colors active:text-accent mb-6"
+        className="animate-fade-in self-start text-sm text-text-secondary hover:text-accent transition-colors mb-6"
       >
         &larr; 返回
       </Link>
@@ -113,16 +113,16 @@ export default async function ShortVideoPage() {
 
       {/* Four Service Phases */}
       <section className="animate-fade-up mb-12">
-        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-text-primary mb-6">
+        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
           四大執行階段
         </h2>
         {phases.map((phase) => (
           <div
             key={phase.number}
-            className="bg-bg-surface rounded-xl p-5 mb-4"
+            className="bg-bg-surface border border-divider rounded-xl p-5 mb-4"
           >
             <div className="flex items-baseline gap-3 mb-2">
-              <span className="text-xs font-semibold text-accent tracking-wider">
+              <span className="text-2xl font-bold text-accent tracking-wider">
                 {phase.number}
               </span>
               <h3 className="font-[family-name:var(--font-noto-serif-tc)] text-sm font-bold text-text-primary">
@@ -156,17 +156,17 @@ export default async function ShortVideoPage() {
 
       {/* Why Choose Us */}
       <section className="animate-fade-up mb-12">
-        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-text-primary mb-6">
+        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
           為什麼選擇我們
         </h2>
         <div className="flex flex-col gap-4">
           {whyChooseUs.map((item) => (
             <div
               key={item.number}
-              className="bg-bg-surface rounded-xl p-5"
+              className="bg-bg-surface border border-divider rounded-xl p-5"
             >
               <div className="flex items-baseline gap-3 mb-2">
-                <span className="text-xs font-semibold text-accent tracking-wider">
+                <span className="text-2xl font-bold text-accent tracking-wider">
                   {item.number}
                 </span>
                 <h3 className="font-[family-name:var(--font-noto-serif-tc)] text-sm font-bold text-text-primary">
@@ -190,7 +190,7 @@ export default async function ShortVideoPage() {
       />
 
       {/* CTA Section */}
-      <section className="animate-fade-up mb-12 rounded-xl bg-bg-surface p-6 text-center">
+      <section className="animate-fade-up mb-12 rounded-xl bg-bg-surface border border-divider p-6 text-center">
         <p className="font-[family-name:var(--font-noto-serif-tc)] text-sm font-bold text-text-primary mb-3 leading-[1.8]">
           名額有限，每月僅接 3 位深度合作客戶
         </p>
@@ -198,7 +198,7 @@ export default async function ShortVideoPage() {
           href="https://lin.ee/htTdJSH"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block w-full rounded-lg bg-accent py-3.5 text-center text-sm font-semibold text-white tracking-wider transition-colors duration-200 hover:bg-accent-hover"
+          className="inline-block w-full rounded-full border-2 border-accent bg-transparent py-3.5 text-center text-sm font-semibold text-accent tracking-wider transition-colors duration-200 hover:bg-accent hover:text-bg-primary"
         >
           立即透過 LINE 諮詢
         </Link>
@@ -207,7 +207,7 @@ export default async function ShortVideoPage() {
       {/* Back link bottom */}
       <Link
         href="/"
-        className="self-start text-sm text-text-secondary transition-colors active:text-accent"
+        className="self-start text-sm text-text-secondary hover:text-accent transition-colors"
       >
         &larr; 返回首頁
       </Link>

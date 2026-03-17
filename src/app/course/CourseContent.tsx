@@ -82,22 +82,22 @@ const beginnerComparisonItems = [
 const successCases = [
   {
     name: "沈耿仲醫師",
-    result: "微創手術影片 17.3 萬觀看",
+    result: "17.3 萬觀看",
     desc: "門診排滿半年",
   },
   {
     name: "Vivian",
-    result: "流量 179 萬",
+    result: "179 萬流量",
     desc: "轉化超過 200 位客戶",
   },
   {
     name: "雲林馬哥",
-    result: "半年業績破千萬",
+    result: "半年破千萬",
     desc: "銷售成長 80%",
   },
   {
     name: "車業吳彥祖",
-    result: "單月成交人數突破 100+",
+    result: "月成交 100+",
     desc: "",
   },
 ];
@@ -154,9 +154,9 @@ export default function CourseContent({ faqs }: CourseContentProps) {
       {/* Back link */}
       <Link
         href="/"
-        className="animate-fade-in self-start text-sm text-text-secondary transition-colors active:text-accent mb-6"
+        className="animate-fade-in self-start text-sm text-text-secondary hover:text-accent transition-colors mb-6"
       >
-        ← 返回
+        &larr; 返回
       </Link>
 
       {/* Hero */}
@@ -179,14 +179,14 @@ export default function CourseContent({ faqs }: CourseContentProps) {
 
           {/* Concept Cards */}
           <section className="animate-fade-up mb-12">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-text-primary mb-6">
+            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
               觀念導正
             </h2>
             <div className="flex flex-col gap-4">
               {beginnerConcepts.map((concept) => (
                 <div
                   key={concept.title}
-                  className="bg-bg-surface rounded-xl p-5"
+                  className="bg-bg-surface border border-divider rounded-xl p-5"
                 >
                   <h3 className="text-sm font-bold text-text-primary mb-1">
                     {concept.title}
@@ -201,14 +201,14 @@ export default function CourseContent({ faqs }: CourseContentProps) {
 
           {/* Core Modules */}
           <section className="animate-fade-up mb-12">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-text-primary mb-6">
+            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
               四大核心模組
             </h2>
             <div className="flex flex-col gap-4">
               {coreModules.map((mod) => (
                 <div
                   key={mod.number}
-                  className="bg-bg-primary border border-divider rounded-xl p-5"
+                  className="bg-bg-surface border border-divider rounded-xl p-5"
                 >
                   <span className="text-xs font-semibold text-accent tracking-wider">
                     {mod.number}
@@ -240,16 +240,16 @@ export default function CourseContent({ faqs }: CourseContentProps) {
 
           {/* Success Cases */}
           <section className="animate-fade-up mb-12">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-text-primary mb-6">
+            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
               成功案例
             </h2>
             <div className="flex flex-col gap-4">
               {successCases.map((c) => (
-                <div key={c.name} className="bg-bg-surface rounded-xl p-5">
+                <div key={c.name} className="bg-bg-surface border border-divider rounded-xl p-5">
                   <p className="text-sm font-bold text-text-primary">
                     {c.name}
                   </p>
-                  <p className="text-sm text-accent-warm mt-1">{c.result}</p>
+                  <p className="text-xl font-bold text-accent mt-1">{c.result}</p>
                   {c.desc && (
                     <p className="text-sm text-text-secondary leading-[1.8] mt-1">
                       {c.desc}
@@ -262,11 +262,11 @@ export default function CourseContent({ faqs }: CourseContentProps) {
 
           {/* Pricing */}
           <section className="animate-fade-up mb-12">
-            <div className="bg-bg-surface rounded-xl p-6 text-center">
+            <div className="bg-bg-surface border border-divider rounded-xl p-6 text-center">
               <p className="text-sm text-text-secondary line-through mb-2">
                 原價: NT$ 6,000
               </p>
-              <p className="text-accent-warm text-2xl font-bold">
+              <p className="text-accent text-2xl font-bold">
                 快閃體驗價: NT$ 1,000
               </p>
             </div>
@@ -291,7 +291,7 @@ export default function CourseContent({ faqs }: CourseContentProps) {
 
           {/* 21-Day Training Timeline */}
           <section className="animate-fade-up mb-12">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-text-primary mb-6">
+            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
               21 天訓練結構
             </h2>
             <div className="relative flex flex-col">
@@ -302,14 +302,14 @@ export default function CourseContent({ faqs }: CourseContentProps) {
                 >
                   {/* Vertical line */}
                   {i < trainingTimeline.length - 1 && (
-                    <div className="absolute left-4 top-8 bottom-0 border-l-2 border-divider" />
+                    <div className="absolute left-4 top-8 bottom-0 border-l-2 border-accent/30" />
                   )}
                   {/* Number circle */}
-                  <div className="relative z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent text-white text-xs font-bold">
+                  <div className="relative z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent text-bg-primary text-xs font-bold">
                     {step.number}
                   </div>
                   {/* Content card */}
-                  <div className="flex-1 bg-bg-surface rounded-xl p-4">
+                  <div className="flex-1 bg-bg-surface border border-divider rounded-xl p-4">
                     <h3 className="text-sm font-bold text-text-primary mb-1">
                       {step.title}
                     </h3>
@@ -324,12 +324,12 @@ export default function CourseContent({ faqs }: CourseContentProps) {
 
           {/* Graduation Results */}
           <section className="animate-fade-up mb-12">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-text-primary mb-6">
+            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
               結營產值
             </h2>
             <div className="flex flex-col gap-4">
               {graduationResults.map((r) => (
-                <div key={r.title} className="bg-bg-surface rounded-xl p-5">
+                <div key={r.title} className="bg-bg-surface border border-divider rounded-xl p-5">
                   <h3 className="text-sm font-bold text-text-primary mb-1">
                     {r.title}
                   </h3>
@@ -343,12 +343,12 @@ export default function CourseContent({ faqs }: CourseContentProps) {
 
           {/* Monetization + Endorsement */}
           <section className="animate-fade-up mb-12">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-text-primary mb-6">
+            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
               變現加速 + 專業背書
             </h2>
-            <div className="bg-bg-surface rounded-xl p-5">
+            <div className="bg-bg-surface border border-divider rounded-xl p-5">
               <p className="text-sm text-text-secondary leading-[1.8]">
-                結業學員可獲得由四大合作公司提供的專業背書與變現資源：雲林「羅威傳播」、台南「共好新創」、高雄「非常有趣新媒體」、台中「光言工作室」。
+                結業學員可獲得由四大合作公司提供的專業背書與變現資源：<span className="text-text-primary">雲林「羅威傳播」</span>、<span className="text-text-primary">台南「共好新創」</span>、<span className="text-text-primary">高雄「非常有趣新媒體」</span>、<span className="text-text-primary">台中「光言工作室」</span>。
               </p>
             </div>
           </section>
@@ -362,11 +362,11 @@ export default function CourseContent({ faqs }: CourseContentProps) {
 
           {/* Pricing */}
           <section className="animate-fade-up mb-12">
-            <div className="bg-bg-surface rounded-xl p-6 text-center">
+            <div className="bg-bg-surface border border-divider rounded-xl p-6 text-center">
               <p className="text-sm text-text-secondary line-through mb-2">
                 原價: NT$ 19,800
               </p>
-              <p className="text-accent-warm text-2xl font-bold">
+              <p className="text-accent text-2xl font-bold">
                 體驗價: NT$ 6,000
               </p>
             </div>
@@ -386,9 +386,9 @@ export default function CourseContent({ faqs }: CourseContentProps) {
       {/* Back link bottom */}
       <Link
         href="/"
-        className="self-start text-sm text-text-secondary transition-colors active:text-accent"
+        className="self-start text-sm text-text-secondary hover:text-accent transition-colors"
       >
-        ← 返回首頁
+        &larr; 返回首頁
       </Link>
     </main>
   );

@@ -70,9 +70,9 @@ export default async function ShortVideoAdPage() {
       {/* Back link */}
       <Link
         href="/"
-        className="animate-fade-in self-start text-sm text-text-secondary transition-colors active:text-accent mb-6"
+        className="animate-fade-in self-start text-sm text-text-secondary hover:text-accent transition-colors mb-6"
       >
-        ← 返回
+        &larr; 返回
       </Link>
 
       {/* Hero */}
@@ -93,16 +93,16 @@ export default async function ShortVideoAdPage() {
 
       {/* Service Highlights */}
       <section className="animate-fade-up mb-12">
-        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-text-primary mb-6">
+        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
           核心優勢
         </h2>
         <div className="flex flex-col gap-4">
           {serviceHighlights.map((item) => (
             <div
               key={item.number}
-              className="bg-bg-surface rounded-xl p-5"
+              className="bg-bg-surface border border-divider rounded-xl p-5"
             >
-              <span className="text-xs font-semibold text-accent tracking-wider">
+              <span className="text-2xl font-bold text-accent tracking-wider">
                 {item.number}
               </span>
               <h3 className="text-sm font-bold text-text-primary mt-2 mb-1">
@@ -118,7 +118,7 @@ export default async function ShortVideoAdPage() {
 
       {/* Timeline / Steps */}
       <section className="animate-fade-up mb-12">
-        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-text-primary mb-6">
+        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
           合作三部曲
         </h2>
         <div className="relative flex flex-col">
@@ -126,14 +126,14 @@ export default async function ShortVideoAdPage() {
             <div key={step.number} className="relative flex gap-4 pb-8 last:pb-0">
               {/* Vertical line */}
               {i < timelineSteps.length - 1 && (
-                <div className="absolute left-4 top-8 bottom-0 border-l-2 border-divider" />
+                <div className="absolute left-4 top-8 bottom-0 border-l-2 border-accent/30" />
               )}
               {/* Number circle */}
-              <div className="relative z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent text-white text-xs font-bold">
+              <div className="relative z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent text-bg-primary text-xs font-bold">
                 {step.number}
               </div>
               {/* Content card */}
-              <div className="flex-1 bg-bg-surface rounded-xl p-4">
+              <div className="flex-1 bg-bg-surface border border-divider rounded-xl p-4">
                 <h3 className="text-sm font-bold text-text-primary mb-1">
                   {step.title}
                 </h3>
@@ -141,7 +141,7 @@ export default async function ShortVideoAdPage() {
                   {step.desc}
                 </p>
                 <p className="text-xs text-accent leading-[1.6]">
-                  → {step.result}
+                  &rarr; {step.result}
                 </p>
               </div>
             </div>
@@ -159,14 +159,14 @@ export default async function ShortVideoAdPage() {
 
       {/* Data Transparency - Dashboard Metrics */}
       <section className="animate-fade-up mb-12">
-        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-text-primary mb-6">
+        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
           數據透明，成效看得見
         </h2>
         <div className="grid grid-cols-3 gap-3">
           {dashboardMetrics.map((metric) => (
             <div
               key={metric.label}
-              className="bg-bg-surface rounded-xl p-4 text-center"
+              className="bg-bg-surface border border-divider rounded-xl p-4 text-center"
             >
               <p className="text-xl font-bold text-accent mb-1">
                 {metric.value}
@@ -194,7 +194,7 @@ export default async function ShortVideoAdPage() {
           href="https://line.me/ti/p/"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block w-full rounded-lg bg-accent py-3.5 text-center text-sm font-semibold text-white tracking-wider transition-colors duration-200 hover:bg-accent-hover"
+          className="inline-block w-full rounded-full border-2 border-accent bg-transparent py-3.5 text-center text-sm font-semibold text-accent tracking-wider transition-colors duration-200 hover:bg-accent hover:text-bg-primary"
         >
           預約免費廣告診斷
         </a>
@@ -203,9 +203,9 @@ export default async function ShortVideoAdPage() {
       {/* Back link bottom */}
       <Link
         href="/"
-        className="self-start text-sm text-text-secondary transition-colors active:text-accent"
+        className="self-start text-sm text-text-secondary hover:text-accent transition-colors"
       >
-        ← 返回首頁
+        &larr; 返回首頁
       </Link>
     </main>
   );
