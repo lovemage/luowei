@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import CourseContent from "./CourseContent";
 
+export const dynamic = "force-dynamic";
+
 export default async function CoursePage() {
   const faqs = await prisma.fAQ.findMany({
     where: { pageSlug: "course" },

@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import ShortVideoContent from "./ShortVideoContent";
 
+export const dynamic = "force-dynamic";
+
 export default async function ShortVideoPage() {
   const [videoFaqs, adFaqs] = await Promise.all([
     prisma.fAQ.findMany({
