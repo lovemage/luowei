@@ -42,12 +42,12 @@ const socials = [
   },
 ];
 
-// Radial positions: top, left, bottom-left, bottom-right (relative to toggle center)
+// Expand in an upper-left arc so icons stay in viewport on small screens.
 const positions = [
-  { x: 0, y: -70 },    // top
-  { x: -70, y: 0 },    // left
-  { x: -50, y: 50 },   // bottom-left
-  { x: 50, y: -50 },   // top-right
+  { x: 0, y: -78 },
+  { x: -40, y: -68 },
+  { x: -68, y: -40 },
+  { x: -78, y: 0 },
 ];
 
 export default function FloatingButtons() {
