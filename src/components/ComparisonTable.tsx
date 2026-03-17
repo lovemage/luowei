@@ -30,7 +30,7 @@ export default function ComparisonTable({ title, leftLabel, rightLabel, items }:
         </div>
         {items.map((item, i) => (
           <div key={i} className={`grid grid-cols-[1fr_1fr] ${i < items.length - 1 ? "border-b border-divider" : ""}`}>
-            <div className="px-4 py-3 text-xs text-text-secondary/70 border-r border-divider leading-[1.6]">
+            <div className="px-4 py-3 text-xs text-text-secondary/60 border-r border-divider leading-[1.6]">
               {item.left}
             </div>
             <div className="px-4 py-3 text-xs text-text-primary leading-[1.6]">

@@ -30,9 +30,9 @@ export default function FAQAccordion({ title, items }: FAQAccordionProps) {
               onClick={() => setOpenIndex(openIndex === i ? null : i)}
               className="flex w-full items-center justify-between py-4 text-left transition-colors"
             >
-              <span className="text-sm font-medium text-text-primary pr-4">{item.question}</span>
+              <span className="text-sm font-medium text-text-secondary pr-4">{item.question}</span>
               <span
-                className="text-text-secondary text-lg flex-shrink-0 transition-transform duration-300"
+                className="text-accent text-lg flex-shrink-0 transition-transform duration-300"
                 style={{ transform: openIndex === i ? "rotate(45deg)" : "rotate(0deg)" }}
               >
                 +

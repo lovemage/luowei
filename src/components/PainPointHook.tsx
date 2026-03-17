@@ -13,8 +13,8 @@ export default function PainPointHook({ title, points }: PainPointHookProps) {
       )}
       <div className="flex flex-col gap-3">
         {points.map((point, i) => (
-          <div key={i} className="rounded-lg bg-bg-surface border-l-[3px] border-l-accent-warm p-4">
-            <p className="text-sm text-text-primary leading-[1.8]">{point}</p>
+          <div key={i} className="rounded-lg bg-bg-surface border-l-[3px] border-l-accent p-4">
+            <p className="text-sm text-text-secondary leading-[1.8]">{point}</p>
           </div>
         ))}
       </div>

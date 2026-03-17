@@ -50,7 +50,7 @@ export default function RegistrationForm({ courseOptions, defaultCourse }: Regis
   }
 
   const inputClass =
-    "w-full bg-transparent border-b border-divider text-text-primary py-3 text-sm focus:border-accent focus:outline-none placeholder:text-text-secondary/50 transition-colors";
+    "w-full bg-transparent border-b border-divider text-text-secondary py-3 text-sm focus:border-accent focus:outline-none placeholder:text-text-secondary/40 transition-colors";
 
   return (
     <section className="animate-fade-up mb-12">
@@ -72,7 +72,7 @@ export default function RegistrationForm({ courseOptions, defaultCourse }: Regis
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-lg bg-accent py-3.5 text-center text-sm font-semibold text-white tracking-wider transition-colors duration-200 hover:bg-accent-hover disabled:opacity-50"
+          className="w-full rounded-full border-2 border-accent bg-transparent py-3.5 text-center text-sm font-semibold text-accent tracking-wider transition-colors duration-200 hover:bg-accent hover:text-bg-primary disabled:opacity-50"
         >
           {submitting ? "提交中..." : "送出報名"}
         </button>

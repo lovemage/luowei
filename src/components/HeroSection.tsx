@@ -16,13 +16,13 @@ export default function HeroSection({ title, subtitle, imageUrl }: HeroSectionPr
         </div>
       )}
       <div className={imageUrl ? "absolute bottom-0 left-0 right-0 p-6" : "py-8"}>
-        <h1 className="font-[family-name:var(--font-noto-serif-tc)] text-[22px] font-bold leading-[1.6] text-text-primary mb-2">
+        <h1 className="font-[family-name:var(--font-noto-serif-tc)] text-[22px] font-bold leading-[1.6] text-gold-shine mb-2">
           {title}
         </h1>
         {subtitle && (
           <p className="text-sm text-text-secondary leading-[1.8]">{subtitle}</p>
         )}
-        <div className="mt-4 h-[2px] w-12 bg-accent rounded-full" />
+        <div className="mt-4 h-[2px] w-12 bg-gradient-to-r from-transparent via-accent to-transparent rounded-full" />
       </div>
     </section>
   );
