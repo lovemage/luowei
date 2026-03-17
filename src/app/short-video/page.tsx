@@ -4,7 +4,11 @@ import ShortVideoContent from "./ShortVideoContent";
 export const dynamic = "force-dynamic";
 
 export default async function ShortVideoPage() {
-  const [videoFaqs, adFaqs] = await Promise.all([
+  const [page, videoFaqs, adFaqs] = await Promise.all([
+    prisma.page.findUnique({
+      where: { slug: "short-video" },
+      select: { heroImage: true },
+    }),
     prisma.fAQ.findMany({
       where: { pageSlug: "short-video" },
       orderBy: { order: "asc" },
@@ -19,8 +23,8 @@ export default async function ShortVideoPage() {
     <ShortVideoContent
       videoFaqs={videoFaqs}
       adFaqs={adFaqs}
-      heroImageUrl="/images/image_1.jpg"
-      heroImageUrls={["/images/image_1.jpg", "/images/image_2.jpg"]}
+      heroImageUrl={page?.heroImage || "/images/image_1.jpg"}
+      heroImageUrls={[page?.heroImage || "/images/image_1.jpg", "/images/image_2.jpg"]}
     />
   );
 }

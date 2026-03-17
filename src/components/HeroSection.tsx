@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
 interface HeroSectionProps {
@@ -22,6 +21,11 @@ export default function HeroSection({
   }, [imageUrl, imageUrls]);
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const [fallbackActive, setFallbackActive] = useState(false);
+
+  useEffect(() => {
+    setFallbackActive(false);
+  }, [activeIndex, images]);
 
   useEffect(() => {
     if (images.length < 2) return;
@@ -34,15 +38,24 @@ export default function HeroSection({
   }, [images.length]);
 
   const currentImageUrl = images[activeIndex];
+  const displayImageUrl = fallbackActive ? "/images/image_1.jpg" : currentImageUrl;
 
   return (
     <section className="animate-fade-up mb-12 overflow-hidden rounded-2xl border border-divider bg-bg-surface">
-      {currentImageUrl && (
+      {displayImageUrl && (
         <div className="relative h-48 w-full">
-          <Image src={currentImageUrl} alt={title} fill className="object-cover" priority />
+          {/* Use native img to support dynamic bucket URLs without Next image domain config. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={displayImageUrl}
+            alt={title}
+            className="h-full w-full object-cover"
+            loading="eager"
+            onError={() => setFallbackActive(true)}
+          />
         </div>
       )}
-      <div className={currentImageUrl ? "p-6" : "py-8"}>
+      <div className={displayImageUrl ? "p-6" : "py-8"}>
         <h1 className="font-[family-name:var(--font-noto-serif-tc)] text-[22px] font-bold leading-[1.6] text-gold-shine mb-2">
           {title}
         </h1>
