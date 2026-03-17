@@ -1,0 +1,136 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+
+interface FAQ {
+  id: string;
+  pageSlug: string;
+  question: string;
+  answer: string;
+  order: number;
+}
+
+const PAGE_OPTIONS = [
+  { value: "", label: "全部頁面" },
+  { value: "short-video", label: "short-video" },
+  { value: "short-video-ad", label: "short-video-ad" },
+  { value: "course", label: "course" },
+];
+
+export default function AdminFAQsPage() {
+  const [faqs, setFaqs] = useState<FAQ[]>([]);
+  const [filter, setFilter] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  const fetchFaqs = async () => {
+    setLoading(true);
+    const url = filter
+      ? `/api/admin/faqs?pageSlug=${filter}`
+      : "/api/admin/faqs";
+    const res = await fetch(url);
+    const data = await res.json();
+    setFaqs(data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchFaqs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter]);
+
+  const handleDelete = async (id: string) => {
+    if (!window.confirm("確定要刪除這則 FAQ 嗎？")) return;
+    await fetch(`/api/admin/faqs/${id}`, { method: "DELETE" });
+    fetchFaqs();
+  };
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-gray-900">FAQ 管理</h1>
+        <Link
+          href="/admin/faqs/new"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+        >
+          新增 FAQ
+        </Link>
+      </div>
+
+      <div className="mb-4">
+        <select
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-700 bg-white"
+        >
+          {PAGE_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        {loading ? (
+          <div className="p-8 text-center text-gray-500 text-sm">
+            載入中...
+          </div>
+        ) : faqs.length === 0 ? (
+          <div className="p-8 text-center text-gray-500 text-sm">
+            尚無 FAQ 資料
+          </div>
+        ) : (
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-gray-100 bg-gray-50">
+                <th className="text-left px-4 py-3 font-medium text-gray-600">
+                  問題
+                </th>
+                <th className="text-left px-4 py-3 font-medium text-gray-600">
+                  頁面
+                </th>
+                <th className="text-left px-4 py-3 font-medium text-gray-600">
+                  排序
+                </th>
+                <th className="text-right px-4 py-3 font-medium text-gray-600">
+                  操作
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {faqs.map((faq) => (
+                <tr
+                  key={faq.id}
+                  className="border-b border-gray-50 hover:bg-gray-50"
+                >
+                  <td className="px-4 py-3 text-gray-900">
+                    {faq.question.length > 40
+                      ? faq.question.slice(0, 40) + "..."
+                      : faq.question}
+                  </td>
+                  <td className="px-4 py-3 text-gray-500">{faq.pageSlug}</td>
+                  <td className="px-4 py-3 text-gray-500">{faq.order}</td>
+                  <td className="px-4 py-3 text-right space-x-2">
+                    <Link
+                      href={`/admin/faqs/${faq.id}/edit`}
+                      className="text-blue-600 hover:text-blue-800"
+                    >
+                      編輯
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(faq.id)}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      刪除
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </div>
+  );
+}
