@@ -3,10 +3,10 @@ import Link from "next/link";
 import SocialLinks from "@/components/SocialLinks";
 
 const navItems = [
-  { label: "短影音代操", href: "/short-video" },
-  { label: "廣告投放代操", href: "/short-video-ad" },
+  { label: "短影音與廣告服務", href: "/short-video" },
   { label: "影響力變現課程", href: "/course" },
-  { label: "案例展示", href: "/cases", comingSoon: true },
+  { label: "AI 影響力變現課程", href: "/ai-course", comingSoon: true },
+  { label: "案例展示區", href: "/cases", comingSoon: true },
 ];
 
 export default function Home() {
