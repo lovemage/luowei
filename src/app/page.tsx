@@ -44,14 +44,14 @@ export default function Home() {
 
       {/* Navigation Buttons */}
       <nav
-        className="animate-fade-up mt-10 w-full flex flex-col gap-4"
+        className="animate-fade-up mt-10 flex flex-col items-center gap-4"
         style={{ animationDelay: "300ms" }}
       >
         {navItems.map((item, i) => (
           <Link
             key={item.href}
             href={item.href}
-            className="animate-fade-up flex items-center justify-center w-full rounded-full border-2 border-accent py-4 text-sm tracking-[0.15em] text-accent transition-all duration-300 hover:bg-accent hover:text-bg-primary active:scale-[0.98]"
+            className="animate-fade-up flex items-center justify-center w-[300px] h-12 rounded-full border-2 border-accent text-sm tracking-[0.15em] text-accent transition-all duration-300 hover:bg-accent hover:text-bg-primary active:scale-[0.98]"
             style={{ animationDelay: `${350 + i * 80}ms` }}
           >
             {item.label}
