@@ -4,9 +4,10 @@ import SocialLinks from "@/components/SocialLinks";
 import AvatarMarquee from "@/components/AvatarMarquee";
 
 const navItems = [
-  { label: "短影音代操", href: "/short-video-class" },
-  { label: "短影音課程", href: "/short-video-course" },
-  { label: "短影音廣告", href: "/short-video-ad" },
+  { label: "短影音代操", href: "/short-video" },
+  { label: "廣告投放代操", href: "/short-video-ad" },
+  { label: "影響力變現課程", href: "/course" },
+  { label: "案例展示", href: "/cases", badge: "即將推出" },
 ];
 
 export default function Home() {
@@ -21,35 +22,44 @@ export default function Home() {
           height={80}
           priority
         />
-        <h1 className="font-[family-name:var(--font-cormorant)] text-2xl font-semibold tracking-[0.15em] text-charcoal">
+        <h1 className="font-[family-name:var(--font-cormorant)] text-2xl font-semibold tracking-[0.15em] text-text-primary">
           LUOWEI MEDIA
         </h1>
         <div className="h-px w-10 bg-divider" />
-        <p className="font-[family-name:var(--font-noto-serif-tc)] text-sm text-warm-gray tracking-[0.2em]">
+        <p className="font-[family-name:var(--font-noto-serif-tc)] text-sm text-text-secondary tracking-[0.2em]">
           無限進步｜個人成長
         </p>
       </div>
 
-      {/* Navigation List */}
+      {/* Navigation Cards */}
       <nav
-        className="animate-fade-up w-full mb-16"
+        className="animate-fade-up w-full max-w-sm grid grid-cols-2 gap-3 mb-16"
         style={{ animationDelay: "150ms" }}
       >
         {navItems.map((item) => (
           <Link
             key={item.href}
             href={item.href}
-            className="flex items-center justify-between py-4 border-b border-divider text-charcoal transition-colors duration-200 active:text-terracotta"
+            className="bg-bg-surface/60 backdrop-blur-sm border border-divider rounded-xl p-5 flex flex-col justify-between gap-3 transition-all duration-200 hover:bg-bg-surface-light hover:border-accent/30"
           >
-            <span className="text-base tracking-widest">{item.label}</span>
-            <span className="text-warm-gray text-sm">→</span>
+            <div className="flex items-start justify-between">
+              <span className="text-sm tracking-widest text-text-primary">
+                {item.label}
+              </span>
+              {item.badge && (
+                <span className="text-accent-warm text-[10px] leading-none">
+                  {item.badge}
+                </span>
+              )}
+            </div>
+            <span className="text-text-secondary text-sm self-end">&rarr;</span>
           </Link>
         ))}
       </nav>
 
       {/* Avatar Marquee */}
       <div
-        className="animate-fade-in w-[100vw] -mx-6 mb-12"
+        className="animate-fade-up w-[100vw] -mx-6 mb-12"
         style={{ animationDelay: "300ms" }}
       >
         <AvatarMarquee />

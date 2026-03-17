@@ -29,10 +29,10 @@ export default function SocialLinks() {
           rel="noopener noreferrer"
           className="flex flex-col items-center gap-1.5 transition-colors duration-200 active:scale-95"
         >
-          <span className="text-xs font-semibold tracking-wide text-terracotta">
+          <span className="text-xs font-semibold tracking-wide text-accent">
             {link.icon}
           </span>
-          <span className="text-[10px] text-warm-gray">{link.label}</span>
+          <span className="text-[10px] text-text-secondary">{link.label}</span>
         </Link>
       ))}
     </div>
