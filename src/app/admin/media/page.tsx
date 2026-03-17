@@ -105,6 +105,7 @@ export default function MediaPage() {
               className="rounded-xl border border-gray-200 overflow-hidden bg-white group"
             >
               <div className="aspect-square bg-gray-100 relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={item.url}
                   alt={item.alt || ""}

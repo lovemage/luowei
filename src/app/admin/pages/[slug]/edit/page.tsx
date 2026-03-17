@@ -3,10 +3,19 @@
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 
+interface PageData {
+  slug: string;
+  title: string;
+  heroImage?: string;
+  metaTitle?: string;
+  metaDesc?: string;
+  sections: string | Record<string, unknown>[];
+}
+
 export default function EditPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const router = useRouter();
-  const [page, setPage] = useState<any>(null);
+  const [page, setPage] = useState<PageData | null>(null);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
 

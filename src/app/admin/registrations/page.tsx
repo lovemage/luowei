@@ -37,8 +37,23 @@ export default function RegistrationsPage() {
   }, [page, search, course]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      const params = new URLSearchParams({ page: String(page) });
+      if (search) params.set("search", search);
+      if (course) params.set("course", course);
+
+      const res = await fetch(`/api/admin/registrations?${params}`);
+      const data = await res.json();
+      if (!cancelled) {
+        setRegistrations(data.registrations);
+        setTotal(data.total);
+        setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [page, search, course]);
 
   async function handleDelete(id: string, name: string) {
     if (!confirm(`確定刪除 ${name} 的報名資料？`)) return;
@@ -52,6 +67,7 @@ export default function RegistrationsPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-900">報名資料管理</h1>
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a
           href="/api/admin/registrations/export"
           className="px-4 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700 transition-colors"
