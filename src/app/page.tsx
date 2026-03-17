@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import SocialLinks from "@/components/SocialLinks";
 
 const navItems = [
   { label: "短影音與廣告服務", href: "/short-video" },
@@ -64,13 +63,13 @@ export default function Home() {
         ))}
       </nav>
 
-      {/* Social Links */}
-      <div
-        className="animate-fade-up mt-auto pt-16"
+      {/* Footer */}
+      <p
+        className="animate-fade-up mt-auto pt-16 text-xs text-text-secondary/40 tracking-widest"
         style={{ animationDelay: "700ms" }}
       >
-        <SocialLinks />
-      </div>
+        羅威傳媒 | Louwei Studio
+      </p>
     </main>
   );
 }
