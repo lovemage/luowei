@@ -4,10 +4,19 @@
       "Bash(npm --version)",
       "Bash(npx --version)",
       "Read(//home/aistorm/.claude/skills/subagent-driven-development/**)",
-      "Read(//home/aistorm/.agents/skills/subagent-driven-development/**)"
+      "Read(//home/aistorm/.agents/skills/subagent-driven-development/**)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(curl -s http://localhost:3000/_next/static/chunks/src_app_globals_91e4631d.css)",
+      "Bash(npm install:*)",
+      "Bash(npx next:*)",
+      "Bash(npm run:*)",
+      "Bash(git checkout:*)"
     ],
     "additionalDirectories": [
-      "/home/aistorm/projects/luowei/docs"
+      "/home/aistorm/projects/luowei/docs",
+      "/home/aistorm/projects/luowei/docs/plans"
     ]
   }
 }
