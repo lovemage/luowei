@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import VideoBackground from "@/components/VideoBackground";
 
 const navItems = [
   { label: "短影音與廣告服務", href: "/short-video" },
@@ -10,66 +11,68 @@ const navItems = [
 
 export default function Home() {
   return (
-    <main className="relative z-10 flex min-h-dvh flex-col items-center px-5 pt-16 pb-12">
-      {/* Logo */}
-      <div
-        className="animate-fade-up flex flex-col items-center"
-        style={{ animationDelay: "0ms" }}
-      >
-        <Image
-          src="/images/logo.png"
-          alt="LUOWEI MEDIA"
-          width={88}
-          height={88}
-          priority
-        />
-      </div>
+    <>
+      <VideoBackground />
+      <main className="relative z-10 flex min-h-dvh flex-col items-center px-5 pt-16 pb-12">
+        {/* Logo */}
+        <div
+          className="animate-fade-up flex flex-col items-center"
+          style={{ animationDelay: "0ms" }}
+        >
+          <Image
+            src="/images/logo.png"
+            alt="LUOWEI MEDIA"
+            width={88}
+            height={88}
+            priority
+          />
+        </div>
 
-      {/* Brand Name */}
-      <h1
-        className="animate-fade-up mt-6 font-[family-name:var(--font-cormorant)] text-3xl font-semibold tracking-[0.25em] text-gold-shine"
-        style={{ animationDelay: "100ms" }}
-      >
-        LUOWEI MEDIA
-      </h1>
+        {/* Brand Name */}
+        <h1
+          className="animate-fade-up mt-6 font-[family-name:var(--font-cormorant)] text-3xl font-semibold tracking-[0.25em] text-gold-shine"
+          style={{ animationDelay: "100ms" }}
+        >
+          LUOWEI MEDIA
+        </h1>
 
-      {/* Tagline */}
-      <p
-        className="animate-fade-up mt-4 font-[family-name:var(--font-noto-serif-tc)] text-sm tracking-[0.2em] text-text-secondary"
-        style={{ animationDelay: "200ms" }}
-      >
-        無限進步｜個人成長
-      </p>
+        {/* Navigation Buttons */}
+        <nav
+          className="animate-fade-up mt-10 flex flex-col items-center gap-4"
+          style={{ animationDelay: "300ms" }}
+        >
+          {navItems.map((item, i) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="animate-fade-up flex items-center justify-center w-[300px] h-12 rounded-full border-2 border-accent text-sm tracking-[0.15em] text-accent transition-all duration-300 hover:bg-accent hover:text-bg-primary active:scale-[0.98]"
+              style={{ animationDelay: `${350 + i * 80}ms` }}
+            >
+              {item.label}
+              {item.comingSoon && (
+                <span className="ml-2 text-xs opacity-50">
+                  (即將推出)
+                </span>
+              )}
+            </Link>
+          ))}
+        </nav>
 
-      {/* Navigation Buttons */}
-      <nav
-        className="animate-fade-up mt-10 flex flex-col items-center gap-4"
-        style={{ animationDelay: "300ms" }}
-      >
-        {navItems.map((item, i) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="animate-fade-up flex items-center justify-center w-[300px] h-12 rounded-full border-2 border-accent text-sm tracking-[0.15em] text-accent transition-all duration-300 hover:bg-accent hover:text-bg-primary active:scale-[0.98]"
-            style={{ animationDelay: `${350 + i * 80}ms` }}
+        <div className="mt-auto pt-14 text-center">
+          <p
+            className="animate-fade-up font-[family-name:var(--font-noto-serif-tc)] text-sm tracking-[0.2em] text-text-secondary"
+            style={{ animationDelay: "520ms" }}
           >
-            {item.label}
-            {item.comingSoon && (
-              <span className="ml-2 text-xs opacity-50">
-                (即將推出)
-              </span>
-            )}
-          </Link>
-        ))}
-      </nav>
-
-      {/* Footer */}
-      <p
-        className="animate-fade-up mt-auto pt-16 text-xs text-text-secondary/40 tracking-widest"
-        style={{ animationDelay: "700ms" }}
-      >
-        羅威傳媒 | Louwei Studio
-      </p>
-    </main>
+            無限進步｜個人成長
+          </p>
+          <p
+            className="animate-fade-up mt-4 text-xs text-text-secondary/40 tracking-widest"
+            style={{ animationDelay: "700ms" }}
+          >
+            羅威傳媒 | Louwei Studio
+          </p>
+        </div>
+      </main>
+    </>
   );
 }

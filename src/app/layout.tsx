@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Noto_Serif_TC, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
-import VideoBackground from "@/components/VideoBackground";
 import FloatingButtons from "@/components/FloatingButtons";
 
 const notoSerifTC = Noto_Serif_TC({
@@ -38,7 +37,6 @@ export default function RootLayout({
   return (
     <html lang="zh-Hant" className={`${notoSerifTC.variable} ${cormorantGaramond.variable}`}>
       <body>
-        <VideoBackground />
         <div className="relative z-10 mx-auto max-w-[430px] min-h-dvh">
           {children}
         </div>

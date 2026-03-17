@@ -151,6 +151,8 @@ interface FAQ {
 interface ShortVideoContentProps {
   videoFaqs: FAQ[];
   adFaqs: FAQ[];
+  heroImageUrl: string;
+  heroImageUrls?: string[];
 }
 
 const tabs = [
@@ -158,7 +160,12 @@ const tabs = [
   { key: "ad", label: "廣告投放代操" },
 ];
 
-export default function ShortVideoContent({ videoFaqs, adFaqs }: ShortVideoContentProps) {
+export default function ShortVideoContent({
+  videoFaqs,
+  adFaqs,
+  heroImageUrl,
+  heroImageUrls,
+}: ShortVideoContentProps) {
   const [activeTab, setActiveTab] = useState("video");
 
   return (
@@ -175,6 +182,8 @@ export default function ShortVideoContent({ videoFaqs, adFaqs }: ShortVideoConte
       <HeroSection
         title="短影音與廣告服務"
         subtitle="全方位短影音品牌代操 + 精準廣告投放"
+        imageUrl={heroImageUrl}
+        imageUrls={heroImageUrls}
       />
 
       {/* Tab Switcher */}

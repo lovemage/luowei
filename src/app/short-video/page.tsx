@@ -15,5 +15,12 @@ export default async function ShortVideoPage() {
     }),
   ]);
 
-  return <ShortVideoContent videoFaqs={videoFaqs} adFaqs={adFaqs} />;
+  return (
+    <ShortVideoContent
+      videoFaqs={videoFaqs}
+      adFaqs={adFaqs}
+      heroImageUrl="/images/image_1.jpg"
+      heroImageUrls={["/images/image_1.jpg", "/images/image_2.jpg"]}
+    />
+  );
 }
