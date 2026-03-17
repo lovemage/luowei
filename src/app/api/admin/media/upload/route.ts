@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import cloudinary from "@/lib/cloudinary";
+import { createObjectKey, uploadImageToBucket } from "@/lib/bucket";
 
 export async function POST(request: Request) {
   try {
@@ -13,23 +13,17 @@ export async function POST(request: Request) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-
-    const result = await new Promise<Record<string, unknown>>((resolve, reject) => {
-      cloudinary.uploader
-        .upload_stream(
-          { folder, resource_type: "image" },
-          (error, result) => {
-            if (error) reject(error);
-            else resolve(result as Record<string, unknown>);
-          }
-        )
-        .end(buffer);
+    const objectKey = createObjectKey(folder, file.name || "upload");
+    const url = await uploadImageToBucket({
+      key: objectKey,
+      body: buffer,
+      contentType: file.type || "application/octet-stream",
     });
 
     const media = await prisma.media.create({
       data: {
-        url: result.secure_url as string,
-        publicId: result.public_id as string,
+        url,
+        publicId: objectKey,
         alt,
         folder,
       },

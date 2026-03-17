@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import cloudinary from "@/lib/cloudinary";
+import { deleteObjectFromBucket } from "@/lib/bucket";
 
 export async function DELETE(
   _request: Request,
@@ -11,9 +11,9 @@ export async function DELETE(
   if (!media) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
   try {
-    await cloudinary.uploader.destroy(media.publicId);
+    await deleteObjectFromBucket(media.publicId);
   } catch {
-    // Cloudinary deletion may fail if already removed
+    // Ignore bucket deletion failure and still remove DB record.
   }
 
   await prisma.media.delete({ where: { id } });

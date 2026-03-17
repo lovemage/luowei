@@ -71,7 +71,7 @@ export default function EditPage({ params }: { params: Promise<{ slug: string }>
             value={page.heroImage || ""}
             onChange={(e) => setPage({ ...page, heroImage: e.target.value })}
             className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500"
-            placeholder="https://res.cloudinary.com/..."
+            placeholder="https://your-bucket-domain/..."
           />
         </div>
 

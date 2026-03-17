@@ -1,5 +1,8 @@
 "use client";
 
+const backgroundVideoUrl =
+  process.env.NEXT_PUBLIC_BACKGROUND_VIDEO_URL || "/videos/background_.mp4";
+
 export default function VideoBackground() {
   return (
     <div className="fixed inset-0 z-0 overflow-hidden">
@@ -14,7 +17,7 @@ export default function VideoBackground() {
           video.play().catch(() => {});
         }}
       >
-        <source src="/videos/background_.mp4" type="video/mp4" />
+        <source src={backgroundVideoUrl} type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-bg-primary/60" />
     </div>

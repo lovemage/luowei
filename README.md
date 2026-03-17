@@ -20,6 +20,23 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Media Storage (Railway Bucket)
+
+This project uploads admin media files to an S3-compatible Railway Bucket.
+
+Required environment variables:
+
+- `ACCESS_KEY_ID`
+- `SECRET_ACCESS_KEY` (or `ACCESS_KEY_SECRET` / `AWS_SECRET_ACCESS_KEY`)
+- `BUCKET`
+- `BUCKET_ENDPOINT` (or `AWS_ENDPOINT_URL_S3`)
+
+Optional:
+
+- `BUCKET_PUBLIC_URL` (recommended for public CDN/domain)
+- `AWS_REGION` (defaults to `auto`)
+- `NEXT_PUBLIC_BACKGROUND_VIDEO_URL` (public bucket URL for the site background video)
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
