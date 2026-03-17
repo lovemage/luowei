@@ -23,9 +23,12 @@
   --font-body: "PingFang TC", "Hiragino Sans", "Microsoft JhengHei", sans-serif;
 }
 
-html,
-body {
+html {
   background-color: var(--color-bg-primary);
+}
+
+body {
+  background-color: transparent;
   color: var(--color-text-secondary);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
