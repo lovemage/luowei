@@ -24,7 +24,7 @@ export default function AvatarMarquee() {
         {[...avatars, ...avatars].map((src, i) => (
           <div
             key={`${src}-${i}`}
-            className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-full border-2 border-divider"
+            className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-full border-2 border-accent/30"
           >
             <Image
               src={`/avator/${src}`}

@@ -10,7 +10,7 @@ export default function VideoBackground() {
       >
         <source src="/videos/background_.mp4" type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-bg-primary/85" />
+      <div className="absolute inset-0 bg-bg-primary/90" />
     </div>
   );
 }

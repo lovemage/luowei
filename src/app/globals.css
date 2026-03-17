@@ -1,17 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  /* Dark theme palette */
-  --color-bg-primary: #0A0A0F;
-  --color-bg-surface: #14141F;
-  --color-bg-surface-light: #1E1E2E;
-  --color-text-primary: #F0F0F5;
-  --color-text-secondary: #9090A0;
-  --color-accent: #7C5CFC;
-  --color-accent-hover: #9B7FFF;
-  --color-accent-warm: #FF6B35;
-  --color-divider: #2A2A3A;
-  --color-glow: rgba(124, 92, 252, 0.15);
+  /* Black Gold Luxury palette */
+  --color-bg-primary: #050505;
+  --color-bg-surface: #0D0D0D;
+  --color-bg-surface-light: #1A1A1A;
+  --color-text-primary: #E2C191;
+  --color-text-secondary: #cccccc;
+  --color-text-white: #f5eae6;
+  --color-accent: #E2C191;
+  --color-accent-hover: #ddbd8d;
+  --color-accent-warm: #E2C191;
+  --color-divider: #2A2218;
+  --color-glow: rgba(226, 193, 145, 0.12);
+  --color-gold-gradient-start: #E2C191;
+  --color-gold-gradient-mid: #f5eae6;
+  --color-gold-gradient-end: #E2C191;
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 
   --font-serif: "Noto Serif TC", "PingFang TC", "Hiragino Sans", serif;
@@ -22,11 +26,62 @@
 html,
 body {
   background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
+  color: var(--color-text-secondary);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   font-family: var(--font-body);
   word-break: keep-all;
+}
+
+/* ===== Gold Text Shine Animation ===== */
+
+@keyframes text-shine {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@utility text-gold-shine {
+  background: linear-gradient(
+    90deg,
+    var(--color-gold-gradient-start),
+    var(--color-gold-gradient-mid),
+    var(--color-gold-gradient-start)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shine 7s ease-in-out infinite alternate;
+}
+
+@utility text-gold {
+  color: var(--color-accent);
+}
+
+/* ===== Capsule Button Styles ===== */
+
+@utility btn-capsule {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-accent);
+  border-radius: 50px;
+  padding: 12px 32px;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+  background: transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+@utility btn-capsule-hover {
+  background: var(--color-accent);
+  color: var(--color-bg-primary);
 }
 
 /* ===== Entrance Animation ===== */
@@ -34,7 +89,7 @@ body {
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -47,7 +102,7 @@ body {
   to { opacity: 1; }
 }
 
-/* ===== Marquee Animation (avatar carousel) ===== */
+/* ===== Marquee Animation ===== */
 
 @keyframes marquee {
   0% { transform: translateX(0); }
@@ -57,11 +112,11 @@ body {
 /* ===== Utility Classes ===== */
 
 @utility animate-fade-up {
-  animation: fade-up 0.5s var(--ease-out-quart) both;
+  animation: fade-up 0.6s var(--ease-out-quart) both;
 }
 
 @utility animate-fade-in {
-  animation: fade-in 0.4s var(--ease-out-quart) both;
+  animation: fade-in 0.5s var(--ease-out-quart) both;
 }
 
 @utility animate-marquee {

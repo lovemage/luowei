@@ -18,7 +18,7 @@ export default function FloatingButtons() {
       {/* Toggle button */}
       <button
         onClick={() => setOpen(!open)}
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white shadow-lg transition-transform duration-200 active:scale-95"
+        className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-bg-primary shadow-lg transition-transform duration-200 active:scale-95"
         aria-label="社群連結"
       >
         <span
