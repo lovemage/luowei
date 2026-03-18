@@ -6,7 +6,7 @@ const navItems = [
   { label: "短影音與廣告服務", href: "/short-video" },
   { label: "影響力變現課程", href: "/course" },
   { label: "AI 影響力變現課程", href: "/ai-course", comingSoon: true },
-  { label: "案例展示區", href: "/cases", comingSoon: true },
+  { label: "案例展示區", href: "/cases" },
 ];
 
 export default function Home() {
