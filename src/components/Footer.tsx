@@ -1,10 +1,16 @@
-import { prisma } from "@/lib/prisma";
+"use client";
 
-export default async function Footer() {
-  const settings = await prisma.siteSettings.findUnique({
-    where: { id: "singleton" },
-  });
-  const footerText = settings?.footerText || "";
+import { useEffect, useState } from "react";
+
+export default function Footer() {
+  const [footerText, setFooterText] = useState("");
+
+  useEffect(() => {
+    fetch("/api/settings/public")
+      .then((res) => res.json())
+      .then((data) => setFooterText(data.footerText || ""))
+      .catch(() => {});
+  }, []);
 
   return (
     <footer className="mt-auto pt-14 text-center pb-8">

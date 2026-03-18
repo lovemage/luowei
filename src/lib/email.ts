@@ -1,6 +1,11 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return null;
+  return new Resend(key);
+}
+
 const FROM = "羅威傳媒 <no-reply@luowei-media.com>";
 
 function emailWrapper(content: string): string {
@@ -48,6 +53,9 @@ export async function sendConfirmationEmail(to: string, data: RegistrationData) 
     <a href="https://lin.ee/htTdJSH" style="display:inline-block;margin-top:8px;padding:10px 24px;background:#E2C191;color:#050505;text-decoration:none;border-radius:6px;font-size:13px;font-weight:600">加入 LINE 官方帳號</a>
   `;
 
+  const resend = getResend();
+  if (!resend) return;
+
   await resend.emails.send({
     from: FROM,
     to,
@@ -76,6 +84,9 @@ export async function sendAdminNotificationEmail(to: string, data: RegistrationD
     <p style="color:#cccccc">收到一筆新的報名資料：</p>
     <table style="width:100%;margin:20px 0;border-collapse:collapse">${rows}</table>
   `;
+
+  const resend = getResend();
+  if (!resend) return;
 
   await resend.emails.send({
     from: FROM,
