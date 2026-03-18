@@ -8,7 +8,6 @@ import PainPointHook from "@/components/PainPointHook";
 import ComparisonTable from "@/components/ComparisonTable";
 import FAQAccordion from "@/components/FAQAccordion";
 import RegistrationForm from "@/components/RegistrationForm";
-import TabSwitcher from "@/components/TabSwitcher";
 import CaseLogoWall from "@/components/CaseLogoWall";
 import CaseDetailModal from "@/components/CaseDetailModal";
 
@@ -32,11 +31,6 @@ interface CaseItem {
 interface CourseContentProps {
   faqs: FAQItem[];
 }
-
-const tabs = [
-  { key: "course", label: "短影音影響力變現課程" },
-  { key: "vip", label: "VIP 課程" },
-];
 
 const painPoints = [
   "腦袋空白 -- 看了幾百部教學，拿起手機腦袋依然一片空白",
@@ -145,7 +139,6 @@ const courseFAQs = [
 ];
 
 export default function CourseContent({ faqs }: CourseContentProps) {
-  const [activeTab, setActiveTab] = useState("course");
   const [cases, setCases] = useState<CaseItem[]>([]);
   const [selectedCase, setSelectedCase] = useState<CaseItem | null>(null);
 
@@ -180,15 +173,10 @@ export default function CourseContent({ faqs }: CourseContentProps) {
         borderless
       />
 
-      {/* Tab Switcher */}
-      <TabSwitcher tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
-
-      {/* Main Course Tab */}
-      {activeTab === "course" && (
-        <div>
+      <div>
           {/* Why this course exists */}
           <section className="animate-fade-up mb-12">
-            <div className="bg-bg-surface border border-divider rounded-xl p-6">
+            <div className="border-l-2 border-accent pl-6">
               <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-base font-bold text-gold-shine mb-4">
                 為什麼我們開這堂課？
               </h2>
@@ -221,7 +209,7 @@ export default function CourseContent({ faqs }: CourseContentProps) {
               {coreModules.map((mod) => (
                 <div
                   key={mod.number}
-                  className="bg-bg-surface border border-divider rounded-xl p-5"
+                  className="border-b border-divider pb-5 last:border-b-0"
                 >
                   <span className="text-xs font-semibold text-accent tracking-wider">
                     {mod.number}
@@ -282,10 +270,10 @@ export default function CourseContent({ faqs }: CourseContentProps) {
             <div className="flex flex-col gap-4">
               {graduationResults.map((r) => (
                 <div key={r.title} className="bg-bg-surface border border-divider rounded-xl p-5">
-                  <h3 className="text-sm font-bold text-text-primary mb-1">
+                  <p className="text-lg font-bold text-accent mb-1">
                     {r.title}
-                  </h3>
-                  <p className="text-sm text-text-secondary leading-[1.8]">
+                  </p>
+                  <p className="text-xs text-text-secondary leading-[1.8]">
                     {r.desc}
                   </p>
                 </div>
@@ -321,7 +309,7 @@ export default function CourseContent({ faqs }: CourseContentProps) {
               <p className="text-sm text-text-secondary mb-2">
                 快閃體驗票價
               </p>
-              <p className="text-accent text-2xl font-bold">
+              <p className="text-accent text-4xl font-bold">
                 NT$ 1,000
               </p>
             </div>
@@ -333,22 +321,6 @@ export default function CourseContent({ faqs }: CourseContentProps) {
           {/* Registration Form */}
           <RegistrationForm courseOptions={["短影音影響力變現課程"]} />
         </div>
-      )}
-
-      {/* VIP Tab */}
-      {activeTab === "vip" && (
-        <div className="flex flex-col items-center justify-center py-20">
-          <div className="bg-bg-surface border border-divider rounded-xl p-8 text-center max-w-sm">
-            <p className="text-2xl mb-4">🚧</p>
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-3">
-              VIP 課程
-            </h2>
-            <p className="text-sm text-text-secondary leading-[1.8]">
-              內容建置中，敬請期待
-            </p>
-          </div>
-        </div>
-      )}
 
       <CaseDetailModal caseData={selectedCase} onClose={() => setSelectedCase(null)} />
 

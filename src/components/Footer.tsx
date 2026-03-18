@@ -23,7 +23,7 @@ export default function Footer() {
         </p>
       )}
       <p className="mt-4 text-xs text-text-secondary/40 tracking-widest">
-        羅威傳媒 | Louwei Studio
+        羅威傳媒 | Louwei Media
       </p>
     </footer>
   );

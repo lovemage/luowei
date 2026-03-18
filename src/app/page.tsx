@@ -56,17 +56,45 @@ export default function Home() {
           className="animate-fade-up mt-10 flex flex-col items-center gap-4"
           style={{ animationDelay: "300ms" }}
         >
-          {navItems.map((item, i) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className="animate-fade-up flex items-center justify-center w-[300px] h-12 rounded-full border-2 border-accent text-sm tracking-[0.15em] text-accent transition-all duration-300 hover:bg-accent hover:text-bg-primary active:scale-[0.98]"
-              style={{ animationDelay: `${350 + i * 80}ms` }}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item, i) => {
+            if (i === 0) {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="animate-fade-up flex items-center justify-center w-[300px] h-12 rounded-full bg-accent text-sm tracking-[0.15em] text-bg-primary font-semibold transition-all duration-300 hover:brightness-110 active:scale-[0.98]"
+                  style={{ animationDelay: `${350 + i * 80}ms` }}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
+            if (i >= 1 && i <= 3) {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="animate-fade-up flex items-center justify-center w-[300px] h-12 rounded-full border-2 border-accent text-sm tracking-[0.15em] text-accent transition-all duration-300 hover:bg-accent hover:text-bg-primary active:scale-[0.98]"
+                  style={{ animationDelay: `${350 + i * 80}ms` }}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="animate-fade-up text-sm text-text-secondary underline decoration-accent/40 hover:text-accent transition-colors"
+                style={{ animationDelay: `${350 + i * 80}ms` }}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <Footer />

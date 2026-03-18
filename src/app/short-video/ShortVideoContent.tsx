@@ -329,7 +329,7 @@ export default function ShortVideoContent({
               {serviceHighlights.map((item) => (
                 <div
                   key={item.number}
-                  className="bg-bg-surface border border-divider rounded-xl p-5"
+                  className="border-b border-divider pb-5 last:border-b-0"
                 >
                   <span className="text-2xl font-bold text-accent tracking-wider">
                     {item.number}

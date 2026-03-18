@@ -122,7 +122,7 @@ export default function AICourseContent() {
             <br />
             不是來講很遠的未來
           </p>
-          <p className="text-base font-bold text-accent leading-[1.8]">
+          <p className="text-xl font-bold text-accent leading-[1.8]">
             而是來講你現在就能怎麼用
           </p>
         </div>
@@ -182,7 +182,7 @@ export default function AICourseContent() {
           {courseTopics.map((topic) => (
             <div
               key={topic}
-              className="flex items-start gap-3 bg-bg-surface border border-divider rounded-xl p-5"
+              className="flex items-start gap-3 py-3 border-b border-divider last:border-b-0"
             >
               <span className="mt-0.5 flex-shrink-0 text-accent font-bold text-base leading-none">
                 ✓
@@ -287,7 +287,7 @@ export default function AICourseContent() {
               <p className="text-sm font-semibold text-text-primary mb-1">
                 票價
               </p>
-              <p className="text-2xl font-bold text-accent">
+              <p className="text-4xl font-bold text-accent">
                 NT$ 500
               </p>
               <p className="text-xs text-text-secondary/60 mt-1">
@@ -375,7 +375,7 @@ export default function AICourseContent() {
           <p className="text-sm text-text-secondary leading-[1.8] mb-2">
             寫實，是入口。變現，才是目的。
           </p>
-          <p className="text-lg font-bold text-gold-shine mb-4">
+          <p className="text-xl font-bold text-gold-shine mb-4">
             這門課，就差你一個
           </p>
           <Link
