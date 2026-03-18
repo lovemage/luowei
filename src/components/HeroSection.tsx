@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 
 interface HeroSectionProps {
   title: string;
@@ -25,47 +25,35 @@ export default function HeroSection({
   }, [imageUrl, imageUrls]);
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [failedUrls, setFailedUrls] = useState<Set<string>>(new Set());
+  const failedRef = useRef<Set<string>>(new Set());
+  const [validImages, setValidImages] = useState(images);
 
-  // Filter out failed images
-  const validImages = useMemo(
-    () => images.filter((url) => !failedUrls.has(url)),
-    [images, failedUrls]
-  );
+  useEffect(() => {
+    failedRef.current = new Set();
+    setValidImages(images);
+    setActiveIndex(0);
+  }, [images]);
 
-  const handleError = useCallback(() => {
-    const failedUrl = images[activeIndex];
-    if (failedUrl) {
-      setFailedUrls((prev) => new Set(prev).add(failedUrl));
-      // Move to next valid image
-      if (validImages.length > 1) {
-        setActiveIndex((prev) => (prev + 1) % images.length);
-      }
-    }
-  }, [activeIndex, images, validImages.length]);
+  function handleError() {
+    const failedUrl = validImages[activeIndex];
+    if (!failedUrl || failedRef.current.has(failedUrl)) return;
+    failedRef.current.add(failedUrl);
+    const remaining = images.filter((url) => !failedRef.current.has(url));
+    setValidImages(remaining);
+    setActiveIndex(0);
+  }
 
   useEffect(() => {
     if (validImages.length < 2) return;
 
     const timer = setInterval(() => {
-      setActiveIndex((prev) => {
-        let next = (prev + 1) % images.length;
-        // Skip failed images
-        while (failedUrls.has(images[next]) && next !== prev) {
-          next = (next + 1) % images.length;
-        }
-        return next;
-      });
+      setActiveIndex((prev) => (prev + 1) % validImages.length);
     }, 3000);
 
     return () => clearInterval(timer);
-  }, [validImages.length, images, failedUrls]);
+  }, [validImages.length]);
 
-  const currentImageUrl = validImages.length > 0
-    ? images[activeIndex] && !failedUrls.has(images[activeIndex])
-      ? images[activeIndex]
-      : validImages[0]
-    : null;
+  const currentImageUrl = validImages.length > 0 ? validImages[activeIndex % validImages.length] : null;
 
   return (
     <section className={`animate-fade-up mb-12 overflow-hidden rounded-2xl ${borderless ? "" : "border border-divider bg-bg-surface"}`}>
