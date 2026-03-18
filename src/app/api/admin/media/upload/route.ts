@@ -30,7 +30,9 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(media, { status: 201 });
-  } catch {
-    return NextResponse.json({ error: "上傳失敗" }, { status: 500 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "上傳失敗";
+    console.error("Upload error:", message);
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

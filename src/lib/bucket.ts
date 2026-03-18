@@ -96,6 +96,7 @@ export async function uploadImageToBucket(input: {
       Key: input.key,
       Body: input.body,
       ContentType: input.contentType,
+      ACL: "public-read",
     })
   );
 
