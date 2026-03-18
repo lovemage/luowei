@@ -9,6 +9,7 @@ const navItems = [
   { label: "報名資料", href: "/admin/registrations" },
   { label: "案例管理", href: "/admin/cases" },
   { label: "懸浮按鈕", href: "/admin/floating-buttons" },
+  { label: "報名表單", href: "/admin/registration-form" },
 ];
 
 export default function Sidebar() {
