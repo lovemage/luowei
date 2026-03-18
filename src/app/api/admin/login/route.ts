@@ -4,7 +4,7 @@ import { createToken, validateCredentials, COOKIE_NAME } from "@/lib/auth";
 export async function POST(request: Request) {
   const { user, password } = await request.json();
 
-  if (!validateCredentials(user, password)) {
+  if (!await validateCredentials(user, password)) {
     return NextResponse.json({ error: "帳號或密碼錯誤" }, { status: 401 });
   }
 
