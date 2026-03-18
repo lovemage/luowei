@@ -21,6 +21,21 @@ export async function PUT(request: Request) {
   if (body.footerText !== undefined) data.footerText = body.footerText;
 
   if (body.newPassword) {
+    // Verify old password first
+    const current = await prisma.siteSettings.findUnique({
+      where: { id: "singleton" },
+    });
+    if (current?.adminPasswordHash) {
+      const valid = await bcrypt.compare(body.oldPassword || "", current.adminPasswordHash);
+      if (!valid) {
+        return NextResponse.json({ error: "目前密碼不正確" }, { status: 400 });
+      }
+    } else {
+      // No DB password yet, verify against env var
+      if (body.oldPassword !== process.env.ADMIN_PASSWORD) {
+        return NextResponse.json({ error: "目前密碼不正確" }, { status: 400 });
+      }
+    }
     data.adminPasswordHash = await bcrypt.hash(body.newPassword, 10);
   }
 
