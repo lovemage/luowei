@@ -4,11 +4,12 @@ import VideoBackground from "@/components/VideoBackground";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 
-const navItems = [
+const navItems: { label: string; href: string; external?: boolean }[] = [
   { label: "短影音與廣告服務", href: "/short-video" },
   { label: "素人代操與課程案例", href: "/cases" },
   { label: "短影音影響力變現課程", href: "/course" },
   { label: "AI 影響力變現課程", href: "/ai-course" },
+  { label: "下班後第二收入計劃", href: "https://docs.google.com/forms/d/1aH9-xjN6od9ZK0Dbh4bAQRvceafI8FkNFBx4xsgic4g/viewform?edit_requested=true", external: true },
 ];
 
 export default function Home() {
@@ -59,6 +60,7 @@ export default function Home() {
             <Link
               key={item.href}
               href={item.href}
+              {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               className="animate-fade-up flex items-center justify-center w-[300px] h-12 rounded-full border-2 border-accent text-sm tracking-[0.15em] text-accent transition-all duration-300 hover:bg-accent hover:text-bg-primary active:scale-[0.98]"
               style={{ animationDelay: `${350 + i * 80}ms` }}
             >
