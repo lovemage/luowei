@@ -83,18 +83,29 @@ export default function AICourseContent() {
       </Link>
 
       {/* Hero */}
-      <section className="animate-fade-up mb-12 text-center">
-        <p className="text-xs tracking-[0.2em] text-text-secondary/70 mb-3">
-          AI 影像力變現
-        </p>
-        <h1 className="font-[family-name:var(--font-noto-serif-tc)] text-2xl font-bold leading-snug text-gold-shine mb-4">
-          AI 實戰跨界拆解
-          <br />
-          從工具到變現
-        </h1>
-        <p className="text-sm text-text-secondary leading-[1.8] max-w-xs mx-auto">
-          不講空話、不過度包裝，直接談 AI 怎麼真正進入工作、內容、商業，最後走到變現
-        </p>
+      <section className="animate-fade-up mb-12">
+        <div className="relative rounded-xl overflow-hidden mb-6">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/pics/image_4.jpg"
+            alt="AI 影像力變現課程"
+            className="w-full h-48 object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/90 to-transparent" />
+        </div>
+        <div className="text-center">
+          <p className="text-xs tracking-[0.2em] text-text-secondary/70 mb-3">
+            AI 影像力變現
+          </p>
+          <h1 className="font-[family-name:var(--font-noto-serif-tc)] text-2xl font-bold leading-snug text-gold-shine mb-4">
+            AI 實戰跨界拆解
+            <br />
+            從工具到變現
+          </h1>
+          <p className="text-sm text-text-secondary leading-[1.8] max-w-xs mx-auto">
+            不講空話、不過度包裝，直接談 AI 怎麼真正進入工作、內容、商業，最後走到變現
+          </p>
+        </div>
       </section>
 
       {/* Pain Points */}
