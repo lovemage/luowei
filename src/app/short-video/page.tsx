@@ -23,8 +23,8 @@ export default async function ShortVideoPage() {
     <ShortVideoContent
       videoFaqs={videoFaqs}
       adFaqs={adFaqs}
-      heroImageUrl={page?.heroImage || "/images/Generated Image March 18, 2026 - 11_30AM.jpg"}
-      heroImageUrls={["/images/image_1 (3).jpg", page?.heroImage || "/images/Generated Image March 18, 2026 - 11_30AM.jpg", "/images/image_2.jpg"]}
+      heroImageUrl={page?.heroImage?.split("|")[0] || "/images/image_1 (3).jpg"}
+      heroImageUrls={page?.heroImage ? page.heroImage.split("|").filter(Boolean) : ["/images/image_1 (3).jpg", "/images/image_2.jpg"]}
     />
   );
 }

@@ -258,18 +258,23 @@ function LivePreview({
   );
 }
 
-/* ── Hero Image Upload with WebP conversion ── */
+/* ── Hero Images Manager (max 2, auto WebP) ── */
 
-function HeroImageUpload({
-  currentUrl,
-  onUploaded,
+const MAX_HERO_IMAGES = 2;
+
+function HeroImagesManager({
+  value,
+  onChange,
 }: {
-  currentUrl: string;
-  onUploaded: (url: string) => void;
+  value: string;
+  onChange: (val: string) => void;
 }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState("");
+
+  // Parse pipe-separated URLs
+  const urls = value ? value.split("|").filter(Boolean) : [];
 
   const convertToWebP = useCallback(async (file: File): Promise<Blob> => {
     return new Promise((resolve, reject) => {
@@ -297,11 +302,10 @@ function HeroImageUpload({
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file) return;
+    if (!file || urls.length >= MAX_HERO_IMAGES) return;
 
     setUploading(true);
     setProgress("轉換為 WebP 中...");
-
     try {
       const webpBlob = await convertToWebP(file);
       const baseName = file.name.replace(/\.[^.]+$/, "");
@@ -316,30 +320,48 @@ function HeroImageUpload({
       const res = await fetch("/api/admin/media/upload", { method: "POST", body: formData });
       if (res.ok) {
         const media = await res.json();
-        onUploaded(media.url);
-        setProgress("上傳完成！");
+        onChange([...urls, media.url].join("|"));
+        setProgress("");
       } else {
         setProgress("上傳失敗");
       }
     } catch {
       setProgress("轉換或上傳失敗");
     }
-
     setUploading(false);
     if (fileRef.current) fileRef.current.value = "";
   };
 
+  const handleRemove = (index: number) => {
+    onChange(urls.filter((_, i) => i !== index).join("|"));
+  };
+
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">Hero 圖片</label>
-      <div className="flex items-start gap-4">
-        {currentUrl && (
-          <div className="w-32 h-20 rounded-lg overflow-hidden border border-gray-200 flex-shrink-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={currentUrl} alt="Hero preview" className="w-full h-full object-cover" />
+      <label className="block text-sm font-medium text-gray-700 mb-1">
+        Hero 圖片（最多 {MAX_HERO_IMAGES} 張，自動輪播）
+      </label>
+      <div className="flex flex-wrap gap-3 mb-3">
+        {urls.map((url, i) => (
+          <div key={i} className="relative group">
+            <div className="w-36 h-20 rounded-lg overflow-hidden border border-gray-200">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={url} alt={`Hero ${i + 1}`} className="w-full h-full object-cover" />
+            </div>
+            <button
+              type="button"
+              onClick={() => handleRemove(i)}
+              className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+              title="移除"
+            >
+              ✕
+            </button>
+            <p className="text-[10px] text-gray-400 mt-1 truncate w-36">{url.split("/").pop()}</p>
           </div>
-        )}
-        <div className="flex flex-col gap-2">
+        ))}
+      </div>
+      {urls.length < MAX_HERO_IMAGES && (
+        <div className="flex items-center gap-3">
           <input ref={fileRef} type="file" accept="image/*" onChange={handleUpload} className="hidden" />
           <button
             type="button"
@@ -347,18 +369,14 @@ function HeroImageUpload({
             disabled={uploading}
             className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors disabled:opacity-50"
           >
-            {uploading ? progress : currentUrl ? "更換圖片" : "上傳圖片"}
+            {uploading ? progress : "上傳圖片"}
           </button>
-          <p className="text-xs text-gray-400">
-            上傳後自動轉換為 WebP 格式
-          </p>
-          {currentUrl && !uploading && (
-            <p className="text-xs text-green-600 truncate max-w-[200px]" title={currentUrl}>
-              {currentUrl.split("/").pop()}
-            </p>
-          )}
+          <span className="text-xs text-gray-400">自動轉換為 WebP</span>
         </div>
-      </div>
+      )}
+      {urls.length >= MAX_HERO_IMAGES && (
+        <p className="text-xs text-gray-400">已達上限，請先移除再上傳新圖片</p>
+      )}
     </div>
   );
 }
@@ -477,9 +495,9 @@ export default function EditPage({
               />
             </div>
 
-            <HeroImageUpload
-              currentUrl={page.heroImage || ""}
-              onUploaded={(url) => setPage({ ...page, heroImage: url })}
+            <HeroImagesManager
+              value={page.heroImage || ""}
+              onChange={(val) => setPage({ ...page, heroImage: val })}
             />
 
             <div>

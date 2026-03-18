@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 
 interface HeroSectionProps {
   title: string;
@@ -8,6 +8,8 @@ interface HeroSectionProps {
   imageUrl?: string;
   imageUrls?: string[];
 }
+
+const MAX_IMAGES = 2;
 
 export default function HeroSection({
   title,
@@ -17,45 +19,67 @@ export default function HeroSection({
 }: HeroSectionProps) {
   const images = useMemo(() => {
     const list = imageUrls?.length ? imageUrls : imageUrl ? [imageUrl] : [];
-    return [...new Set(list.filter(Boolean))];
+    return [...new Set(list.filter(Boolean))].slice(0, MAX_IMAGES);
   }, [imageUrl, imageUrls]);
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [fallbackActive, setFallbackActive] = useState(false);
+  const [failedUrls, setFailedUrls] = useState<Set<string>>(new Set());
+
+  // Filter out failed images
+  const validImages = useMemo(
+    () => images.filter((url) => !failedUrls.has(url)),
+    [images, failedUrls]
+  );
+
+  const handleError = useCallback(() => {
+    const failedUrl = images[activeIndex];
+    if (failedUrl) {
+      setFailedUrls((prev) => new Set(prev).add(failedUrl));
+      // Move to next valid image
+      if (validImages.length > 1) {
+        setActiveIndex((prev) => (prev + 1) % images.length);
+      }
+    }
+  }, [activeIndex, images, validImages.length]);
 
   useEffect(() => {
-    setFallbackActive(false);
-  }, [activeIndex, images]);
-
-  useEffect(() => {
-    if (images.length < 2) return;
+    if (validImages.length < 2) return;
 
     const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % images.length);
-    }, 2000);
+      setActiveIndex((prev) => {
+        let next = (prev + 1) % images.length;
+        // Skip failed images
+        while (failedUrls.has(images[next]) && next !== prev) {
+          next = (next + 1) % images.length;
+        }
+        return next;
+      });
+    }, 3000);
 
     return () => clearInterval(timer);
-  }, [images.length]);
+  }, [validImages.length, images, failedUrls]);
 
-  const currentImageUrl = images[activeIndex];
-  const displayImageUrl = fallbackActive ? "/images/Generated Image March 18, 2026 - 11_30AM.jpg" : currentImageUrl;
+  const currentImageUrl = validImages.length > 0
+    ? images[activeIndex] && !failedUrls.has(images[activeIndex])
+      ? images[activeIndex]
+      : validImages[0]
+    : null;
 
   return (
     <section className="animate-fade-up mb-12 overflow-hidden rounded-2xl border border-divider bg-bg-surface">
-      {displayImageUrl && (
+      {currentImageUrl && (
         <div className="relative h-48 w-full">
-          {/* Use native img to support dynamic bucket URLs without Next image domain config. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={displayImageUrl}
+            src={currentImageUrl}
             alt={title}
             className="h-full w-full object-cover"
             loading="eager"
-            onError={() => setFallbackActive(true)}
+            onError={handleError}
           />
         </div>
       )}
-      <div className={displayImageUrl ? "p-6" : "py-8"}>
+      <div className={currentImageUrl ? "p-6" : "py-8"}>
         <h1 className="font-[family-name:var(--font-noto-serif-tc)] text-[22px] font-bold leading-[1.6] text-gold-shine mb-2">
           {title}
         </h1>
