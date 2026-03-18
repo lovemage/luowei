@@ -60,19 +60,19 @@ const phases = [
 
 const videoWhyChooseUs = [
   {
-    number: "01",
-    title: "AI 技術賦能",
-    desc: "使用最新 AI 工具優化文案與素材處理，效率翻倍",
+    title: "一條龍代操",
+    points: ["不用剪輯", "不用想腳本", "不用懂演算法"],
+    cta: "你專心做老闆",
   },
   {
-    number: "02",
-    title: "轉換思維導向",
-    desc: "每支影片的目標都是「轉換」，不只是好看",
+    title: "業界唯一",
+    points: ["保證流量未達標全額退費"],
+    cta: "我們承擔風險",
   },
   {
-    number: "03",
-    title: "生態整合服務",
-    desc: "影片 + Landing Page + 自動化客服，一站式整合",
+    title: "拒絕素人接案｜實體傳媒公司操盤",
+    points: ["數百位學員驗證", "多案例可複製"],
+    cta: "",
   },
 ];
 
@@ -255,20 +255,27 @@ export default function ShortVideoContent({
             <div className="flex flex-col gap-4">
               {videoWhyChooseUs.map((item) => (
                 <div
-                  key={item.number}
+                  key={item.title}
                   className="bg-bg-surface border border-divider rounded-xl p-5"
                 >
-                  <div className="flex items-baseline gap-3 mb-2">
-                    <span className="text-2xl font-bold text-accent tracking-wider">
-                      {item.number}
-                    </span>
-                    <h3 className="font-[family-name:var(--font-noto-serif-tc)] text-sm font-bold text-text-primary">
-                      {item.title}
-                    </h3>
-                  </div>
-                  <p className="text-xs text-text-secondary leading-[1.8]">
-                    {item.desc}
-                  </p>
+                  <h3 className="font-[family-name:var(--font-noto-serif-tc)] text-sm font-bold text-text-primary mb-3">
+                    {item.title}
+                  </h3>
+                  <ul className="flex flex-col gap-1.5 mb-3">
+                    {item.points.map((point) => (
+                      <li
+                        key={point}
+                        className="text-xs text-text-secondary leading-[1.8] pl-3 relative before:content-['✓'] before:absolute before:left-0 before:text-accent"
+                      >
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                  {item.cta && (
+                    <p className="text-sm font-semibold text-accent">
+                      👉 {item.cta}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
