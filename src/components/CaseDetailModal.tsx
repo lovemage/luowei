@@ -42,7 +42,7 @@ export default function CaseDetailModal({ caseData, onClose }: CaseDetailModalPr
   const statsEntries = Object.entries(caseData.stats);
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-end justify-center">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/70 backdrop-blur-sm"
@@ -50,7 +50,7 @@ export default function CaseDetailModal({ caseData, onClose }: CaseDetailModalPr
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-[430px] max-h-[85dvh] bg-surface rounded-t-2xl overflow-y-auto animate-slide-up">
+      <div className="relative w-full max-w-[430px] max-h-[85dvh] mx-4 bg-surface rounded-2xl overflow-y-auto animate-slide-up">
         {/* Close button */}
         <button
           onClick={onClose}
