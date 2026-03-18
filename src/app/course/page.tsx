@@ -4,7 +4,7 @@ import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "影響力變現課程 | LUOWEI MEDIA",
+  title: "短影音影響力變現課程 | LUOWEI MEDIA",
   description: "用短影音翻轉人生，從零基礎到商業變現。初階實戰班、進階陪跑班。",
 };
 
@@ -20,7 +20,7 @@ export default async function CoursePage() {
       <JsonLd data={{
         "@context": "https://schema.org",
         "@type": "Course",
-        name: "影響力變現課程",
+        name: "短影音影響力變現課程",
         provider: { "@type": "Organization", name: "羅威傳媒 LUOWEI MEDIA", url: "https://luowei-media.com" },
         description: "用短影音翻轉人生，從零基礎到商業變現。系統化實戰教學，團隊督促保證產出。",
         url: "https://luowei-media.com/course",

@@ -6,9 +6,9 @@ import JsonLd from "@/components/JsonLd";
 
 const navItems = [
   { label: "短影音與廣告服務", href: "/short-video" },
-  { label: "影響力變現課程", href: "/course" },
+  { label: "素人代操與課程案例", href: "/cases" },
+  { label: "短影音影響力變現課程", href: "/course" },
   { label: "AI 影響力變現課程", href: "/ai-course" },
-  { label: "案例展示區", href: "/cases" },
 ];
 
 export default function Home() {

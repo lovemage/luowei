@@ -158,7 +158,7 @@ interface ShortVideoContentProps {
 
 const tabs = [
   { key: "video", label: "短影音代操" },
-  { key: "ad", label: "廣告投放代操" },
+  { key: "ad", label: "TikTok 廣告投放" },
 ];
 
 export default function ShortVideoContent({

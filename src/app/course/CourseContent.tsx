@@ -162,7 +162,7 @@ export default function CourseContent({ faqs }: CourseContentProps) {
 
       {/* Hero */}
       <HeroSection
-        title="影響力變現課程"
+        title="短影音影響力變現課程"
         subtitle="用短影音翻轉人生，從零基礎到商業變現"
       />
 
