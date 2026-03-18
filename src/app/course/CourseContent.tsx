@@ -294,18 +294,6 @@ export default function CourseContent({ faqs }: CourseContentProps) {
             items={comparisonItems}
           />
 
-          {/* Monetization + Endorsement */}
-          <section className="animate-fade-up mb-12">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
-              變現加速 + 專業背書
-            </h2>
-            <div className="bg-bg-surface border border-divider rounded-xl p-5">
-              <p className="text-sm text-text-secondary leading-[1.8]">
-                結業學員可獲得由四大合作公司提供的專業背書與變現資源：<span className="text-text-primary">雲林「羅威傳播」</span>、<span className="text-text-primary">台南「共好新創」</span>、<span className="text-text-primary">高雄「非常有趣新媒體」</span>、<span className="text-text-primary">台中「光言工作室」</span>。
-              </p>
-            </div>
-          </section>
-
           {/* Success Cases */}
           <section className="animate-fade-up mb-12">
             <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-4">
