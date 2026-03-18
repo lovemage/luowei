@@ -2,7 +2,14 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
-const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+function getSecret() {
+  const jwt = process.env.JWT_SECRET;
+  if (!jwt) {
+    console.error("JWT_SECRET is not set!");
+    return new TextEncoder().encode("fallback-insecure-key");
+  }
+  return new TextEncoder().encode(jwt);
+}
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -16,7 +23,7 @@ export async function proxy(request: NextRequest) {
     }
 
     try {
-      await jwtVerify(token, secret);
+      await jwtVerify(token, getSecret());
       return NextResponse.next();
     } catch {
       return NextResponse.redirect(new URL("/admin/login", request.url));
@@ -32,7 +39,7 @@ export async function proxy(request: NextRequest) {
     }
 
     try {
-      await jwtVerify(token, secret);
+      await jwtVerify(token, getSecret());
       return NextResponse.next();
     } catch {
       return NextResponse.json({ error: "Token 過期" }, { status: 401 });

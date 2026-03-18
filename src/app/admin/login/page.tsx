@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function AdminLogin() {
   const [error, setError] = useState("");
-  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -21,7 +19,9 @@ export default function AdminLogin() {
     });
 
     if (res.ok) {
-      router.push("/admin");
+      // Use hard redirect so the new cookie is sent with the server request
+      window.location.href = "/admin";
+      return;
     } else {
       setError("帳號或密碼錯誤");
     }
