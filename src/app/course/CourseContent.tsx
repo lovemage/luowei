@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import HeroSection from "@/components/HeroSection";
+import Footer from "@/components/Footer";
 import PainPointHook from "@/components/PainPointHook";
 import ComparisonTable from "@/components/ComparisonTable";
 import FAQAccordion from "@/components/FAQAccordion";
@@ -390,6 +391,8 @@ export default function CourseContent({ faqs }: CourseContentProps) {
       >
         &larr; 返回首頁
       </Link>
+
+      <Footer />
     </main>
   );
 }

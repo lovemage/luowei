@@ -5,6 +5,7 @@ import Link from "next/link";
 import TabSwitcher from "@/components/TabSwitcher";
 import CaseLogoWall from "@/components/CaseLogoWall";
 import CaseDetailModal from "@/components/CaseDetailModal";
+import Footer from "@/components/Footer";
 
 interface CaseItem {
   id: number;
@@ -67,6 +68,8 @@ export default function CasesPage() {
       )}
 
       <CaseDetailModal caseData={selected} onClose={() => setSelected(null)} />
+
+      <Footer />
     </main>
   );
 }

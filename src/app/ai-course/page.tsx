@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 export const dynamic = "force-static";
 
@@ -29,6 +30,8 @@ export default function AICoursePage() {
           返回首頁
         </Link>
       </div>
+
+      <Footer />
     </main>
   );
 }

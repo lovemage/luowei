@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import VideoBackground from "@/components/VideoBackground";
+import Footer from "@/components/Footer";
 
 const navItems = [
   { label: "短影音與廣告服務", href: "/short-video" },
@@ -58,20 +59,7 @@ export default function Home() {
           ))}
         </nav>
 
-        <div className="mt-auto pt-14 text-center">
-          <p
-            className="animate-fade-up font-[family-name:var(--font-noto-serif-tc)] text-sm tracking-[0.2em] text-text-secondary"
-            style={{ animationDelay: "520ms" }}
-          >
-            無限進步｜個人成長
-          </p>
-          <p
-            className="animate-fade-up mt-4 text-xs text-text-secondary/40 tracking-widest"
-            style={{ animationDelay: "700ms" }}
-          >
-            羅威傳媒 | Louwei Studio
-          </p>
-        </div>
+        <Footer />
       </main>
     </>
   );
