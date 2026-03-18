@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 
 export default function EditCasePage() {
   const router = useRouter();
   const { id } = useParams();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState({
     slug: "",
     name: "",
@@ -20,6 +21,7 @@ export default function EditCasePage() {
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     fetch(`/api/admin/cases/${id}`)
@@ -39,6 +41,26 @@ export default function EditCasePage() {
         setLoading(false);
       });
   }, [id]);
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("folder", "cases");
+      formData.append("alt", form.name || "案例頭像");
+      const res = await fetch("/api/admin/media/upload", { method: "POST", body: formData });
+      if (res.ok) {
+        const media = await res.json();
+        setForm((prev) => ({ ...prev, avatarUrl: media.url }));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    setUploading(false);
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -82,10 +104,24 @@ export default function EditCasePage() {
             className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">頭像圖片 URL</label>
-          <input type="text" required value={form.avatarUrl}
-            onChange={(e) => setForm({ ...form, avatarUrl: e.target.value })}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
+          <label className="block text-sm font-medium text-gray-700 mb-1">頭像圖片</label>
+          <div className="flex items-center gap-3">
+            {form.avatarUrl && (
+              <img src={form.avatarUrl} alt="預覽" className="w-12 h-12 rounded-full object-cover border border-gray-200" />
+            )}
+            <input ref={fileInputRef} type="file" accept="image/*" onChange={handleUpload} className="hidden" />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors disabled:opacity-50"
+            >
+              {uploading ? "上傳中..." : "重新上傳"}
+            </button>
+            {form.avatarUrl && (
+              <span className="text-xs text-green-600">已上傳</span>
+            )}
+          </div>
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">分類</label>
