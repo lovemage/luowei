@@ -18,6 +18,7 @@ const speakers = [
     tags: ["管理", "會計", "上市公司董事"],
     desc: "從管理、會計、上市公司董事的實務視角，直接分享這一年如何把 AI 放進辦公室流程、虛擬助理、管理決策，甚至一路走到全球算力中心的布局。",
     highlight: "AI 不只是工具，而是管理者手上越來越重要的一顆棋子",
+    color: "#D4A574",
   },
   {
     name: "張導",
@@ -25,6 +26,7 @@ const speakers = [
     tags: ["紀錄片導演", "AI 影像"],
     desc: "當紀錄片導演的敘事能力遇上 AI 影像技術，做出來的不只是畫面，而是能進提案、進品牌、進商業合作的內容。",
     highlight: "有溫度，也有商業價值",
+    color: "#C48B8B",
   },
   {
     name: "郭大社長",
@@ -32,6 +34,7 @@ const speakers = [
     tags: ["日本大阪", "AI 虛擬藝人", "IP 經營"],
     desc: "特別從日本大阪來台分享，帶大家拆解 AI 虛擬藝人、IP 經營、虛擬經濟權，看懂 AI 在不同產業裡怎麼一步一步走向變現。",
     highlight: "跨國實戰，拆解虛擬經濟變現路徑",
+    color: "#8B9CC4",
   },
   {
     name: "小羅",
@@ -39,6 +42,7 @@ const speakers = [
     tags: ["23 歲實戰派", "自媒體", "短影音"],
     desc: "分享如何把自媒體、短影音、AI 工具串起來，讓流量不只是流量，而是真的能導客、成交、變現。",
     highlight: "流量不只是數字，而是真實的營收",
+    color: "#8BC4A5",
   },
 ];
 
@@ -137,17 +141,21 @@ export default function AICourseContent() {
           {speakers.map((speaker) => (
             <div
               key={speaker.name}
-              className="bg-bg-surface border border-divider rounded-xl p-5"
+              className="border-l-3 pl-5 py-4"
+              style={{ borderLeftColor: speaker.color, borderLeftWidth: 3 }}
             >
               <div className="flex items-center gap-3 mb-3">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent font-bold text-sm">
+                <div
+                  className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full font-bold text-sm"
+                  style={{ backgroundColor: `${speaker.color}20`, color: speaker.color }}
+                >
                   {speaker.name.charAt(0)}
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-text-primary">
                     {speaker.name}
                   </h3>
-                  <p className="text-xs text-accent">
+                  <p className="text-xs" style={{ color: speaker.color }}>
                     {speaker.title}
                   </p>
                 </div>
@@ -156,7 +164,12 @@ export default function AICourseContent() {
                 {speaker.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[10px] px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20"
+                    className="text-[10px] px-2 py-0.5 rounded-full"
+                    style={{
+                      backgroundColor: `${speaker.color}15`,
+                      color: speaker.color,
+                      border: `1px solid ${speaker.color}30`,
+                    }}
                   >
                     {tag}
                   </span>
@@ -165,7 +178,7 @@ export default function AICourseContent() {
               <p className="text-sm text-text-secondary leading-[1.8] mb-3">
                 {speaker.desc}
               </p>
-              <p className="text-xs text-accent font-semibold leading-[1.6]">
+              <p className="text-xs font-semibold leading-[1.6]" style={{ color: speaker.color }}>
                 {speaker.highlight}
               </p>
             </div>
@@ -207,10 +220,10 @@ export default function AICourseContent() {
           href="https://youtu.be/N3einxG6Zvg"
           target="_blank"
           rel="noopener noreferrer"
-          className="block bg-bg-surface border border-divider rounded-xl p-5 hover:border-accent transition-colors group"
+          className="block bg-bg-surface border border-divider rounded-xl p-5 hover:border-[#C48B8B] transition-colors group"
         >
           <div className="flex items-center gap-4">
-            <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent text-xl">
+            <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#C48B8B]/20 text-[#C48B8B] text-xl">
               ▶
             </span>
             <div>
@@ -382,7 +395,7 @@ export default function AICourseContent() {
             href="https://lin.ee/htTdJSH"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block w-full rounded-full border-2 border-accent bg-transparent py-3.5 text-center text-sm font-semibold text-accent tracking-wider transition-colors duration-200 hover:bg-accent hover:text-bg-primary"
+            className="inline-block w-full rounded-full bg-accent py-3.5 text-center text-sm font-semibold text-bg-primary tracking-wider transition-colors duration-200 hover:opacity-90"
           >
             立即透過 LINE 報名
           </Link>
