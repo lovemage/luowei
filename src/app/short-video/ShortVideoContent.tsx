@@ -15,8 +15,8 @@ import TabSwitcher from "@/components/TabSwitcher";
 const phases = [
   {
     number: "01",
-    title: "基礎紮根 -- 數據驅動的品牌成長系統",
-    desc: "演算法破解 + 高頻產出",
+    title: "基礎紮根",
+    subtitle: "數據驅動的品牌成長系統",
     details: [
       "深度拆解平台演算法，掌握流量密碼",
       "建立高頻內容產出機制，持續累積品牌聲量",
@@ -25,35 +25,31 @@ const phases = [
   },
   {
     number: "02",
-    title: "靈魂定位 -- 人設設定",
-    desc: "打造不可取代的品牌人格",
+    title: "靈魂定位",
+    subtitle: "打造不可取代的品牌人格",
     details: [
-      "視覺符號 -- 建立一眼可辨識的品牌視覺體系",
-      "語言風格 -- 形成獨特的表達方式與口頭禪",
-      "專家權威 -- 透過專業內容建立行業話語權",
-      "價值觀輸出 -- 讓受眾認同你的理念，產生深度連結",
+      "視覺符號 — 一眼可辨識的品牌視覺體系",
+      "語言風格 — 獨特的表達方式與口頭禪",
+      "專家權威 — 透過專業內容建立行業話語權",
     ],
   },
   {
     number: "03",
-    title: "模組化執行 -- 4 步驟高效產出",
-    desc: "從策略到成品，全流程標準化",
+    title: "模組化執行",
+    subtitle: "4 步驟高效產出",
     details: [
-      "策略會議 -- 確認月度主題與內容方向",
-      "腳本開發 -- 撰寫符合演算法邏輯的爆款腳本",
-      "高效拍攝 -- 一次拍攝多支素材，最大化效率",
-      "後製精修 -- 節奏、字幕、音效全方位打磨",
+      "策略會議 → 腳本開發 → 高效拍攝 → 後製精修",
+      "一次拍攝多支素材，最大化效率",
     ],
   },
   {
     number: "04",
-    title: "目標產值 -- 數據指標",
-    desc: "用數字衡量成果",
-    details: [
-      "流量 100k+ -- 單月曝光突破十萬",
-      "互動率 200% -- 留言、分享、收藏全面提升",
-      "品牌聯想 -- 讓受眾提到品類就想到你",
-      "流量變現 -- 將觀看轉化為實際營收",
+    title: "目標產值",
+    subtitle: "用數字衡量成果",
+    details: [],
+    metrics: [
+      { value: "100K+", label: "單月曝光" },
+      { value: "200%", label: "互動率提升" },
     ],
   },
 ];
@@ -63,16 +59,19 @@ const videoWhyChooseUs = [
     title: "一條龍代操",
     points: ["不用剪輯", "不用想腳本", "不用懂演算法"],
     cta: "你專心做老闆",
+    highlight: false,
   },
   {
     title: "業界唯一",
     points: ["保證流量未達標全額退費"],
     cta: "我們承擔風險",
+    highlight: true,
   },
   {
     title: "拒絕素人接案｜實體傳媒公司操盤",
     points: ["數百位學員驗證", "多案例可複製"],
     cta: "",
+    highlight: false,
   },
 ];
 
@@ -134,10 +133,10 @@ const adComparisonItems = [
 ];
 
 const adFeatures = [
-  { label: "點讚評論", desc: "快速累積社交證明，提升內容可信度" },
-  { label: "覆蓋式廣告", desc: "大面積曝光，讓品牌訊息無處不在" },
-  { label: "精準粉絲", desc: "鎖定目標受眾，獲取高質量追蹤者" },
-  { label: "播放量", desc: "可投放數據，保證影片觸及效果" },
+  { label: "點讚評論", desc: "快速累積社交證明" },
+  { label: "覆蓋式廣告", desc: "大面積品牌曝光" },
+  { label: "精準粉絲", desc: "鎖定目標受眾" },
+  { label: "播放量", desc: "保證影片觸及" },
 ];
 
 /* ── Component ── */
@@ -205,39 +204,52 @@ export default function ShortVideoContent({
             ]}
           />
 
-          {/* Four Service Phases */}
-          <section className="animate-fade-up mb-12">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
+          {/* Four Service Phases — bold numbered layout */}
+          <section className="animate-fade-up mb-16">
+            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-8">
               四大執行階段
             </h2>
-            {phases.map((phase) => (
-              <div
-                key={phase.number}
-                className="bg-bg-surface border border-divider rounded-xl p-5 mb-4"
-              >
-                <div className="flex items-baseline gap-3 mb-2">
-                  <span className="text-2xl font-bold text-accent tracking-wider">
+            <div className="flex flex-col gap-10">
+              {phases.map((phase) => (
+                <div key={phase.number} className="relative">
+                  {/* Giant number */}
+                  <span className="text-5xl font-black text-accent/15 absolute -top-2 -left-1 leading-none select-none">
                     {phase.number}
                   </span>
-                  <h3 className="font-[family-name:var(--font-noto-serif-tc)] text-sm font-bold text-text-primary">
-                    {phase.title}
-                  </h3>
+                  <div className="pl-12">
+                    <h3 className="text-base font-bold text-text-primary mb-1">
+                      {phase.title}
+                    </h3>
+                    <p className="text-xs text-text-secondary/70 mb-3">
+                      {phase.subtitle}
+                    </p>
+                    {phase.details.length > 0 && (
+                      <ul className="flex flex-col gap-1.5">
+                        {phase.details.map((detail) => (
+                          <li
+                            key={detail}
+                            className="text-xs text-text-secondary leading-[1.8] pl-3 relative before:content-['—'] before:absolute before:left-0 before:text-accent/40"
+                          >
+                            {detail}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {/* Metrics for phase 04 */}
+                    {"metrics" in phase && phase.metrics && (
+                      <div className="flex gap-6 mt-3">
+                        {phase.metrics.map((m) => (
+                          <div key={m.label}>
+                            <p className="text-3xl font-black text-accent leading-none">{m.value}</p>
+                            <p className="text-[11px] text-text-secondary/60 mt-1">{m.label}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <p className="text-xs text-text-secondary mb-3 leading-[1.8]">
-                  {phase.desc}
-                </p>
-                <ul className="flex flex-col gap-1.5">
-                  {phase.details.map((detail) => (
-                    <li
-                      key={detail}
-                      className="text-xs text-text-secondary leading-[1.8] pl-3 relative before:content-['-'] before:absolute before:left-0 before:text-text-secondary/50"
-                    >
-                      {detail}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              ))}
+            </div>
           </section>
 
           {/* Comparison Table */}
@@ -248,7 +260,7 @@ export default function ShortVideoContent({
             items={videoComparisonItems}
           />
 
-          {/* Why Choose Us */}
+          {/* Why Choose Us — highlight the key one */}
           <section className="animate-fade-up mb-12">
             <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
               為什麼選擇我們
@@ -257,12 +269,18 @@ export default function ShortVideoContent({
               {videoWhyChooseUs.map((item) => (
                 <div
                   key={item.title}
-                  className="bg-bg-surface border border-divider rounded-xl p-5"
+                  className={
+                    item.highlight
+                      ? "bg-accent/10 border border-accent/30 rounded-xl p-5"
+                      : "border-l-2 border-divider pl-5 py-3"
+                  }
                 >
-                  <h3 className="font-[family-name:var(--font-noto-serif-tc)] text-sm font-bold text-text-primary mb-3">
+                  <h3 className={`font-[family-name:var(--font-noto-serif-tc)] font-bold mb-2 ${
+                    item.highlight ? "text-base text-accent" : "text-sm text-text-primary"
+                  }`}>
                     {item.title}
                   </h3>
-                  <ul className="flex flex-col gap-1.5 mb-3">
+                  <ul className="flex flex-col gap-1 mb-2">
                     {item.points.map((point) => (
                       <li
                         key={point}
@@ -273,7 +291,7 @@ export default function ShortVideoContent({
                     ))}
                   </ul>
                   {item.cta && (
-                    <p className="text-sm font-semibold text-accent">
+                    <p className={`font-semibold ${item.highlight ? "text-base text-accent" : "text-sm text-accent"}`}>
                       👉 {item.cta}
                     </p>
                   )}
@@ -290,16 +308,18 @@ export default function ShortVideoContent({
             courseOptions={["品牌啟航方案", "流量爆發方案", "行業壟斷方案"]}
           />
 
-          {/* CTA Section */}
-          <section className="animate-fade-up mb-12 rounded-xl bg-bg-surface border border-divider p-6 text-center">
-            <p className="font-[family-name:var(--font-noto-serif-tc)] text-sm font-bold text-text-primary mb-3 leading-[1.8]">
-              名額有限，每月僅接 3 位深度合作客戶
+          {/* CTA Section — bold with big number */}
+          <section className="animate-fade-up mb-12 rounded-xl bg-accent/10 border border-accent/30 p-6 text-center">
+            <p className="text-xs text-text-secondary/60 mb-1 tracking-wide">名額有限</p>
+            <p className="mb-3">
+              <span className="text-5xl font-black text-accent leading-none">3</span>
+              <span className="text-sm text-text-primary ml-2">位/月 深度合作客戶</span>
             </p>
             <Link
               href="https://lin.ee/htTdJSH"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block w-full rounded-full border-2 border-accent bg-transparent py-3.5 text-center text-sm font-semibold text-accent tracking-wider transition-colors duration-200 hover:bg-accent hover:text-bg-primary"
+              className="inline-block w-full rounded-full bg-accent py-3.5 text-center text-sm font-semibold text-bg-primary tracking-wider transition-opacity duration-200 hover:opacity-90"
             >
               立即透過 LINE 諮詢
             </Link>
@@ -320,26 +340,25 @@ export default function ShortVideoContent({
             ]}
           />
 
-          {/* Service Highlights */}
-          <section className="animate-fade-up mb-12">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
+          {/* Service Highlights — bold numbers */}
+          <section className="animate-fade-up mb-16">
+            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-8">
               核心優勢
             </h2>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-8">
               {serviceHighlights.map((item) => (
-                <div
-                  key={item.number}
-                  className="border-b border-divider pb-5 last:border-b-0"
-                >
-                  <span className="text-2xl font-bold text-accent tracking-wider">
+                <div key={item.number} className="relative">
+                  <span className="text-5xl font-black text-accent/15 absolute -top-2 -left-1 leading-none select-none">
                     {item.number}
                   </span>
-                  <h3 className="text-sm font-bold text-text-primary mt-2 mb-1">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-text-secondary leading-[1.8]">
-                    {item.desc}
-                  </p>
+                  <div className="pl-12">
+                    <h3 className="text-base font-bold text-text-primary mb-1">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-text-secondary leading-[1.8]">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -353,24 +372,21 @@ export default function ShortVideoContent({
             <div className="relative flex flex-col">
               {timelineSteps.map((step, i) => (
                 <div key={step.number} className="relative flex gap-4 pb-8 last:pb-0">
-                  {/* Vertical line */}
                   {i < timelineSteps.length - 1 && (
                     <div className="absolute left-4 top-8 bottom-0 border-l-2 border-accent/30" />
                   )}
-                  {/* Number circle */}
                   <div className="relative z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent text-bg-primary text-xs font-bold">
                     {step.number}
                   </div>
-                  {/* Content card */}
-                  <div className="flex-1 bg-bg-surface border border-divider rounded-xl p-4">
+                  <div className="flex-1">
                     <h3 className="text-sm font-bold text-text-primary mb-1">
                       {step.title}
                     </h3>
-                    <p className="text-sm text-text-secondary leading-[1.8] mb-2">
+                    <p className="text-sm text-text-secondary leading-[1.8] mb-1">
                       {step.desc}
                     </p>
                     <p className="text-xs text-accent leading-[1.6]">
-                      &rarr; {step.result}
+                      → {step.result}
                     </p>
                   </div>
                 </div>
@@ -386,7 +402,7 @@ export default function ShortVideoContent({
             items={adComparisonItems}
           />
 
-          {/* Ad Features - 可投放數據 */}
+          {/* Ad Features — compact grid */}
           <section className="animate-fade-up mb-12">
             <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
               可投放數據
@@ -419,14 +435,14 @@ export default function ShortVideoContent({
             <p className="font-[family-name:var(--font-noto-serif-tc)] text-base font-bold text-text-primary leading-[1.8] mb-6">
               廣告投放不需要豪賭，只需要專業的引路人
             </p>
-            <a
-              href="https://line.me/ti/p/"
+            <Link
+              href="https://lin.ee/htTdJSH"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block w-full rounded-full border-2 border-accent bg-transparent py-3.5 text-center text-sm font-semibold text-accent tracking-wider transition-colors duration-200 hover:bg-accent hover:text-bg-primary"
+              className="inline-block w-full rounded-full bg-accent py-3.5 text-center text-sm font-semibold text-bg-primary tracking-wider transition-opacity duration-200 hover:opacity-90"
             >
               預約免費廣告診斷
-            </a>
+            </Link>
           </section>
         </>
       )}
