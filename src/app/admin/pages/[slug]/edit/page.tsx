@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, use, useMemo } from "react";
+import { useState, useEffect, use, useMemo, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 interface Section {
@@ -258,6 +258,111 @@ function LivePreview({
   );
 }
 
+/* ── Hero Image Upload with WebP conversion ── */
+
+function HeroImageUpload({
+  currentUrl,
+  onUploaded,
+}: {
+  currentUrl: string;
+  onUploaded: (url: string) => void;
+}) {
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState("");
+
+  const convertToWebP = useCallback(async (file: File): Promise<Blob> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return reject(new Error("Canvas not supported"));
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob(
+          (blob) => {
+            if (blob) resolve(blob);
+            else reject(new Error("WebP conversion failed"));
+          },
+          "image/webp",
+          0.85
+        );
+      };
+      img.onerror = () => reject(new Error("Image load failed"));
+      img.src = URL.createObjectURL(file);
+    });
+  }, []);
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setProgress("轉換為 WebP 中...");
+
+    try {
+      const webpBlob = await convertToWebP(file);
+      const baseName = file.name.replace(/\.[^.]+$/, "");
+      const webpFile = new File([webpBlob], `${baseName}.webp`, { type: "image/webp" });
+
+      setProgress("上傳中...");
+      const formData = new FormData();
+      formData.append("file", webpFile);
+      formData.append("folder", "hero");
+      formData.append("alt", "Hero Image");
+
+      const res = await fetch("/api/admin/media/upload", { method: "POST", body: formData });
+      if (res.ok) {
+        const media = await res.json();
+        onUploaded(media.url);
+        setProgress("上傳完成！");
+      } else {
+        setProgress("上傳失敗");
+      }
+    } catch {
+      setProgress("轉換或上傳失敗");
+    }
+
+    setUploading(false);
+    if (fileRef.current) fileRef.current.value = "";
+  };
+
+  return (
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-1">Hero 圖片</label>
+      <div className="flex items-start gap-4">
+        {currentUrl && (
+          <div className="w-32 h-20 rounded-lg overflow-hidden border border-gray-200 flex-shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={currentUrl} alt="Hero preview" className="w-full h-full object-cover" />
+          </div>
+        )}
+        <div className="flex flex-col gap-2">
+          <input ref={fileRef} type="file" accept="image/*" onChange={handleUpload} className="hidden" />
+          <button
+            type="button"
+            onClick={() => fileRef.current?.click()}
+            disabled={uploading}
+            className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors disabled:opacity-50"
+          >
+            {uploading ? progress : currentUrl ? "更換圖片" : "上傳圖片"}
+          </button>
+          <p className="text-xs text-gray-400">
+            上傳後自動轉換為 WebP 格式
+          </p>
+          {currentUrl && !uploading && (
+            <p className="text-xs text-green-600 truncate max-w-[200px]" title={currentUrl}>
+              {currentUrl.split("/").pop()}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ── Main Component ── */
 
 export default function EditPage({
@@ -372,19 +477,10 @@ export default function EditPage({
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Hero 圖片 URL
-              </label>
-              <input
-                value={page.heroImage || ""}
-                onChange={(e) =>
-                  setPage({ ...page, heroImage: e.target.value })
-                }
-                className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500"
-                placeholder="https://your-bucket-domain/..."
-              />
-            </div>
+            <HeroImageUpload
+              currentUrl={page.heroImage || ""}
+              onUploaded={(url) => setPage({ ...page, heroImage: url })}
+            />
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
