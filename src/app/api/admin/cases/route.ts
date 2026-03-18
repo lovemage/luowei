@@ -1,18 +1,19 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { createCasesClient } from "@/lib/prisma-cases";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const cases = await prisma.case.findMany({
-    orderBy: { order: "asc" },
-  });
+  const db = createCasesClient();
+  const cases = await db.case.findMany({ orderBy: { order: "asc" } });
+  await db.$disconnect();
   return NextResponse.json(cases);
 }
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const newCase = await prisma.case.create({
+  const db = createCasesClient();
+  const newCase = await db.case.create({
     data: {
       slug: body.slug,
       name: body.name,
@@ -25,5 +26,6 @@ export async function POST(request: Request) {
       visible: body.visible ?? true,
     },
   });
+  await db.$disconnect();
   return NextResponse.json(newCase, { status: 201 });
 }

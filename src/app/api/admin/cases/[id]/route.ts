@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { createCasesClient } from "@/lib/prisma-cases";
 
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const found = await prisma.case.findUnique({ where: { id: Number(id) } });
+  const db = createCasesClient();
+  const found = await db.case.findUnique({ where: { id: Number(id) } });
+  await db.$disconnect();
   if (!found) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
@@ -19,7 +21,8 @@ export async function PUT(
 ) {
   const { id } = await params;
   const body = await request.json();
-  const updated = await prisma.case.update({
+  const db = createCasesClient();
+  const updated = await db.case.update({
     where: { id: Number(id) },
     data: {
       slug: body.slug,
@@ -33,6 +36,7 @@ export async function PUT(
       visible: body.visible,
     },
   });
+  await db.$disconnect();
   return NextResponse.json(updated);
 }
 
@@ -41,6 +45,8 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  await prisma.case.delete({ where: { id: Number(id) } });
+  const db = createCasesClient();
+  await db.case.delete({ where: { id: Number(id) } });
+  await db.$disconnect();
   return NextResponse.json({ success: true });
 }
