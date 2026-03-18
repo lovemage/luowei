@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Noto_Serif_TC, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import FloatingButtons from "@/components/FloatingButtons";
+import AnnouncementBar from "@/components/AnnouncementBar";
 
 const notoSerifTC = Noto_Serif_TC({
   subsets: ["latin"],
@@ -38,6 +39,7 @@ export default function RootLayout({
     <html lang="zh-Hant" className={`${notoSerifTC.variable} ${cormorantGaramond.variable}`}>
       <body>
         <div className="relative z-10 mx-auto max-w-[430px] min-h-dvh">
+          <AnnouncementBar />
           {children}
         </div>
         <FloatingButtons />

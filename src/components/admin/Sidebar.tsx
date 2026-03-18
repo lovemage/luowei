@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const navItems = [
+  { label: "公告管理", href: "/admin/announcements" },
   { label: "頁面管理", href: "/admin/pages" },
   { label: "FAQ 管理", href: "/admin/faqs" },
   { label: "報名資料", href: "/admin/registrations" },
