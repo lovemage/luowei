@@ -49,6 +49,14 @@ model Media {
   createdAt DateTime @default(now())
 }
 
+model SiteSettings {
+  id                String   @id @default("singleton")
+  adminEmail        String?
+  footerText        String?
+  adminPasswordHash String?
+  updatedAt         DateTime @updatedAt
+}
+
 model Case {
   id        Int      @id @default(autoincrement())
   slug      String   @unique
