@@ -21,6 +21,10 @@ const cormorantGaramond = Cormorant_Garamond({
 export const metadata: Metadata = {
   title: "LUOWEI MEDIA",
   description: "無限進步 | 個人成長",
+  icons: {
+    icon: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
 };
 
 export const viewport: Viewport = {
