@@ -9,6 +9,7 @@ const navItems = [
   { label: "FAQ 管理", href: "/admin/faqs" },
   { label: "報名資料", href: "/admin/registrations" },
   { label: "圖片庫", href: "/admin/media" },
+  { label: "案例管理", href: "/admin/cases" },
 ];
 
 export default function Sidebar() {
