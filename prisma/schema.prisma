@@ -48,3 +48,18 @@ model Media {
   folder    String?
   createdAt DateTime @default(now())
 }
+
+model Case {
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique
+  name      String
+  avatarUrl String
+  category  String
+  title     String
+  bio       String
+  stats     Json     @default("{}")
+  order     Int      @default(0)
+  visible   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
