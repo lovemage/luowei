@@ -67,13 +67,9 @@ function getClient(config: BucketConfig): S3Client {
   });
 }
 
-function getPublicUrl(config: BucketConfig, key: string): string {
+function getPublicUrl(_config: BucketConfig, key: string): string {
   const encodedKey = encodeObjectKey(key);
-  if (config.publicBaseUrl) {
-    return `${config.publicBaseUrl.replace(/\/$/, "")}/${encodedKey}`;
-  }
-
-  return `${config.endpoint.replace(/\/$/, "")}/${config.bucket}/${encodedKey}`;
+  return `/api/media/${encodedKey}`;
 }
 
 export function createObjectKey(folder: string, filename: string): string {
