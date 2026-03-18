@@ -4,12 +4,11 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const navItems = [
-  { label: "Dashboard", href: "/admin" },
   { label: "頁面管理", href: "/admin/pages" },
   { label: "FAQ 管理", href: "/admin/faqs" },
   { label: "報名資料", href: "/admin/registrations" },
-  { label: "圖片庫", href: "/admin/media" },
   { label: "案例管理", href: "/admin/cases" },
+  { label: "懸浮按鈕", href: "/admin/floating-buttons" },
 ];
 
 export default function Sidebar() {
