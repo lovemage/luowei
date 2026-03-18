@@ -11,6 +11,7 @@ const navItems = [
   { label: "案例管理", href: "/admin/cases" },
   { label: "懸浮按鈕", href: "/admin/floating-buttons" },
   { label: "報名表單", href: "/admin/registration-form" },
+  { label: "網站設定", href: "/admin/settings" },
 ];
 
 export default function Sidebar() {
