@@ -4,11 +4,11 @@ import VideoBackground from "@/components/VideoBackground";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 
-const navItems: { label: string; href: string; external?: boolean }[] = [
-  { label: "短影音與廣告服務", href: "/short-video" },
+const navItems: { label: string; href: string; external?: boolean; tag?: string }[] = [
+  { label: "短影音與廣告服務", href: "/short-video", tag: "企業專屬" },
   { label: "素人代操與課程案例", href: "/cases" },
-  { label: "短影音影響力變現課程", href: "/course" },
-  { label: "AI 影響力變現課程", href: "/ai-course" },
+  { label: "短影音影響力變現課程", href: "/course", tag: "素人提升" },
+  { label: "AI 影響力變現課程", href: "/ai-course", tag: "2026 最佳大會" },
   { label: "下班後第二收入計劃", href: "https://docs.google.com/forms/d/1aH9-xjN6od9ZK0Dbh4bAQRvceafI8FkNFBx4xsgic4g/viewform?edit_requested=true", external: true },
 ];
 
@@ -57,37 +57,52 @@ export default function Home() {
           style={{ animationDelay: "300ms" }}
         >
           {navItems.map((item, i) => {
+            const externalProps = item.external ? { target: "_blank" as const, rel: "noopener noreferrer" } : {};
+
+            // Primary filled button
             if (i === 0) {
               return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="animate-fade-up flex items-center justify-center w-[300px] h-12 rounded-full bg-accent text-sm tracking-[0.15em] text-bg-primary font-semibold transition-all duration-300 hover:brightness-110 active:scale-[0.98]"
-                  style={{ animationDelay: `${350 + i * 80}ms` }}
-                >
-                  {item.label}
-                </Link>
+                <div key={item.href} className="animate-fade-up relative" style={{ animationDelay: `${350 + i * 80}ms` }}>
+                  {item.tag && (
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-accent text-bg-primary text-[10px] font-bold px-2.5 py-0.5 rounded-full tracking-wider z-10">
+                      {item.tag}
+                    </span>
+                  )}
+                  <Link
+                    href={item.href}
+                    {...externalProps}
+                    className="flex items-center justify-center w-[300px] h-12 rounded-full bg-accent text-sm tracking-[0.15em] text-bg-primary font-semibold transition-all duration-300 hover:brightness-110 active:scale-[0.98]"
+                  >
+                    {item.label}
+                  </Link>
+                </div>
               );
             }
+            // Outline buttons
             if (i >= 1 && i <= 3) {
               return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="animate-fade-up flex items-center justify-center w-[300px] h-12 rounded-full border-2 border-accent text-sm tracking-[0.15em] text-accent transition-all duration-300 hover:bg-accent hover:text-bg-primary active:scale-[0.98]"
-                  style={{ animationDelay: `${350 + i * 80}ms` }}
-                >
-                  {item.label}
-                </Link>
+                <div key={item.href} className="animate-fade-up relative" style={{ animationDelay: `${350 + i * 80}ms` }}>
+                  {item.tag && (
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-bg-surface text-accent text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-accent/30 tracking-wider z-10">
+                      {item.tag}
+                    </span>
+                  )}
+                  <Link
+                    href={item.href}
+                    {...externalProps}
+                    className="flex items-center justify-center w-[300px] h-12 rounded-full border-2 border-accent text-sm tracking-[0.15em] text-accent transition-all duration-300 hover:bg-accent hover:text-bg-primary active:scale-[0.98]"
+                  >
+                    {item.label}
+                  </Link>
+                </div>
               );
             }
+            // Text link
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                {...externalProps}
                 className="animate-fade-up text-sm text-text-secondary underline decoration-accent/40 hover:text-accent transition-colors"
                 style={{ animationDelay: `${350 + i * 80}ms` }}
               >
