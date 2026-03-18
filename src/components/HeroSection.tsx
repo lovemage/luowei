@@ -7,15 +7,17 @@ interface HeroSectionProps {
   subtitle?: string;
   imageUrl?: string;
   imageUrls?: string[];
+  borderless?: boolean;
 }
 
-const MAX_IMAGES = 2;
+const MAX_IMAGES = 3;
 
 export default function HeroSection({
   title,
   subtitle,
   imageUrl,
   imageUrls,
+  borderless,
 }: HeroSectionProps) {
   const images = useMemo(() => {
     const list = imageUrls?.length ? imageUrls : imageUrl ? [imageUrl] : [];
@@ -66,7 +68,7 @@ export default function HeroSection({
     : null;
 
   return (
-    <section className="animate-fade-up mb-12 overflow-hidden rounded-2xl border border-divider bg-bg-surface">
+    <section className={`animate-fade-up mb-12 overflow-hidden rounded-2xl ${borderless ? "" : "border border-divider bg-bg-surface"}`}>
       {currentImageUrl && (
         <div className="relative h-48 w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}

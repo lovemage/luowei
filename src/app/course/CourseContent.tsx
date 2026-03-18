@@ -172,6 +172,12 @@ export default function CourseContent({ faqs }: CourseContentProps) {
       <HeroSection
         title="短影音影響力變現課程"
         subtitle="每個素人都能做 IP，只需要肯學習"
+        imageUrls={[
+          "/pics/S__4505725_0.webp",
+          "/pics/S__4505720_0.webp",
+          "/pics/S__4505717_0.webp",
+        ]}
+        borderless
       />
 
       {/* Tab Switcher */}
