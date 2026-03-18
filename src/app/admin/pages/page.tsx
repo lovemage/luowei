@@ -3,10 +3,12 @@ import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
+const SYSTEM_SLUGS = ["announcements", "registration-form", "floating-buttons"];
+
 export default async function AdminPages() {
-  const pages = await prisma.page.findMany({
+  const pages = (await prisma.page.findMany({
     orderBy: { updatedAt: "desc" },
-  });
+  })).filter((p) => !SYSTEM_SLUGS.includes(p.slug));
 
   return (
     <div>

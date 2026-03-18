@@ -5,12 +5,16 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   const page = await prisma.page.findUnique({ where: { slug: "announcements" } });
-  if (!page) return NextResponse.json([]);
+  if (!page) return NextResponse.json({ enabled: true, effect: "right-to-left", items: [] });
   try {
-    const announcements = typeof page.sections === "string" ? JSON.parse(page.sections) : page.sections;
-    return NextResponse.json(Array.isArray(announcements) ? announcements : []);
+    const raw = typeof page.sections === "string" ? JSON.parse(page.sections) : page.sections;
+    // Support old array format -> convert to new config
+    if (Array.isArray(raw)) {
+      return NextResponse.json({ enabled: true, effect: "right-to-left", items: raw });
+    }
+    return NextResponse.json(raw);
   } catch {
-    return NextResponse.json([]);
+    return NextResponse.json({ enabled: true, effect: "right-to-left", items: [] });
   }
 }
 
