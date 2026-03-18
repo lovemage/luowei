@@ -282,15 +282,132 @@ export default function ShortVideoContent({
             </div>
           </section>
 
+          {/* ── Pricing Plans ── */}
+          <section className="animate-fade-up mb-16">
+            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-2">
+              方案選擇
+            </h2>
+            <p className="text-xs text-text-secondary/60 mb-8">選擇最適合您的短影音代操方案</p>
+
+            {/* Plan 1: IP 保證流量方案 */}
+            <div className="mb-6">
+              <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-4">保證流量 · 老闆 IP 方案</p>
+
+              {/* 菁英版 */}
+              <div className="border-l-2 border-divider pl-5 py-4 mb-6">
+                <h3 className="text-sm font-bold text-text-primary mb-1">菁英 IP 啟航版</h3>
+                <p className="text-xs text-text-secondary/60 mb-3">建立品牌權威門面</p>
+                <p className="mb-3">
+                  <span className="text-2xl font-black text-accent">$60,000</span>
+                  <span className="text-xs text-text-secondary/60 ml-1">/ 月</span>
+                </p>
+                <p className="text-[11px] text-text-secondary/50 mb-3">年度總價：$720,000（含稅）</p>
+                <ul className="flex flex-col gap-1">
+                  {["全網年度保底 600 萬次觀看", "每月 8 支短影音", "建立品牌權威門面", "精準打擊潛在受眾"].map((p) => (
+                    <li key={p} className="text-xs text-text-secondary leading-[1.8] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent/40 before:text-[10px]">{p}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* 霸主版 — MOST POPULAR */}
+              <div className="bg-accent/10 border border-accent/30 rounded-xl p-5 mb-6 relative">
+                <span className="absolute -top-3 left-4 bg-accent text-bg-primary text-[10px] font-bold px-3 py-1 rounded-full tracking-wider">MOST POPULAR</span>
+                <h3 className="text-base font-bold text-accent mt-2 mb-1">霸主 IP 領航版</h3>
+                <p className="text-xs text-text-secondary/60 mb-3">聲量全面覆蓋，壟斷市場視線</p>
+                <p className="mb-3">
+                  <span className="text-3xl font-black text-accent">$90,000</span>
+                  <span className="text-xs text-text-secondary/60 ml-1">/ 月</span>
+                </p>
+                <p className="text-[11px] text-text-secondary/50 mb-3">年度總價：$1,080,000（含稅）</p>
+                <ul className="flex flex-col gap-1">
+                  {[
+                    "年度保底 1,200 萬次觀看",
+                    "每月 12 支短影音",
+                    "精準廣告投放操盤",
+                    "爆款話題製造",
+                    "人設深度刻畫",
+                    "聲量全面覆蓋目標市場",
+                    "專業投流策略，流量轉化為詢問單",
+                  ].map((p) => (
+                    <li key={p} className="text-xs text-text-secondary leading-[1.8] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent/40 before:text-[10px]">{p}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* 集團版 */}
+              <div className="border-l-2 border-accent pl-5 py-4 mb-6">
+                <h3 className="text-base font-bold text-text-primary mb-1">行業頂峰 集團版</h3>
+                <p className="text-xs text-text-secondary/60 mb-3">打造行業天花板級曝光量</p>
+                <p className="mb-3">
+                  <span className="text-3xl font-black text-accent">$216,000</span>
+                  <span className="text-xs text-text-secondary/60 ml-1">/ 月</span>
+                </p>
+                <p className="text-[11px] text-text-secondary/50 mb-3">年度總價：$2,600,000（含稅）</p>
+                <ul className="flex flex-col gap-1">
+                  {[
+                    "年度保底 3,000 萬次觀看",
+                    "每月 20 支短影音",
+                    "專業 IP 定位、爆款腳本建模",
+                    "每月三日專業拍攝",
+                    "矩陣式鋪量策略",
+                    "全網熱點捕捉、最高規格流量監控",
+                    "商業閉環變現建議",
+                    "行業領袖地位打造",
+                    "未達標全額退費保證",
+                  ].map((p) => (
+                    <li key={p} className="text-xs text-text-secondary leading-[1.8] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent/40 before:text-[10px]">{p}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Plan 2: 對賭企業方案 */}
+            <div className="bg-bg-surface border border-divider rounded-xl p-5 mb-6">
+              <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">對賭企業方案</p>
+              <h3 className="text-base font-bold text-text-primary mb-2">PTT 共擔合作模式</h3>
+              <p className="text-sm text-text-secondary leading-[1.8] mb-4">
+                總預算由羅威與企業各出一半（成本價計算），同一條船上共同經營。一年內打造 IP，依據財務報表淨利 20-30% 分潤，一年後自動續約。
+              </p>
+              <div className="border-t border-divider pt-4">
+                <p className="text-xs text-text-secondary/70 leading-[1.8]">
+                  需先審核後試拍 → 簽約 → 價格為總預算的 50%（依本公司評估所有成本細項後雙方討論）
+                </p>
+              </div>
+            </div>
+
+            {/* Plan 3: 體驗版 */}
+            <div className="border-l-2 border-divider pl-5 py-4">
+              <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">體驗版</p>
+              <h3 className="text-sm font-bold text-text-primary mb-1">六六大順方案</h3>
+              <p className="text-xs text-text-secondary/60 mb-3">先體驗，再決定</p>
+              <div className="flex items-baseline gap-2 mb-2">
+                <span className="text-2xl font-black text-accent">6</span>
+                <span className="text-sm text-text-secondary">支影片</span>
+                <span className="text-text-secondary/30 mx-1">·</span>
+                <span className="text-lg font-bold text-accent">$12,000</span>
+                <span className="text-xs text-text-secondary/60">/ 支</span>
+              </div>
+              <p className="text-[11px] text-text-secondary/50">
+                總計 $72,000 · 適合想先試水溫的企業主
+              </p>
+            </div>
+          </section>
+
           {/* FAQ */}
           <FAQAccordion title="常見問題" items={videoFaqs} />
 
           {/* Registration Form */}
           <RegistrationForm
-            courseOptions={["品牌啟航方案", "流量爆發方案", "行業壟斷方案"]}
+            courseOptions={[
+              "菁英 IP 啟航版（$60,000/月）",
+              "霸主 IP 領航版（$90,000/月）",
+              "行業頂峰 集團版（$216,000/月）",
+              "對賭企業方案（PTT）",
+              "六六大順體驗版（$72,000）",
+            ]}
           />
 
-          {/* CTA Section — bold with big number */}
+          {/* CTA Section */}
           <section className="animate-fade-up mb-12 rounded-xl bg-accent/10 border border-accent/30 p-6 text-center">
             <p className="text-xs text-text-secondary/60 mb-1 tracking-wide">名額有限</p>
             <p className="mb-3">
