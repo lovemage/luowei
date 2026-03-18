@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect, use, useMemo } from "react";
 import { useRouter } from "next/navigation";
 
 interface Section {
@@ -30,7 +30,241 @@ function parseSections(raw: string | Section[] | undefined): Section[] {
   }
 }
 
-export default function EditPage({ params }: { params: Promise<{ slug: string }> }) {
+/* ── Preview renderer ── */
+
+function PreviewSection({ section }: { section: Section }) {
+  const { key, label, content } = section;
+
+  // Title-style keys
+  const isTitleKey =
+    key.includes("Title") ||
+    key.includes("TabLabel") ||
+    key === "heroSubtitle" ||
+    key === "heroExtra";
+
+  // Pricing keys
+  const isPricing = key.includes("Pricing") || key === "price";
+
+  // CTA keys
+  const isCta = key.includes("Cta") || key.includes("cta");
+
+  // Structured data with | separators
+  const isStructured = content.includes("|") && content.includes("\n");
+
+  // Multi-line list
+  const isMultiLine = content.includes("\n") && !isStructured;
+
+  if (key === "heroTitle") {
+    return (
+      <div className="text-center mb-4">
+        <h1
+          className="text-lg font-bold leading-snug"
+          style={{ color: "#E2C191", fontFamily: "serif" }}
+        >
+          {content.split("\n").map((line, i) => (
+            <span key={i}>
+              {i > 0 && <br />}
+              {line}
+            </span>
+          ))}
+        </h1>
+      </div>
+    );
+  }
+
+  if (key === "heroSubtitle") {
+    return (
+      <div className="text-center mb-4">
+        <p className="text-xs tracking-widest" style={{ color: "#999" }}>
+          {content}
+        </p>
+      </div>
+    );
+  }
+
+  if (key === "heroExtra") {
+    return (
+      <div className="text-center mb-6">
+        <p className="text-xs" style={{ color: "#888" }}>
+          {content}
+        </p>
+      </div>
+    );
+  }
+
+  if (isTitleKey) {
+    return (
+      <div className="mb-3">
+        <h2
+          className="text-sm font-bold"
+          style={{ color: "#E2C191", fontFamily: "serif" }}
+        >
+          {content}
+        </h2>
+      </div>
+    );
+  }
+
+  if (isPricing) {
+    const lines = content.split("\n");
+    return (
+      <div
+        className="rounded-lg p-4 text-center mb-4"
+        style={{ background: "#0D0D0D", border: "1px solid #2A2218" }}
+      >
+        {lines.map((line, i) => {
+          const isOriginal = line.includes("原價");
+          return (
+            <p
+              key={i}
+              className={`text-sm ${isOriginal ? "line-through mb-1" : "font-bold text-base"}`}
+              style={{ color: isOriginal ? "#888" : "#E2C191" }}
+            >
+              {line}
+            </p>
+          );
+        })}
+      </div>
+    );
+  }
+
+  if (isCta) {
+    const isButton = key.includes("Button");
+    if (isButton) {
+      return (
+        <div className="mb-4">
+          <div
+            className="rounded-full py-2 text-center text-xs font-semibold tracking-wider"
+            style={{
+              border: "2px solid #E2C191",
+              color: "#E2C191",
+            }}
+          >
+            {content}
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div className="text-center mb-2">
+        <p className="text-xs font-bold" style={{ color: "#ccc" }}>
+          {content}
+        </p>
+      </div>
+    );
+  }
+
+  if (isStructured) {
+    const lines = content.split("\n").filter(Boolean);
+    return (
+      <div className="mb-4">
+        <p
+          className="text-[10px] mb-2 tracking-wide"
+          style={{ color: "#888" }}
+        >
+          {label}
+        </p>
+        <div className="flex flex-col gap-2">
+          {lines.map((line, i) => {
+            const parts = line.split("|");
+            return (
+              <div
+                key={i}
+                className="rounded-lg p-3"
+                style={{ background: "#0D0D0D", border: "1px solid #2A2218" }}
+              >
+                {parts.length >= 3 && (
+                  <span
+                    className="text-[10px] font-bold tracking-wider"
+                    style={{ color: "#E2C191" }}
+                  >
+                    {parts[0]}
+                  </span>
+                )}
+                <p className="text-xs font-bold mt-0.5" style={{ color: "#eee" }}>
+                  {parts.length >= 3 ? parts[1] : parts[0]}
+                </p>
+                {parts.length >= 3 && (
+                  <p className="text-[10px] mt-0.5" style={{ color: "#999" }}>
+                    {parts[2]}
+                  </p>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  if (isMultiLine) {
+    const lines = content.split("\n").filter(Boolean);
+    return (
+      <div className="mb-4">
+        <div className="flex flex-col gap-1.5">
+          {lines.map((line, i) => (
+            <div
+              key={i}
+              className="rounded-lg p-3"
+              style={{ background: "#0D0D0D", border: "1px solid #2A2218" }}
+            >
+              <p className="text-[11px] leading-relaxed" style={{ color: "#ccc" }}>
+                {line}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // Default: plain text
+  return (
+    <div className="mb-3">
+      <p className="text-[11px] leading-relaxed" style={{ color: "#ccc" }}>
+        {content}
+      </p>
+    </div>
+  );
+}
+
+function LivePreview({
+  sections,
+  title,
+}: {
+  sections: Section[];
+  title: string;
+}) {
+  return (
+    <div className="space-y-1">
+      {/* Page title badge */}
+      <div className="text-center mb-4">
+        <span
+          className="inline-block text-[10px] tracking-widest px-3 py-1 rounded-full"
+          style={{
+            color: "#E2C191",
+            border: "1px solid #2A2218",
+            background: "#0D0D0D",
+          }}
+        >
+          {title}
+        </span>
+      </div>
+
+      {sections.map((section) => (
+        <PreviewSection key={section.key} section={section} />
+      ))}
+    </div>
+  );
+}
+
+/* ── Main Component ── */
+
+export default function EditPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = use(params);
   const router = useRouter();
   const [page, setPage] = useState<PageData | null>(null);
@@ -76,119 +310,198 @@ export default function EditPage({ params }: { params: Promise<{ slug: string }>
     }
   }
 
+  // Memoize preview to avoid unnecessary re-renders
+  const previewContent = useMemo(
+    () =>
+      page ? (
+        <LivePreview sections={sections} title={page.title} />
+      ) : null,
+    [sections, page]
+  );
+
   if (!page) return <div className="text-gray-500 p-8">載入中...</div>;
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">編輯頁面: {page.slug}</h1>
-        <button
-          onClick={() => router.back()}
-          className="text-sm text-gray-500 hover:text-gray-700"
-        >
-          返回
-        </button>
-      </div>
+    <div className="flex flex-col xl:flex-row gap-6">
+      {/* ── Left: Editor ── */}
+      <div className="flex-1 max-w-2xl">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-bold text-gray-900">
+            編輯頁面: {page.slug}
+          </h1>
+          <button
+            onClick={() => router.back()}
+            className="text-sm text-gray-500 hover:text-gray-700"
+          >
+            返回
+          </button>
+        </div>
 
-      {/* 基本設定 */}
-      <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">基本設定</h2>
-        <div className="space-y-4 max-w-2xl">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">頁面標題</label>
-            <input
-              value={page.title}
-              onChange={(e) => setPage({ ...page, title: e.target.value })}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500"
-            />
-          </div>
+        {/* 儲存按鈕（頂部） */}
+        <div className="flex items-center gap-4 mb-6">
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+          >
+            {saving ? "儲存中..." : "儲存"}
+          </button>
+          {message && (
+            <span
+              className={`text-sm ${message.includes("成功") ? "text-green-600" : "text-red-600"}`}
+            >
+              {message}
+            </span>
+          )}
+        </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Hero 圖片 URL</label>
-            <input
-              value={page.heroImage || ""}
-              onChange={(e) => setPage({ ...page, heroImage: e.target.value })}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500"
-              placeholder="https://your-bucket-domain/..."
-            />
-          </div>
+        {/* 基本設定 */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            基本設定
+          </h2>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                頁面標題
+              </label>
+              <input
+                value={page.title}
+                onChange={(e) => setPage({ ...page, title: e.target.value })}
+                className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500"
+              />
+            </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">SEO 標題</label>
-            <input
-              value={page.metaTitle || ""}
-              onChange={(e) => setPage({ ...page, metaTitle: e.target.value })}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500"
-            />
-          </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Hero 圖片 URL
+              </label>
+              <input
+                value={page.heroImage || ""}
+                onChange={(e) =>
+                  setPage({ ...page, heroImage: e.target.value })
+                }
+                className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500"
+                placeholder="https://your-bucket-domain/..."
+              />
+            </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">SEO 描述</label>
-            <textarea
-              value={page.metaDesc || ""}
-              onChange={(e) => setPage({ ...page, metaDesc: e.target.value })}
-              rows={2}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 resize-none"
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                SEO 標題
+              </label>
+              <input
+                value={page.metaTitle || ""}
+                onChange={(e) =>
+                  setPage({ ...page, metaTitle: e.target.value })
+                }
+                className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                SEO 描述
+              </label>
+              <textarea
+                value={page.metaDesc || ""}
+                onChange={(e) =>
+                  setPage({ ...page, metaDesc: e.target.value })
+                }
+                rows={2}
+                className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 resize-none"
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* 頁面內容 */}
-      <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">頁面內容</h2>
+        {/* 頁面內容 */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            頁面內容
+          </h2>
 
-        {sections.length === 0 ? (
-          <p className="text-sm text-gray-500">此頁面尚未設定可編輯內容</p>
-        ) : (
-          <div className="space-y-4 max-w-2xl">
-            {sections.map((section, index) => (
-              <div
-                key={section.key || index}
-                className="border border-gray-200 rounded-lg p-4"
-              >
-                <span className="inline-block text-xs font-medium text-gray-500 bg-gray-100 rounded px-2 py-0.5 mb-3">
-                  {section.label || section.key}
-                </span>
-                <div className="space-y-3">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">標題</label>
-                    <input
-                      value={section.label}
-                      onChange={(e) => updateSection(index, "label", e.target.value)}
-                      className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500"
-                    />
+          {sections.length === 0 ? (
+            <p className="text-sm text-gray-500">此頁面尚未設定可編輯內容</p>
+          ) : (
+            <div className="space-y-4">
+              {sections.map((section, index) => (
+                <div
+                  key={section.key || index}
+                  className="border border-gray-200 rounded-lg p-4"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="inline-block text-xs font-medium text-gray-500 bg-gray-100 rounded px-2 py-0.5">
+                      {section.key}
+                    </span>
+                    <span className="text-xs text-gray-400">
+                      {section.label}
+                    </span>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">內容</label>
                     <textarea
                       value={section.content}
-                      onChange={(e) => updateSection(index, "content", e.target.value)}
-                      rows={5}
-                      className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 resize-y"
+                      onChange={(e) =>
+                        updateSection(index, "content", e.target.value)
+                      }
+                      rows={Math.min(
+                        Math.max(
+                          section.content.split("\n").length + 1,
+                          2
+                        ),
+                        12
+                      )}
+                      className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 bg-white focus:outline-none focus:border-blue-500 resize-y font-mono"
                     />
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* 儲存按鈕（底部） */}
+        <div className="flex items-center gap-4">
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+          >
+            {saving ? "儲存中..." : "儲存"}
+          </button>
+          {message && (
+            <span
+              className={`text-sm ${message.includes("成功") ? "text-green-600" : "text-red-600"}`}
+            >
+              {message}
+            </span>
+          )}
+        </div>
       </div>
 
-      {/* 儲存按鈕 */}
-      <div className="flex items-center gap-4">
-        <button
-          onClick={handleSave}
-          disabled={saving}
-          className="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
-        >
-          {saving ? "儲存中..." : "儲存"}
-        </button>
-        {message && (
-          <span className={`text-sm ${message.includes("成功") ? "text-green-600" : "text-red-600"}`}>
-            {message}
-          </span>
-        )}
+      {/* ── Right: Preview ── */}
+      <div className="flex-shrink-0">
+        <div className="sticky top-4">
+          <h3 className="text-sm font-semibold text-gray-700 mb-3">
+            即時預覽
+          </h3>
+          <div
+            className="w-[375px] h-[667px] rounded-3xl border-4 border-gray-300 overflow-hidden"
+            style={{ background: "#050505" }}
+          >
+            {/* Phone notch */}
+            <div className="flex justify-center pt-2 pb-1">
+              <div
+                className="w-24 h-5 rounded-full"
+                style={{ background: "#1a1a1a" }}
+              />
+            </div>
+            {/* Scrollable content */}
+            <div className="h-[calc(100%-2rem)] overflow-y-auto px-4 pb-6">
+              {previewContent}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
