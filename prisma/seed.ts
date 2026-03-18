@@ -12,6 +12,7 @@ async function main() {
     { slug: "short-video-ad", title: "短影音廣告投放" },
     { slug: "course", title: "短影音課程" },
     { slug: "cases", title: "成功案例" },
+    { slug: "ai-course", title: "AI 影像力變現課程" },
   ];
 
   for (const page of pages) {

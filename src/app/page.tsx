@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 const navItems = [
   { label: "短影音與廣告服務", href: "/short-video" },
   { label: "影響力變現課程", href: "/course" },
-  { label: "AI 影響力變現課程", href: "/ai-course", comingSoon: true },
+  { label: "AI 影響力變現課程", href: "/ai-course" },
   { label: "案例展示區", href: "/cases" },
 ];
 
@@ -50,11 +50,6 @@ export default function Home() {
               style={{ animationDelay: `${350 + i * 80}ms` }}
             >
               {item.label}
-              {item.comingSoon && (
-                <span className="ml-2 text-xs opacity-50">
-                  (即將推出)
-                </span>
-              )}
             </Link>
           ))}
         </nav>
