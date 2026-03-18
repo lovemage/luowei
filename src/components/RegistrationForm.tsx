@@ -23,6 +23,7 @@ interface RegistrationFormProps {
   courseOptions?: string[];
   defaultCourse?: string;
   formConfig?: FormConfig;
+  pageSlug?: string;
 }
 
 const DEFAULT_FIELDS: FormField[] = [
@@ -42,7 +43,7 @@ const DEFAULT_CONFIG: FormConfig = {
   fields: DEFAULT_FIELDS,
 };
 
-export default function RegistrationForm({ courseOptions, defaultCourse, formConfig }: RegistrationFormProps) {
+export default function RegistrationForm({ courseOptions, defaultCourse, formConfig, pageSlug }: RegistrationFormProps) {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [config, setConfig] = useState<FormConfig>(formConfig || DEFAULT_CONFIG);
@@ -50,7 +51,10 @@ export default function RegistrationForm({ courseOptions, defaultCourse, formCon
 
   useEffect(() => {
     if (formConfig) return;
-    fetch("/api/registration-form")
+    const url = pageSlug
+      ? `/api/registration-form?page=${pageSlug}`
+      : "/api/registration-form";
+    fetch(url)
       .then((r) => r.json())
       .then((data: FormConfig) => {
         if (data && data.fields && data.fields.length > 0) {
@@ -59,7 +63,7 @@ export default function RegistrationForm({ courseOptions, defaultCourse, formCon
       })
       .catch(() => {})
       .finally(() => setLoaded(true));
-  }, [formConfig]);
+  }, [formConfig, pageSlug]);
 
   // If courseOptions prop is provided, inject them into the select field
   const fields = config.fields.map((field) => {

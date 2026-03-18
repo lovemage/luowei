@@ -29,7 +29,7 @@ export default function AnnouncementBar() {
   const fullText = config.items.map((a) => a.text).join("\u3000\u3000\u3000\u2605\u3000\u3000\u3000");
 
   return (
-    <div className="w-full bg-accent/10 border-b border-accent/20 overflow-hidden">
+    <div className="sticky top-0 z-50 w-full bg-accent/10 border-b border-accent/20 overflow-hidden backdrop-blur-sm">
       {config.effect === "right-to-left" && (
         <div className="animate-marquee flex w-max items-center py-2">
           <span className="text-xs text-accent tracking-wider whitespace-nowrap px-4">
