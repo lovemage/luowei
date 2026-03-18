@@ -89,18 +89,18 @@ const videoComparisonItems = [
 const serviceHighlights = [
   {
     number: "01",
-    title: "全平台策略佈局",
-    desc: "Meta (FB/IG)、Google、TikTok 之間建立最強流量閉環",
+    title: "TikTok 官方 ADS 系統",
+    desc: "官方認證二級代理商，直接對接平台資源，廣告效益最大化",
   },
   {
     number: "02",
-    title: "AI 驅動受眾精準定位",
-    desc: "比競爭對手更早挖掘高潛力「準客戶」",
+    title: "流量禮包 — 保證流量（台灣唯一）",
+    desc: "業界唯一保證流量方案，未達標全額退費，我們承擔風險",
   },
   {
     number: "03",
-    title: "文案與素材雙重夾擊",
-    desc: "前 3 秒留住用戶，直擊痛點引導轉換",
+    title: "實體傳媒公司操盤",
+    desc: "拒絕素人接案，由專業傳媒團隊全程操盤，數百位成功案例可驗證",
   },
 ];
 
@@ -133,10 +133,11 @@ const adComparisonItems = [
   { label: "成效", left: "不確定 ROAS", right: "目標導向，持續提升" },
 ];
 
-const dashboardMetrics = [
-  { label: "ROAS 目標", value: "5x+" },
-  { label: "月觸及人數", value: "100K+" },
-  { label: "轉換成本降低", value: "40%" },
+const adFeatures = [
+  { label: "點讚評論", desc: "快速累積社交證明，提升內容可信度" },
+  { label: "覆蓋式廣告", desc: "大面積曝光，讓品牌訊息無處不在" },
+  { label: "精準粉絲", desc: "鎖定目標受眾，獲取高質量追蹤者" },
+  { label: "播放量", desc: "可投放數據，保證影片觸及效果" },
 ];
 
 /* ── Component ── */
@@ -385,22 +386,22 @@ export default function ShortVideoContent({
             items={adComparisonItems}
           />
 
-          {/* Data Transparency - Dashboard Metrics */}
+          {/* Ad Features - 可投放數據 */}
           <section className="animate-fade-up mb-12">
             <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
-              數據透明，成效看得見
+              可投放數據
             </h2>
-            <div className="grid grid-cols-3 gap-3">
-              {dashboardMetrics.map((metric) => (
+            <div className="grid grid-cols-2 gap-3">
+              {adFeatures.map((feature) => (
                 <div
-                  key={metric.label}
+                  key={feature.label}
                   className="bg-bg-surface border border-divider rounded-xl p-4 text-center"
                 >
-                  <p className="text-xl font-bold text-accent mb-1">
-                    {metric.value}
+                  <p className="text-sm font-bold text-accent mb-1">
+                    {feature.label}
                   </p>
                   <p className="text-[11px] text-text-secondary leading-[1.6]">
-                    {metric.label}
+                    {feature.desc}
                   </p>
                 </div>
               ))}
@@ -411,7 +412,7 @@ export default function ShortVideoContent({
           <FAQAccordion title="常見問題" items={adFaqs} />
 
           {/* Registration Form */}
-          <RegistrationForm courseOptions={["廣告投放代操"]} />
+          <RegistrationForm courseOptions={["TikTok 廣告投放"]} />
 
           {/* CTA Section */}
           <section className="animate-fade-up mb-12 text-center">

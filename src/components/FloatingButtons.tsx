@@ -35,19 +35,26 @@ const instagramSvg = (
   </svg>
 );
 
+const groupSvg = (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+  </svg>
+);
+
 const defaultSocials: SocialItem[] = [
-  { href: "https://lin.ee/L8iPk8a", label: "LINE 課程", icon: lineSvg },
-  { href: "https://lin.ee/htTdJSH", label: "LINE 企業", icon: lineSvg },
+  { href: "https://lin.ee/L8iPk8a", label: "課程", icon: lineSvg },
+  { href: "https://lin.ee/htTdJSH", label: "企業服務", icon: lineSvg },
+  { href: "https://line.me/ti/g2/YFj_Hpwy78dJ7dg8A22-vDai5321_dw9MU-_SQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default", label: "成長朋友圈", icon: groupSvg },
   { href: "https://www.tiktok.com/@luoweimedia", label: "TikTok", icon: tiktokSvg },
   { href: "https://www.instagram.com/lowemedia_", label: "Instagram", icon: instagramSvg },
 ];
 
 function getDefaultIcon(label: string): ReactNode {
   const l = label.toLowerCase();
-  if (l.includes("line")) return lineSvg;
+  if (l.includes("line") || l.includes("課程") || l.includes("企業")) return lineSvg;
+  if (l.includes("朋友圈") || l.includes("group")) return groupSvg;
   if (l.includes("tiktok")) return tiktokSvg;
   if (l.includes("instagram") || l.includes("ig")) return instagramSvg;
-  // Generic link icon for unknown types
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5">
       <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101" />
@@ -55,16 +62,6 @@ function getDefaultIcon(label: string): ReactNode {
     </svg>
   );
 }
-
-// Expand in an upper-left arc so icons stay in viewport on small screens.
-const arcPositions = [
-  { x: 0, y: -78 },
-  { x: -40, y: -68 },
-  { x: -68, y: -40 },
-  { x: -78, y: 0 },
-  { x: -68, y: 40 },
-  { x: -40, y: 68 },
-];
 
 export default function FloatingButtons() {
   const [open, setOpen] = useState(false);
@@ -80,6 +77,7 @@ export default function FloatingButtons() {
               href: btn.href,
               label: btn.label,
               icon: btn.iconUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={btn.iconUrl}
                   alt={btn.label}
@@ -91,39 +89,46 @@ export default function FloatingButtons() {
             }))
           );
         }
-        // If empty or invalid, keep defaultSocials
       })
-      .catch(() => {
-        // Keep defaultSocials on error
-      });
+      .catch(() => {});
   }, []);
-
-  const positions = arcPositions.slice(0, socials.length);
 
   return (
     <div className="fixed bottom-6 right-4 z-50">
-      {/* Radial social buttons */}
-      {socials.map((s, i) => (
-        <Link
-          key={`${s.href}-${i}`}
-          href={s.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={s.label}
-          className="absolute flex h-11 w-11 items-center justify-center rounded-full bg-bg-surface text-accent border border-accent/40 shadow-lg transition-all duration-300 hover:bg-accent hover:text-bg-primary"
-          style={{
-            bottom: 0,
-            right: 0,
-            transform: open
-              ? `translate(${positions[i]?.x ?? 0}px, ${positions[i]?.y ?? 0}px) scale(1)`
-              : "translate(0, 0) scale(0)",
-            opacity: open ? 1 : 0,
-            transitionDelay: open ? `${i * 50}ms` : "0ms",
-          }}
-        >
-          {s.icon}
-        </Link>
-      ))}
+      {/* Vertically stacked social buttons */}
+      {socials.map((s, i) => {
+        const offset = (i + 1) * 56;
+        return (
+          <Link
+            key={`${s.href}-${i}`}
+            href={s.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={s.label}
+            className="absolute flex items-center gap-0 transition-all duration-300"
+            style={{
+              bottom: 0,
+              right: 0,
+              transform: open
+                ? `translateY(-${offset}px) scale(1)`
+                : "translateY(0) scale(0)",
+              opacity: open ? 1 : 0,
+              transitionDelay: open ? `${i * 40}ms` : "0ms",
+            }}
+          >
+            {/* Label */}
+            <span
+              className="whitespace-nowrap rounded-l-full bg-bg-surface border border-r-0 border-accent/40 px-3 py-2 text-[11px] font-medium text-accent shadow-lg"
+            >
+              {s.label}
+            </span>
+            {/* Icon circle */}
+            <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-bg-surface text-accent border border-accent/40 shadow-lg hover:bg-accent hover:text-bg-primary transition-colors">
+              {s.icon}
+            </span>
+          </Link>
+        );
+      })}
 
       {/* Toggle button */}
       <button
