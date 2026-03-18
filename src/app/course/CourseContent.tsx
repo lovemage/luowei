@@ -42,7 +42,8 @@ const painPoints = [
 
 const coreModules = [
   {
-    number: "核心一",
+    num: "01",
+    label: "核心一",
     title: "底層邏輯與演算法真相",
     points: [
       "不用精確到每一秒每一幀，掌握關鍵節奏就好",
@@ -51,7 +52,8 @@ const coreModules = [
     ],
   },
   {
-    number: "核心二",
+    num: "02",
+    label: "核心二",
     title: "流量密碼與腳本工程",
     points: [
       "成本思維 — 用最少資源產出最大效益",
@@ -60,7 +62,8 @@ const coreModules = [
     ],
   },
   {
-    number: "核心三",
+    num: "03",
+    label: "核心三",
     title: "基礎拍攝 · 剪輯 · 運營全方位實戰",
     points: [
       "一支手機就能打天下",
@@ -69,7 +72,8 @@ const coreModules = [
     ],
   },
   {
-    number: "核心四",
+    num: "04",
+    label: "核心四",
     title: "多元變現與終極護城河",
     points: [
       "直播信任變現、電商團購、業配代言",
@@ -88,36 +92,11 @@ const comparisonItems = [
   { label: "產出", left: "學會概念", right: "保證起號 + 影片庫存" },
 ];
 
-const trainingTimeline = [
-  {
-    number: "01",
-    title: "線下 3 天集訓",
-    desc: "專業場域 + 老師面對面指導，解決「不敢拍」「不會拍」的執行障礙",
-  },
-  {
-    number: "02",
-    title: "線上 18 天陪跑",
-    desc: "專業團隊全程盯進度，每天有老師陪、有場域練、有夥伴互督",
-  },
-];
-
 const graduationResults = [
-  {
-    title: "運作中的帳號",
-    desc: "具備人設定位、正常營運的自媒體帳號",
-  },
-  {
-    title: "12-24 支影片庫存",
-    desc: "可直接發布的高品質影片",
-  },
-  {
-    title: "全流程獨立能力",
-    desc: "選題到發布皆能獨立完成，不再依賴任何人",
-  },
-  {
-    title: "吸睛鉤子技術",
-    desc: "精通「前 3 秒不被滑掉」的開場技術",
-  },
+  { value: "1", unit: "個", title: "運作中的帳號", desc: "具備人設定位、正常營運" },
+  { value: "12-24", unit: "支", title: "影片庫存", desc: "可直接發布的高品質影片" },
+  { value: "100%", unit: "", title: "全流程獨立", desc: "選題到發布皆能獨立完成" },
+  { value: "3秒", unit: "", title: "吸睛鉤子技術", desc: "精通「前 3 秒不被滑掉」" },
 ];
 
 const courseFAQs = [
@@ -173,154 +152,158 @@ export default function CourseContent({ faqs }: CourseContentProps) {
         borderless
       />
 
-      <div>
-          {/* Why this course exists */}
-          <section className="animate-fade-up mb-12">
-            <div className="border-l-2 border-accent pl-6">
-              <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-base font-bold text-gold-shine mb-4">
-                為什麼我們開這堂課？
-              </h2>
-              <div className="flex flex-col gap-3 text-sm text-text-secondary leading-[1.8]">
-                <p>
-                  不是每個人都有預算請專業團隊代操自媒體。許多人想找我們服務，但我們心有餘而力不足，沒辦法服務到每一個人。
+      {/* Why this course exists */}
+      <section className="animate-fade-up mb-12">
+        <div className="border-l-2 border-accent pl-6">
+          <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-base font-bold text-gold-shine mb-4">
+            為什麼我們開這堂課？
+          </h2>
+          <div className="flex flex-col gap-3 text-sm text-text-secondary leading-[1.8]">
+            <p>
+              不是每個人都有預算請專業團隊代操自媒體。許多人想找我們服務，但我們心有餘而力不足，沒辦法服務到每一個人。
+            </p>
+            <p>
+              所以我們決定把<span className="text-accent">數百位素人成功的經歷與案例</span>，系統化地教會每一位參加者。不需要複雜的工具、不需要專業背景，只需要一支手機和一顆肯學習的心。
+            </p>
+            <p className="text-accent font-semibold">
+              學完之後，你就能獨立運作 — 基礎剪輯、拍攝、運營，全方位搞定。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Pain Points */}
+      <PainPointHook
+        title="為什麼你很努力，卻還是做不起來？"
+        points={painPoints}
+      />
+
+      {/* Core Modules — bold giant numbers */}
+      <section className="animate-fade-up mb-16">
+        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-8">
+          四大核心模組
+        </h2>
+        <div className="flex flex-col gap-10">
+          {coreModules.map((mod) => (
+            <div key={mod.num} className="relative">
+              <span className="text-5xl font-black text-accent/15 absolute -top-2 -left-1 leading-none select-none">
+                {mod.num}
+              </span>
+              <div className="pl-12">
+                <p className="text-[10px] font-semibold text-accent/60 tracking-widest uppercase mb-1">
+                  {mod.label}
                 </p>
-                <p>
-                  所以我們決定把<span className="text-accent">數百位素人成功的經歷與案例</span>，系統化地教會每一位參加者。不需要複雜的工具、不需要專業背景，只需要一支手機和一顆肯學習的心。
-                </p>
-                <p className="text-accent font-semibold">
-                  學完之後，你就能獨立運作 — 基礎剪輯、拍攝、運營，全方位搞定。
-                </p>
+                <h3 className="text-base font-bold text-text-primary mb-3">
+                  {mod.title}
+                </h3>
+                <ul className="flex flex-col gap-1.5">
+                  {mod.points.map((point) => (
+                    <li
+                      key={point}
+                      className="text-sm text-text-secondary leading-[1.8] pl-3 relative before:content-['—'] before:absolute before:left-0 before:text-accent/40"
+                    >
+                      {point}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-          </section>
-
-          {/* Pain Points */}
-          <PainPointHook
-            title="為什麼你很努力，卻還是做不起來？"
-            points={painPoints}
-          />
-
-          {/* Core Modules */}
-          <section className="animate-fade-up mb-12">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
-              四大核心模組
-            </h2>
-            <div className="flex flex-col gap-4">
-              {coreModules.map((mod) => (
-                <div
-                  key={mod.number}
-                  className="border-b border-divider pb-5 last:border-b-0"
-                >
-                  <span className="text-xs font-semibold text-accent tracking-wider">
-                    {mod.number}
-                  </span>
-                  <h3 className="text-sm font-bold text-text-primary mt-2 mb-2">
-                    {mod.title}
-                  </h3>
-                  <ul className="flex flex-col gap-1">
-                    {mod.points.map((point) => (
-                      <li
-                        key={point}
-                        className="text-sm text-text-secondary leading-[1.8] pl-3 relative before:content-['✓'] before:absolute before:left-0 before:text-accent"
-                      >
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* 21-Day Training Timeline */}
-          <section className="animate-fade-up mb-12">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
-              21 天訓練結構
-            </h2>
-            <div className="relative flex flex-col">
-              {trainingTimeline.map((step, i) => (
-                <div
-                  key={step.number}
-                  className="relative flex gap-4 pb-8 last:pb-0"
-                >
-                  {i < trainingTimeline.length - 1 && (
-                    <div className="absolute left-4 top-8 bottom-0 border-l-2 border-accent/30" />
-                  )}
-                  <div className="relative z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent text-bg-primary text-xs font-bold">
-                    {step.number}
-                  </div>
-                  <div className="flex-1 bg-bg-surface border border-divider rounded-xl p-4">
-                    <h3 className="text-sm font-bold text-text-primary mb-1">
-                      {step.title}
-                    </h3>
-                    <p className="text-sm text-text-secondary leading-[1.8]">
-                      {step.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Graduation Results */}
-          <section className="animate-fade-up mb-12">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
-              結營產值
-            </h2>
-            <div className="flex flex-col gap-4">
-              {graduationResults.map((r) => (
-                <div key={r.title} className="bg-bg-surface border border-divider rounded-xl p-5">
-                  <p className="text-lg font-bold text-accent mb-1">
-                    {r.title}
-                  </p>
-                  <p className="text-xs text-text-secondary leading-[1.8]">
-                    {r.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Comparison Table */}
-          <ComparisonTable
-            leftLabel="自學"
-            rightLabel="加入課程"
-            items={comparisonItems}
-          />
-
-          {/* Success Cases */}
-          <section className="animate-fade-up mb-12">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-4">
-              成功案例
-            </h2>
-            <p className="text-xs text-text-secondary/60 mb-6 tracking-wide">
-              羅威傳媒共同出品
-            </p>
-            {cases.length > 0 ? (
-              <CaseLogoWall cases={cases} onSelect={setSelectedCase} />
-            ) : (
-              <p className="text-sm text-text-secondary">載入中...</p>
-            )}
-          </section>
-
-          {/* Pricing */}
-          <section className="animate-fade-up mb-12">
-            <div className="bg-bg-surface border border-divider rounded-xl p-6 text-center">
-              <p className="text-sm text-text-secondary mb-2">
-                快閃體驗票價
-              </p>
-              <p className="text-accent text-4xl font-bold">
-                NT$ 1,000
-              </p>
-            </div>
-          </section>
-
-          {/* FAQ */}
-          <FAQAccordion title="常見問題" items={allFaqs} />
-
-          {/* Registration Form */}
-          <RegistrationForm courseOptions={["短影音影響力變現課程"]} />
+          ))}
         </div>
+      </section>
+
+      {/* 21-Day Training — big numbers, no cards */}
+      <section className="animate-fade-up mb-16">
+        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-2">
+          21 天訓練結構
+        </h2>
+        <p className="text-xs text-text-secondary/50 mb-8">線下集訓 + 線上陪跑</p>
+
+        <div className="flex gap-4 mb-8">
+          {/* Day count blocks */}
+          <div className="flex-1 text-center">
+            <p className="text-4xl font-black text-accent leading-none">3</p>
+            <p className="text-xs text-text-secondary mt-2">天線下集訓</p>
+            <p className="text-[11px] text-text-secondary/50 mt-1 leading-[1.6]">
+              專業場域 + 面對面指導
+            </p>
+          </div>
+          <div className="w-px bg-divider" />
+          <div className="flex-1 text-center">
+            <p className="text-4xl font-black text-accent leading-none">18</p>
+            <p className="text-xs text-text-secondary mt-2">天線上陪跑</p>
+            <p className="text-[11px] text-text-secondary/50 mt-1 leading-[1.6]">
+              每天有老師 · 有場域 · 有夥伴
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Graduation Results — metric style */}
+      <section className="animate-fade-up mb-12">
+        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
+          結營產值
+        </h2>
+        <div className="grid grid-cols-2 gap-4">
+          {graduationResults.map((r) => (
+            <div key={r.title} className="border-l-2 border-accent/40 pl-4 py-1">
+              <p className="leading-none mb-1">
+                <span className="text-2xl font-black text-accent">{r.value}</span>
+                {r.unit && <span className="text-sm text-accent/60 ml-0.5">{r.unit}</span>}
+              </p>
+              <p className="text-xs font-semibold text-text-primary">{r.title}</p>
+              <p className="text-[11px] text-text-secondary/60 mt-0.5">{r.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Comparison Table */}
+      <ComparisonTable
+        leftLabel="自學"
+        rightLabel="加入課程"
+        items={comparisonItems}
+      />
+
+      {/* Success Cases */}
+      <section className="animate-fade-up mb-12">
+        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-4">
+          成功案例
+        </h2>
+        <p className="text-xs text-text-secondary/60 mb-6 tracking-wide">
+          羅威傳媒共同出品
+        </p>
+        {cases.length > 0 ? (
+          <CaseLogoWall cases={cases} onSelect={setSelectedCase} />
+        ) : (
+          <p className="text-sm text-text-secondary">載入中...</p>
+        )}
+      </section>
+
+      {/* Pricing — bold */}
+      <section className="animate-fade-up mb-12">
+        <div className="bg-accent/10 border border-accent/30 rounded-xl p-8 text-center">
+          <p className="text-xs text-text-secondary/60 tracking-wide mb-1">快閃體驗票價</p>
+          <p className="text-5xl font-black text-accent leading-none mb-2">
+            NT$ 1,000
+          </p>
+          <p className="text-xs text-text-secondary/40 line-through">原價 NT$ 6,000</p>
+          <Link
+            href="#registration"
+            className="inline-block w-full mt-6 rounded-full bg-accent py-3.5 text-center text-sm font-semibold text-bg-primary tracking-wider transition-opacity duration-200 hover:opacity-90"
+          >
+            立即報名
+          </Link>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <FAQAccordion title="常見問題" items={allFaqs} />
+
+      {/* Registration Form */}
+      <div id="registration">
+        <RegistrationForm courseOptions={["短影音影響力變現課程"]} />
+      </div>
 
       <CaseDetailModal caseData={selectedCase} onClose={() => setSelectedCase(null)} />
 
