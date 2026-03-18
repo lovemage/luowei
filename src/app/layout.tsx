@@ -3,6 +3,7 @@ import { Noto_Serif_TC, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import FloatingButtons from "@/components/FloatingButtons";
 import AnnouncementBar from "@/components/AnnouncementBar";
+import JsonLd from "@/components/JsonLd";
 
 const notoSerifTC = Noto_Serif_TC({
   subsets: ["latin"],
@@ -41,6 +42,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-Hant" className={`${notoSerifTC.variable} ${cormorantGaramond.variable}`}>
+      <head>
+        <JsonLd data={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "羅威傳媒 LUOWEI MEDIA",
+          url: "https://luowei-media.com",
+          logo: "https://luowei-media.com/images/logo.png",
+          description: "短影音代操、影響力變現課程、AI影像力變現課程",
+          sameAs: [
+            "https://www.tiktok.com/@luoweimedia",
+            "https://www.instagram.com/lowemedia_",
+          ],
+        }} />
+      </head>
       <body>
         <div className="relative z-10 mx-auto max-w-[430px] min-h-dvh">
           <AnnouncementBar />

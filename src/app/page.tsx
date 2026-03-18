@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import VideoBackground from "@/components/VideoBackground";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
 
 const navItems = [
   { label: "短影音與廣告服務", href: "/short-video" },
@@ -13,6 +14,18 @@ const navItems = [
 export default function Home() {
   return (
     <>
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "羅威傳媒 LUOWEI MEDIA",
+        url: "https://luowei-media.com",
+        description: "無限進步｜個人成長。短影音代操、影響力變現課程、AI影像力變現。",
+        potentialAction: {
+          "@type": "SearchAction",
+          target: "https://luowei-media.com/?q={search_term_string}",
+          "query-input": "required name=search_term_string",
+        },
+      }} />
       <VideoBackground />
       <main className="relative z-10 flex min-h-dvh flex-col items-center px-5 pt-16 pb-12">
         {/* Logo */}
