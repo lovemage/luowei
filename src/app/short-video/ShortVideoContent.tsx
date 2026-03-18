@@ -85,24 +85,6 @@ const videoComparisonItems = [
 
 /* ── Ad tab data ── */
 
-const serviceHighlights = [
-  {
-    number: "01",
-    title: "TikTok 官方 ADS 系統",
-    desc: "官方認證二級代理商，直接對接平台資源，廣告效益最大化",
-  },
-  {
-    number: "02",
-    title: "流量禮包 — 保證流量（台灣唯一）",
-    desc: "業界唯一保證流量方案，未達標全額退費，我們承擔風險",
-  },
-  {
-    number: "03",
-    title: "實體傳媒公司操盤",
-    desc: "拒絕素人接案，由專業傳媒團隊全程操盤，數百位成功案例可驗證",
-  },
-];
-
 const timelineSteps = [
   {
     number: "01",
@@ -340,25 +322,56 @@ export default function ShortVideoContent({
             ]}
           />
 
-          {/* Service Highlights — bold numbers */}
+          {/* Identity — who we are */}
+          <section className="animate-fade-up mb-12">
+            <div className="bg-accent/10 border border-accent/30 rounded-xl p-6">
+              <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">TikTok 官方認證</p>
+              <h2 className="text-lg font-bold text-accent mb-3">
+                官方認證二級代理商
+              </h2>
+              <p className="text-sm text-text-secondary leading-[1.8] mb-4">
+                我們不是個人工作室、不是素人接案。羅威傳媒是正規經營的實體傳媒公司，直接對接 TikTok 官方 ADS 系統，擁有平台第一手資源與數據優勢。
+              </p>
+              <div className="flex gap-4">
+                <div className="border-l-2 border-accent/40 pl-3">
+                  <p className="text-xs text-text-secondary/60">身份</p>
+                  <p className="text-sm font-semibold text-text-primary">實體傳媒公司</p>
+                </div>
+                <div className="border-l-2 border-accent/40 pl-3">
+                  <p className="text-xs text-text-secondary/60">認證</p>
+                  <p className="text-sm font-semibold text-text-primary">TikTok 二級代理</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Core Value — guaranteed traffic */}
           <section className="animate-fade-up mb-16">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-8">
-              核心優勢
-            </h2>
-            <div className="flex flex-col gap-8">
-              {serviceHighlights.map((item) => (
-                <div key={item.number} className="relative">
-                  <span className="text-5xl font-black text-accent/15 absolute -top-2 -left-1 leading-none select-none">
-                    {item.number}
-                  </span>
-                  <div className="pl-12">
-                    <h3 className="text-base font-bold text-text-primary mb-1">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-text-secondary leading-[1.8]">
-                      {item.desc}
-                    </p>
-                  </div>
+            <div className="border-l-2 border-accent pl-6 mb-10">
+              <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-1">台灣唯一</p>
+              <h2 className="text-lg font-bold text-text-primary mb-2">
+                流量禮包 — <span className="text-accent">保證流量</span>
+              </h2>
+              <p className="text-sm text-text-secondary leading-[1.8]">
+                業界唯一保證流量方案。未達標？全額退費。我們用自己的信譽承擔風險，因為我們對數據有絕對的信心。
+              </p>
+            </div>
+
+            <h3 className="font-[family-name:var(--font-noto-serif-tc)] text-base font-bold text-gold-shine mb-6">
+              可投放數據
+            </h3>
+            <div className="grid grid-cols-2 gap-3 mb-8">
+              {adFeatures.map((feature) => (
+                <div
+                  key={feature.label}
+                  className="bg-bg-surface border border-divider rounded-xl p-4 text-center"
+                >
+                  <p className="text-sm font-bold text-accent mb-1">
+                    {feature.label}
+                  </p>
+                  <p className="text-[11px] text-text-secondary leading-[1.6]">
+                    {feature.desc}
+                  </p>
                 </div>
               ))}
             </div>
@@ -401,28 +414,6 @@ export default function ShortVideoContent({
             rightLabel="專業代操"
             items={adComparisonItems}
           />
-
-          {/* Ad Features — compact grid */}
-          <section className="animate-fade-up mb-12">
-            <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
-              可投放數據
-            </h2>
-            <div className="grid grid-cols-2 gap-3">
-              {adFeatures.map((feature) => (
-                <div
-                  key={feature.label}
-                  className="bg-bg-surface border border-divider rounded-xl p-4 text-center"
-                >
-                  <p className="text-sm font-bold text-accent mb-1">
-                    {feature.label}
-                  </p>
-                  <p className="text-[11px] text-text-secondary leading-[1.6]">
-                    {feature.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
 
           {/* FAQ */}
           <FAQAccordion title="常見問題" items={adFaqs} />
