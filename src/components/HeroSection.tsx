@@ -38,7 +38,7 @@ export default function HeroSection({
   }, [images.length]);
 
   const currentImageUrl = images[activeIndex];
-  const displayImageUrl = fallbackActive ? "/images/image_1.jpg" : currentImageUrl;
+  const displayImageUrl = fallbackActive ? "/images/Generated Image March 18, 2026 - 11_30AM.jpg" : currentImageUrl;
 
   return (
     <section className="animate-fade-up mb-12 overflow-hidden rounded-2xl border border-divider bg-bg-surface">
