@@ -265,7 +265,176 @@ export default function CourseContent({ faqs }: CourseContentProps) {
         items={comparisonItems}
       />
 
-      {/* Success Cases */}
+      {/* 你可以學到什麼 — production workflow */}
+      <section className="animate-fade-up mb-16">
+        <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-2">
+          你可以學到什麼
+        </h2>
+        <p className="text-xs text-text-secondary/50 mb-8">從拍攝到發布，完整的短影音製作流程</p>
+
+        <div className="flex flex-col gap-0">
+          {/* Step 1 */}
+          <div className="relative pb-6">
+            <div className="absolute left-[15px] top-8 bottom-0 border-l border-accent/20" />
+            <div className="flex gap-4">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent text-bg-primary text-xs font-bold">1</div>
+              <div className="flex-1">
+                <h3 className="text-sm font-bold text-text-primary">拍攝前準備</h3>
+                <p className="text-[11px] text-accent/60 mb-3">30–60 min</p>
+                <ul className="flex flex-col gap-2">
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">場景 & 燈光</span> — 自然光窗邊即可，背景乾淨不雜亂
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">腳本轉提詞卡</span> — 拆成 5-7 個關鍵字，避免背稿感
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">B-roll 素材清單</span> — 列出輔助鏡頭，先拍好再說人聲
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">手機設定</span> — 直立 9:16、4K/1080p、飛航模式
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Step 2 */}
+          <div className="relative pb-6">
+            <div className="absolute left-[15px] top-8 bottom-0 border-l border-accent/20" />
+            <div className="flex gap-4">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent text-bg-primary text-xs font-bold">2</div>
+              <div className="flex-1">
+                <h3 className="text-sm font-bold text-text-primary">拍攝執行</h3>
+                <p className="text-[11px] text-accent/60 mb-3">30–90 min</p>
+                <ul className="flex flex-col gap-2">
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">主鏡頭 × 3 take</span> — 至少錄 3 次，選最自然的，不追求一條過
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">B-roll 補拍</span> — 每段素材拍 5-10 秒方便剪輯選用
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">音訊確認</span> — 監聽確認無雜音、回音
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Step 3 */}
+          <div className="relative pb-6">
+            <div className="absolute left-[15px] top-8 bottom-0 border-l border-accent/20" />
+            <div className="flex gap-4">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent text-bg-primary text-xs font-bold">3</div>
+              <div className="flex-1">
+                <h3 className="text-sm font-bold text-text-primary">剪輯 & 包裝</h3>
+                <p className="text-[11px] text-accent/60 mb-3">30–60 min（熟練後更快）</p>
+                <ul className="flex flex-col gap-2">
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">去掉停頓 & 口頭禪</span> — 節奏緊湊觀眾才不會划走
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">加字幕</span> — 白字黑邊、字體大，80% 用戶靜音看影片
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">B-roll 切換</span> — 每 2-3 秒換畫面，避免長時間定格
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">背景音樂</span> — 平台熱門音樂，音量壓到人聲 20% 以下
+                  </li>
+                </ul>
+                <p className="text-[10px] text-text-secondary/40 mt-2">工具：CapCut · 剪映 · Canva</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Step 4 */}
+          <div className="relative pb-6">
+            <div className="absolute left-[15px] top-8 bottom-0 border-l border-accent/20" />
+            <div className="flex gap-4">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent text-bg-primary text-xs font-bold">4</div>
+              <div className="flex-1">
+                <h3 className="text-sm font-bold text-text-primary">發布策略</h3>
+                <p className="text-[11px] text-accent/60 mb-3">10–15 min</p>
+                <ul className="flex flex-col gap-2">
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">文案鉤子</span> — 第一行直接講重點或問問題，不要「大家好我是⋯」
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">Hashtag 策略</span> — 大標籤 + 中標籤 + 小標籤，3-5 個精準
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">發布時段</span> — 午休 12-13 點 或 下班 19-21 點
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">多平台同步</span> — TikTok + Reels + YouTube Shorts 觸及最大化
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Step 5 */}
+          <div className="relative pb-6">
+            <div className="absolute left-[15px] top-8 bottom-0 border-l border-accent/20" />
+            <div className="flex gap-4">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent text-bg-primary text-xs font-bold">5</div>
+              <div className="flex-1">
+                <h3 className="text-sm font-bold text-text-primary">發布後 24 小時互動</h3>
+                <p className="text-[11px] text-accent/60 mb-3">15–20 min / 天</p>
+                <ul className="flex flex-col gap-2">
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">回覆每則留言</span> — 前 1 小時回覆速度影響平台推播
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">置頂引導留言</span> — 用問題拉高留言互動率
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">留言選題</span> — 觀眾問什麼就拍什麼，最精準的選題系統
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Step 6 */}
+          <div className="relative">
+            <div className="flex gap-4">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent text-bg-primary text-xs font-bold">6</div>
+              <div className="flex-1">
+                <h3 className="text-sm font-bold text-text-primary">數據復盤 → 下一支</h3>
+                <p className="text-[11px] text-accent/60 mb-3">發布後 48–72 小時</p>
+                <div className="flex gap-3 mb-3">
+                  <div className="flex-1 text-center border border-divider rounded-lg py-2">
+                    <p className="text-lg font-black text-accent leading-none">70%</p>
+                    <p className="text-[10px] text-text-secondary/60 mt-1">完播率目標</p>
+                  </div>
+                  <div className="flex-1 text-center border border-divider rounded-lg py-2">
+                    <p className="text-lg font-black text-accent leading-none">留言數</p>
+                    <p className="text-[10px] text-text-secondary/60 mt-1">互動指標</p>
+                  </div>
+                  <div className="flex-1 text-center border border-divider rounded-lg py-2">
+                    <p className="text-lg font-black text-accent leading-none">收藏</p>
+                    <p className="text-[10px] text-text-secondary/60 mt-1">複傳播指標</p>
+                  </div>
+                </div>
+                <ul className="flex flex-col gap-2">
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">複製成功公式</span> — 完播率高的開頭，複製到下一支
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7]">
+                    <span className="text-text-primary font-semibold">找出流失點</span> — 觀看在哪秒驟降，就是改進的地方
+                  </li>
+                </ul>
+                <p className="text-xs text-accent font-semibold mt-3">→ 寫下一支腳本，回到步驟 1</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Success Cases — scrollable */}
       <section className="animate-fade-up mb-12">
         <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-4">
           成功案例
@@ -273,11 +442,13 @@ export default function CourseContent({ faqs }: CourseContentProps) {
         <p className="text-xs text-text-secondary/60 mb-6 tracking-wide">
           羅威傳媒共同出品
         </p>
-        {cases.length > 0 ? (
-          <CaseLogoWall cases={cases} onSelect={setSelectedCase} />
-        ) : (
-          <p className="text-sm text-text-secondary">載入中...</p>
-        )}
+        <div className="max-h-[320px] overflow-y-auto rounded-xl border border-divider p-4" style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(226,193,145,0.3) transparent" }}>
+          {cases.length > 0 ? (
+            <CaseLogoWall cases={cases} onSelect={setSelectedCase} />
+          ) : (
+            <p className="text-sm text-text-secondary">載入中...</p>
+          )}
+        </div>
       </section>
 
       {/* Pricing — bold */}
