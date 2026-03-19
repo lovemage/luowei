@@ -150,6 +150,7 @@ export default function ShortVideoContent({
   heroImageUrls,
 }: ShortVideoContentProps) {
   const [activeTab, setActiveTab] = useState("video");
+  const [showPttModal, setShowPttModal] = useState(false);
 
   return (
     <main className="relative z-10 flex min-h-dvh flex-col px-6 pt-10 pb-12">
@@ -282,114 +283,107 @@ export default function ShortVideoContent({
             </div>
           </section>
 
-          {/* ── Pricing Plans ── */}
+          {/* ── Pricing Plans — horizontal swipe ── */}
           <section className="animate-fade-up mb-16">
             <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-2">
               方案選擇
             </h2>
-            <p className="text-xs text-text-secondary/60 mb-8">選擇最適合您的短影音代操方案</p>
+            <p className="text-xs text-text-secondary/60 mb-2">選擇最適合您的短影音代操方案</p>
+            <p className="text-[10px] text-accent/40 mb-4">← 左右滑動查看 →</p>
 
-            {/* Plan 1: IP 保證流量方案 */}
-            <div className="mb-6">
-              <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-4">保證流量 · 老闆 IP 方案</p>
+            <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory" style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(226,193,145,0.3) transparent" }}>
 
               {/* 菁英版 */}
-              <div className="border-l-2 border-divider pl-5 py-4 mb-6">
+              <div className="flex-shrink-0 w-[280px] snap-start bg-bg-surface border border-divider rounded-xl p-5">
+                <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">保證流量方案</p>
                 <h3 className="text-sm font-bold text-text-primary mb-1">菁英 IP 啟航版</h3>
                 <p className="text-xs text-text-secondary/60 mb-3">建立品牌權威門面</p>
-                <p className="mb-3">
+                <p className="mb-2">
                   <span className="text-2xl font-black text-accent">$60,000</span>
                   <span className="text-xs text-text-secondary/60 ml-1">/ 月</span>
                 </p>
-                <p className="text-[11px] text-text-secondary/50 mb-3">年度總價：$720,000（含稅）</p>
+                <p className="text-[11px] text-text-secondary/50 mb-3">年度：$720,000（含稅）</p>
                 <ul className="flex flex-col gap-1">
-                  {["全網年度保底 600 萬次觀看", "每月 8 支短影音", "建立品牌權威門面", "精準打擊潛在受眾"].map((p) => (
-                    <li key={p} className="text-xs text-text-secondary leading-[1.8] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent/40 before:text-[10px]">{p}</li>
+                  {["保底 600 萬次觀看/年", "每月 8 支短影音", "品牌權威門面建立", "精準打擊潛在受眾"].map((p) => (
+                    <li key={p} className="text-[11px] text-text-secondary leading-[1.7] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent/40 before:text-[10px]">{p}</li>
                   ))}
                 </ul>
               </div>
 
               {/* 霸主版 — MOST POPULAR */}
-              <div className="bg-accent/10 border border-accent/30 rounded-xl p-5 mb-6 relative">
+              <div className="flex-shrink-0 w-[280px] snap-start bg-accent/10 border border-accent/30 rounded-xl p-5 relative">
                 <span className="absolute -top-3 left-4 bg-accent text-bg-primary text-[10px] font-bold px-3 py-1 rounded-full tracking-wider">MOST POPULAR</span>
-                <h3 className="text-base font-bold text-accent mt-2 mb-1">霸主 IP 領航版</h3>
-                <p className="text-xs text-text-secondary/60 mb-3">聲量全面覆蓋，壟斷市場視線</p>
-                <p className="mb-3">
+                <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2 mt-1">保證流量方案</p>
+                <h3 className="text-base font-bold text-accent mb-1">霸主 IP 領航版</h3>
+                <p className="text-xs text-text-secondary/60 mb-3">壟斷市場視線</p>
+                <p className="mb-2">
                   <span className="text-3xl font-black text-accent">$90,000</span>
                   <span className="text-xs text-text-secondary/60 ml-1">/ 月</span>
                 </p>
-                <p className="text-[11px] text-text-secondary/50 mb-3">年度總價：$1,080,000（含稅）</p>
+                <p className="text-[11px] text-text-secondary/50 mb-3">年度：$1,080,000（含稅）</p>
                 <ul className="flex flex-col gap-1">
-                  {[
-                    "年度保底 1,200 萬次觀看",
-                    "每月 12 支短影音",
-                    "精準廣告投放操盤",
-                    "爆款話題製造",
-                    "人設深度刻畫",
-                    "聲量全面覆蓋目標市場",
-                    "專業投流策略，流量轉化為詢問單",
-                  ].map((p) => (
-                    <li key={p} className="text-xs text-text-secondary leading-[1.8] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent/40 before:text-[10px]">{p}</li>
+                  {["保底 1,200 萬次觀看/年", "每月 12 支短影音", "精準廣告投放操盤", "爆款話題製造", "人設深度刻畫", "流量轉化為詢問單"].map((p) => (
+                    <li key={p} className="text-[11px] text-text-secondary leading-[1.7] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent/40 before:text-[10px]">{p}</li>
                   ))}
                 </ul>
               </div>
 
               {/* 集團版 */}
-              <div className="border-l-2 border-accent pl-5 py-4 mb-6">
+              <div className="flex-shrink-0 w-[280px] snap-start bg-bg-surface border border-accent/40 rounded-xl p-5">
+                <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">保證流量方案</p>
                 <h3 className="text-base font-bold text-text-primary mb-1">行業頂峰 集團版</h3>
-                <p className="text-xs text-text-secondary/60 mb-3">打造行業天花板級曝光量</p>
-                <p className="mb-3">
+                <p className="text-xs text-text-secondary/60 mb-3">行業天花板級曝光</p>
+                <p className="mb-2">
                   <span className="text-3xl font-black text-accent">$216,000</span>
                   <span className="text-xs text-text-secondary/60 ml-1">/ 月</span>
                 </p>
-                <p className="text-[11px] text-text-secondary/50 mb-3">年度總價：$2,600,000（含稅）</p>
+                <p className="text-[11px] text-text-secondary/50 mb-3">年度：$2,600,000（含稅）</p>
                 <ul className="flex flex-col gap-1">
-                  {[
-                    "年度保底 3,000 萬次觀看",
-                    "每月 20 支短影音",
-                    "專業 IP 定位、爆款腳本建模",
-                    "每月三日專業拍攝",
-                    "矩陣式鋪量策略",
-                    "全網熱點捕捉、最高規格流量監控",
-                    "商業閉環變現建議",
-                    "行業領袖地位打造",
-                    "未達標全額退費保證",
-                  ].map((p) => (
-                    <li key={p} className="text-xs text-text-secondary leading-[1.8] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent/40 before:text-[10px]">{p}</li>
+                  {["保底 3,000 萬次觀看/年", "每月 20 支短影音", "IP 定位 + 爆款腳本", "每月三日專業拍攝", "矩陣式鋪量策略", "商業閉環變現建議", "未達標全額退費"].map((p) => (
+                    <li key={p} className="text-[11px] text-text-secondary leading-[1.7] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent/40 before:text-[10px]">{p}</li>
                   ))}
                 </ul>
               </div>
-            </div>
 
-            {/* Plan 2: 對賭企業方案 */}
-            <div className="bg-bg-surface border border-divider rounded-xl p-5 mb-6">
-              <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">對賭企業方案</p>
-              <h3 className="text-base font-bold text-text-primary mb-2">PTT 共擔合作模式</h3>
-              <p className="text-sm text-text-secondary leading-[1.8] mb-4">
-                總預算由羅威與企業各出一半（成本價計算），同一條船上共同經營。一年內打造 IP，依據財務報表淨利 20-30% 分潤，一年後自動續約。
-              </p>
-              <div className="border-t border-divider pt-4">
-                <p className="text-xs text-text-secondary/70 leading-[1.8]">
-                  需先審核後試拍 → 簽約 → 價格為總預算的 50%（依本公司評估所有成本細項後雙方討論）
+              {/* 對賭企業方案 PTT */}
+              <div className="flex-shrink-0 w-[280px] snap-start bg-bg-surface border border-divider rounded-xl p-5 relative">
+                <span className="absolute -top-3 left-4 bg-bg-surface text-accent text-[10px] font-bold px-3 py-1 rounded-full border border-accent/30 tracking-wider">與羅威創造雙贏</span>
+                <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2 mt-1">對賭企業方案</p>
+                <h3 className="text-base font-bold text-text-primary mb-1">PTT 共擔合作模式</h3>
+                <p className="text-xs text-text-secondary/60 mb-3">同一條船，共同經營</p>
+                <p className="text-sm text-text-secondary leading-[1.7] mb-3">
+                  總預算雙方各出 50%，一年內打造 IP，淨利 20-30% 分潤，一年後自動續約。
+                </p>
+                <ul className="flex flex-col gap-1 mb-4">
+                  {["審核 → 試拍 → 簽約", "價格為總預算 50%", "律師客製化合約保障"].map((p) => (
+                    <li key={p} className="text-[11px] text-text-secondary leading-[1.7] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent/40 before:text-[10px]">{p}</li>
+                  ))}
+                </ul>
+                <button
+                  onClick={() => setShowPttModal(true)}
+                  className="w-full rounded-full border border-accent text-accent text-xs font-semibold py-2 hover:bg-accent hover:text-bg-primary transition-colors"
+                >
+                  了解詳情
+                </button>
+              </div>
+
+              {/* 體驗版 */}
+              <div className="flex-shrink-0 w-[280px] snap-start bg-bg-surface border border-divider rounded-xl p-5">
+                <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">體驗版</p>
+                <h3 className="text-sm font-bold text-text-primary mb-1">六六大順方案</h3>
+                <p className="text-xs text-text-secondary/60 mb-3">先體驗，再決定</p>
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="text-2xl font-black text-accent">6</span>
+                  <span className="text-sm text-text-secondary">支影片</span>
+                </div>
+                <p className="mb-3">
+                  <span className="text-lg font-bold text-accent">$12,000</span>
+                  <span className="text-xs text-text-secondary/60 ml-1">/ 支</span>
+                </p>
+                <p className="text-[11px] text-text-secondary/50">
+                  總計 $72,000 · 適合先試水溫
                 </p>
               </div>
-            </div>
-
-            {/* Plan 3: 體驗版 */}
-            <div className="border-l-2 border-divider pl-5 py-4">
-              <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">體驗版</p>
-              <h3 className="text-sm font-bold text-text-primary mb-1">六六大順方案</h3>
-              <p className="text-xs text-text-secondary/60 mb-3">先體驗，再決定</p>
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="text-2xl font-black text-accent">6</span>
-                <span className="text-sm text-text-secondary">支影片</span>
-                <span className="text-text-secondary/30 mx-1">·</span>
-                <span className="text-lg font-bold text-accent">$12,000</span>
-                <span className="text-xs text-text-secondary/60">/ 支</span>
-              </div>
-              <p className="text-[11px] text-text-secondary/50">
-                總計 $72,000 · 適合想先試水溫的企業主
-              </p>
             </div>
           </section>
 
@@ -564,6 +558,125 @@ export default function ShortVideoContent({
       </Link>
 
       <Footer />
+
+      {/* PTT Modal */}
+      {showPttModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={() => setShowPttModal(false)}>
+          <div className="absolute inset-0 bg-black/70" />
+          <div
+            className="relative bg-bg-surface border border-divider rounded-xl w-full max-w-md max-h-[80vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+            style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(226,193,145,0.3) transparent" }}
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setShowPttModal(false)}
+              className="sticky top-0 float-right m-3 flex h-8 w-8 items-center justify-center rounded-full bg-bg-surface border border-divider text-text-secondary hover:text-accent transition-colors z-10"
+              aria-label="關閉"
+            >
+              ✕
+            </button>
+
+            <div className="p-6 pt-4">
+              <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">企業對賭自媒體</p>
+              <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-6">
+                什麼是 PTT 模式？
+              </h2>
+
+              {/* 核心理念 */}
+              <div className="border-l-2 border-accent pl-4 mb-6">
+                <h3 className="text-sm font-bold text-text-primary mb-2">核心理念</h3>
+                <p className="text-xs text-text-secondary leading-[1.8] mb-2">
+                  打破傳統行銷公司「收錢後做不好是產品問題，做好是公司厲害」的不對等關係。
+                </p>
+                <p className="text-xs text-text-secondary leading-[1.8] mb-2">
+                  乙方（羅威傳媒）不再只是領薪水的員工，而是轉化為<span className="text-accent font-semibold">「領分紅的股東」</span>，將雙方利益綁定，追求雙贏。
+                </p>
+                <p className="text-xs text-text-secondary leading-[1.8]">
+                  拒絕「收錢了事」的過客心態，羅威傳媒投入資源與時間，賭的是共同的勝局。
+                </p>
+              </div>
+
+              {/* 出資模式 */}
+              <div className="mb-6">
+                <h3 className="text-sm font-bold text-text-primary mb-3">出資模式</h3>
+                <p className="text-xs text-text-secondary leading-[1.8] mb-3">總專案估值 <span className="text-accent font-bold">140 萬</span></p>
+                <div className="flex gap-3 mb-3">
+                  <div className="flex-1 text-center border border-divider rounded-lg py-3">
+                    <p className="text-lg font-black text-accent leading-none">50%</p>
+                    <p className="text-[10px] text-text-secondary/60 mt-1">甲方（業主）</p>
+                    <p className="text-[10px] text-text-secondary/40">70 萬現金</p>
+                  </div>
+                  <div className="flex-1 text-center border border-accent/30 rounded-lg py-3 bg-accent/5">
+                    <p className="text-lg font-black text-accent leading-none">50%</p>
+                    <p className="text-[10px] text-text-secondary/60 mt-1">乙方（羅威）</p>
+                    <p className="text-[10px] text-text-secondary/40">70 萬技術折抵</p>
+                  </div>
+                </div>
+                <p className="text-xs text-text-secondary/70 leading-[1.8]">
+                  與律師訂製客製化合約，保障雙方權益。流量未達標則合約不生效。
+                </p>
+              </div>
+
+              {/* 預期目標 */}
+              <div className="mb-6">
+                <h3 className="text-sm font-bold text-text-primary mb-3">預期目標與分潤</h3>
+                <div className="flex gap-3 mb-3">
+                  <div className="flex-1 border-l-2 border-accent/40 pl-3">
+                    <p className="text-lg font-black text-accent leading-none">100萬+</p>
+                    <p className="text-[10px] text-text-secondary/60 mt-1">年度曝光量目標</p>
+                  </div>
+                  <div className="flex-1 border-l-2 border-accent/40 pl-3">
+                    <p className="text-lg font-black text-accent leading-none">20%</p>
+                    <p className="text-[10px] text-text-secondary/60 mt-1">淨利分潤比例</p>
+                  </div>
+                </div>
+                <p className="text-xs text-text-secondary/70 leading-[1.8]">
+                  舉例：甲方賺取 1,000 萬，乙方分潤 200 萬，以此激勵團隊拚命創造業績。
+                </p>
+              </div>
+
+              {/* 期滿處理 */}
+              <div className="mb-6">
+                <h3 className="text-sm font-bold text-text-primary mb-3">期滿退場機制</h3>
+                <p className="text-xs text-text-secondary leading-[1.8] mb-2">合約期滿一年後，甲方擁有優先選擇權：</p>
+                <ul className="flex flex-col gap-2">
+                  <li className="text-xs text-text-secondary leading-[1.7] pl-3 relative before:content-['1.'] before:absolute before:left-0 before:text-accent before:font-bold">
+                    <span className="text-text-primary font-semibold">繼續合作</span> — 維持原有 20% 分潤模式
+                  </li>
+                  <li className="text-xs text-text-secondary leading-[1.7] pl-3 relative before:content-['2.'] before:absolute before:left-0 before:text-accent before:font-bold">
+                    <span className="text-text-primary font-semibold">一次性買斷</span> — 支付 NT$ 70 萬買斷項目，乙方停止一切分潤與權利
+                  </li>
+                </ul>
+              </div>
+
+              {/* 適合對象 */}
+              <div className="mb-4">
+                <h3 className="text-sm font-bold text-text-primary mb-3">適合加入的對象</h3>
+                <ul className="flex flex-col gap-1.5">
+                  {[
+                    "擁有品牌與預算，但缺乏流量",
+                    "認同「先賣人再賣產品」觀念",
+                    "想要衝刺曝光並要求有保底成果",
+                    "尋求長期利益綁定，而非單次合作",
+                  ].map((p) => (
+                    <li key={p} className="text-xs text-text-secondary leading-[1.7] pl-3 relative before:content-['✓'] before:absolute before:left-0 before:text-accent">{p}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <Link
+                href="https://lin.ee/htTdJSH"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block w-full mt-4 rounded-full bg-accent py-3 text-center text-sm font-semibold text-bg-primary tracking-wider transition-opacity duration-200 hover:opacity-90"
+              >
+                立即諮詢 PTT 方案
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
