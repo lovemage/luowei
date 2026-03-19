@@ -31,7 +31,7 @@ const DEFAULT_FIELDS: FormField[] = [
   { key: "phone", label: "電話", type: "tel", placeholder: "電話", required: true },
   { key: "lineId", label: "LINE ID", type: "text", placeholder: "LINE ID", required: false },
   { key: "email", label: "Email", type: "email", placeholder: "Email", required: false },
-  { key: "courseName", label: "課程方案", type: "select", placeholder: "選擇感興趣的課程/方案", required: false, options: [] },
+  { key: "courseName", label: "課程方案", type: "select", placeholder: "選擇感興趣的課程/方案", required: true, options: [] },
   { key: "message", label: "留言", type: "textarea", placeholder: "留言", required: false },
 ];
 
@@ -130,7 +130,7 @@ export default function RegistrationForm({ courseOptions, defaultCourse, formCon
                 key={field.key}
                 name={field.key}
                 required={field.required}
-                defaultValue={field.key === "courseName" ? defaultCourse || "" : ""}
+                defaultValue={field.key === "courseName" ? defaultCourse || (field.options?.length === 1 ? field.options[0] : "") : ""}
                 className={`${inputClass} appearance-none`}
               >
                 <option value="">{field.placeholder}</option>
