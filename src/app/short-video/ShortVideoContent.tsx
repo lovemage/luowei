@@ -291,7 +291,7 @@ export default function ShortVideoContent({
             <p className="text-xs text-text-secondary/60 mb-2">選擇最適合您的短影音代操方案</p>
             <p className="text-[10px] text-accent/40 mb-4">← 左右滑動查看 →</p>
 
-            <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory" style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(226,193,145,0.3) transparent" }}>
+            <div className="flex gap-4 overflow-x-auto pt-4 pb-4 px-1 -mx-1 snap-x snap-mandatory" style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(226,193,145,0.3) transparent" }}>
 
               {/* 菁英版 */}
               <div className="flex-shrink-0 w-[280px] snap-start bg-bg-surface border border-divider rounded-xl p-5">
