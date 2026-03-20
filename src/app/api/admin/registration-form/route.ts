@@ -45,6 +45,24 @@ const DEFAULT_CONFIGS: Record<string, unknown> = {
       { key: "message", label: "留言", type: "textarea", placeholder: "其他想說的話", required: false },
     ],
   },
+  "second-income": {
+    title: "合作申請表",
+    submitText: "送出申請",
+    successTitle: "感謝你的申請",
+    successDesc: "我會先閱讀你的資料，如果背景與方向適合，才會安排進一步交流。請私訊 IG：lw__wel 告知「我填表了」。",
+    fields: [
+      { key: "name", label: "請問怎麼稱呼你？", type: "text", placeholder: "你的名字", required: true },
+      { key: "ig", label: "你的 IG 或社群帳號", type: "text", placeholder: "IG 或社群帳號", required: true },
+      { key: "city", label: "目前居住城市", type: "text", placeholder: "居住城市", required: true },
+      { key: "job", label: "目前主要工作", type: "text", placeholder: "主要工作", required: true },
+      { key: "income", label: "目前每月收入區間", type: "radio", placeholder: "", required: true, options: ["3萬以下", "3–5萬", "5–8萬", "8–12萬", "12萬以上"] },
+      { key: "experience", label: "過去是否有創業或副業經驗？", type: "radio", placeholder: "", required: true, options: ["沒有", "嘗試過", "目前有副業", "曾創業"] },
+      { key: "whySecondIncome", label: "為什麼你想建立第二收入？", type: "textarea", placeholder: "開放回答", required: true },
+      { key: "weeklyTime", label: "每週大約可以投入多少時間？", type: "radio", placeholder: "", required: true, options: ["0–2小時", "3–5小時", "5–10小時", "10小時以上"] },
+      { key: "currentState", label: "你現在的狀態比較接近哪一種？", type: "radio", placeholder: "", required: true, options: ["只是想了解看看", "正在尋找機會", "準備開始行動", "已經決定要改變收入"] },
+      { key: "whySuitable", label: "為什麼你覺得自己適合參與這個計畫？", type: "textarea", placeholder: "開放回答", required: true },
+    ],
+  },
 };
 
 export async function GET() {

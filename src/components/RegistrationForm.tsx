@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 interface FormField {
   key: string;
   label: string;
-  type: "text" | "tel" | "email" | "textarea" | "select";
+  type: "text" | "tel" | "email" | "textarea" | "select" | "radio";
   placeholder: string;
   required: boolean;
   options?: string[];
@@ -78,12 +78,39 @@ export default function RegistrationForm({ courseOptions, defaultCourse, formCon
     setSubmitting(true);
 
     const form = e.currentTarget;
-    const data: Record<string, string> = {};
+    const raw: Record<string, string> = {};
     for (const field of fields) {
       const el = form.elements.namedItem(field.key);
       if (el) {
-        data[field.key] = (el as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).value;
+        raw[field.key] = (el as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).value;
       }
+    }
+
+    // If form has standard keys (name, phone, courseName), send directly.
+    // Otherwise, map custom fields into the registration schema.
+    const STANDARD_KEYS = ["name", "phone", "lineId", "email", "courseName", "message"];
+    const isStandard = fields.some((f) => STANDARD_KEYS.includes(f.key) && f.key !== "name");
+    let data: Record<string, string>;
+
+    if (isStandard) {
+      data = raw;
+    } else {
+      // Custom form: pack non-standard fields into message
+      const extraLines: string[] = [];
+      for (const field of fields) {
+        if (field.key === "name") continue;
+        if (raw[field.key]) {
+          extraLines.push(`【${field.label}】${raw[field.key]}`);
+        }
+      }
+      data = {
+        name: raw.name || "",
+        phone: raw.ig || raw.phone || "",
+        lineId: raw.city || raw.lineId || "",
+        email: raw.email || "",
+        courseName: pageSlug === "second-income" ? "下班後第二收入計劃" : (raw.courseName || pageSlug || ""),
+        message: extraLines.join("\n"),
+      };
     }
 
     try {
@@ -138,6 +165,21 @@ export default function RegistrationForm({ courseOptions, defaultCourse, formCon
                   <option key={opt} value={opt}>{opt}</option>
                 ))}
               </select>
+            );
+          }
+          if (field.type === "radio") {
+            return (
+              <fieldset key={field.key}>
+                <legend className="text-sm font-semibold text-text-primary mb-3">{field.label}</legend>
+                <div className="flex flex-col gap-2">
+                  {(field.options || []).map((opt) => (
+                    <label key={opt} className="flex items-center gap-3 cursor-pointer rounded-lg border border-divider px-4 py-3 text-sm text-text-secondary transition-colors hover:border-accent/50 has-[:checked]:border-accent has-[:checked]:text-accent">
+                      <input type="radio" name={field.key} value={opt} required={field.required} className="accent-accent" />
+                      {opt}
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
             );
           }
           if (field.type === "textarea") {

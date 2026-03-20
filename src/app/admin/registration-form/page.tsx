@@ -5,7 +5,7 @@ import { useEffect, useState, useMemo } from "react";
 interface FormField {
   key: string;
   label: string;
-  type: "text" | "tel" | "email" | "textarea" | "select";
+  type: "text" | "tel" | "email" | "textarea" | "select" | "radio";
   placeholder: string;
   required: boolean;
   options?: string[];
@@ -25,6 +25,7 @@ const TABS = [
   { key: "short-video", label: "短影音與廣告" },
   { key: "course", label: "影響力變現課程" },
   { key: "ai-course", label: "AI 課程" },
+  { key: "second-income", label: "第二收入計劃" },
 ];
 
 const FIELD_TYPES: { value: FormField["type"]; label: string }[] = [
@@ -33,9 +34,10 @@ const FIELD_TYPES: { value: FormField["type"]; label: string }[] = [
   { value: "email", label: "Email" },
   { value: "textarea", label: "多行文字" },
   { value: "select", label: "下拉選單" },
+  { value: "radio", label: "單選按鈕" },
 ];
 
-const MAX_FIELDS = 10;
+const MAX_FIELDS = 15;
 
 const EMPTY_CONFIG: FormConfig = {
   title: "立即報名",
@@ -65,6 +67,20 @@ function LivePreview({ config }: { config: FormConfig }) {
       </h2>
       <div className="flex flex-col gap-4">
         {config.fields.map((field) => {
+          if (field.type === "radio") {
+            return (
+              <div key={field.key}>
+                <div style={{ fontSize: "12px", fontWeight: 600, color: "#E2C191", marginBottom: 8 }}>{field.label}</div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  {field.options?.map((opt) => (
+                    <label key={opt} style={{ display: "flex", alignItems: "center", gap: 8, border: "1px solid #2A2218", borderRadius: 8, padding: "8px 12px", fontSize: "11px", color: "#aaa" }}>
+                      <input type="radio" disabled /> {opt}
+                    </label>
+                  ))}
+                </div>
+              </div>
+            );
+          }
           if (field.type === "select") {
             return (
               <div key={field.key}>
@@ -278,7 +294,7 @@ export default function AdminRegistrationFormPage() {
                         </select>
                       </div>
                     </div>
-                    {field.type === "select" && (
+                    {(field.type === "select" || field.type === "radio") && (
                       <div>
                         <label className="block text-xs text-gray-400 mb-1">選項（每行一個）</label>
                         <textarea value={field.options?.join("\n") || ""} onChange={(e) => updateField(index, { options: e.target.value.split("\n").filter(Boolean) })}
