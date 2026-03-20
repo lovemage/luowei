@@ -9,7 +9,7 @@ const navItems: { label: string; href: string; external?: boolean; tag?: string 
   { label: "素人代操與課程案例", href: "/cases" },
   { label: "短影音影響力變現課程", href: "/course", tag: "素人提升" },
   { label: "AI 影響力變現課程", href: "/ai-course", tag: "2026 最佳大會" },
-  { label: "下班後第二收入計劃", href: "https://docs.google.com/forms/d/1aH9-xjN6od9ZK0Dbh4bAQRvceafI8FkNFBx4xsgic4g/viewform?edit_requested=true", external: true },
+  { label: "下班後第二收入計劃", href: "/second-income" },
 ];
 
 export default function Home() {
