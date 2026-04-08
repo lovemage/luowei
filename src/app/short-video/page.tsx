@@ -3,7 +3,7 @@ import ShortVideoContent from "./ShortVideoContent";
 import JsonLd from "@/components/JsonLd";
 
 export const metadata = {
-  title: "短影音與廣告服務 | LUOWEI MEDIA",
+  title: "短影音代操與廣告投放 | LUOWEI MEDIA",
   description: "全方位短影音品牌代操 + 精準廣告投放，用影像說故事讓品牌被看見。",
 };
 
@@ -30,7 +30,7 @@ export default async function ShortVideoPage() {
     <JsonLd data={{
       "@context": "https://schema.org",
       "@type": "Service",
-      name: "短影音與廣告服務",
+      name: "短影音代操與廣告投放",
       provider: { "@type": "Organization", name: "羅威傳媒 LUOWEI MEDIA", url: "https://luowei-media.com" },
       description: "全方位短影音品牌代操 + 精準廣告投放，用影像說故事讓品牌被看見。",
       url: "https://luowei-media.com/short-video",

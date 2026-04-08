@@ -5,11 +5,9 @@ import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 
 const navItems: { label: string; href: string; external?: boolean; tag?: string }[] = [
-  { label: "短影音與廣告服務", href: "/short-video", tag: "企業專屬" },
+  { label: "短影音代操與廣告投放", href: "/short-video", tag: "企業專屬" },
   { label: "素人代操與課程案例", href: "/cases" },
   { label: "短影音影響力變現課程", href: "/course", tag: "素人提升" },
-  { label: "AI 影響力變現課程", href: "/ai-course", tag: "2026 最佳大會" },
-  { label: "下班後第二收入計劃", href: "/second-income" },
 ];
 
 export default function Home() {

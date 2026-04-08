@@ -15,7 +15,7 @@ export default function TabSwitcher({ tabs, activeTab, onChange }: TabSwitcherPr
           onClick={() => onChange(tab.key)}
           className={`flex-1 py-3 text-center text-sm font-medium tracking-widest transition-colors ${
             activeTab === tab.key
-              ? "text-text-primary border-b-2 border-accent"
+              ? "text-sky-400 border-b-2 border-sky-400"
               : "text-text-secondary"
           }`}
         >

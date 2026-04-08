@@ -124,12 +124,12 @@ const videoBuiltInFAQs = [
   {
     id: "v-faq-2",
     question: "每月可以產出多少支影片？",
-    answer: "依方案不同，菁英版每月 8 支、霸主版每月 12 支、集團版每月 20 支。所有影片皆由專業團隊拍攝製作，品質穩定且符合演算法邏輯。",
+    answer: "菁英 IP 啟航版可依預算選擇 8 萬、12 萬、24 萬三種月費，對應每月 8 支、12 支、24 支短影音（每支 1 萬元）。所有影片皆由專業團隊拍攝製作，品質穩定且符合演算法邏輯。",
   },
   {
     id: "v-faq-3",
     question: "保證流量是怎麼計算的？沒達標怎麼辦？",
-    answer: "流量以全網年度總觀看次數計算（含 TikTok、Reels、YouTube Shorts 等平台）。菁英版保底 600 萬、霸主版 1,200 萬、集團版 3,000 萬。若年度結算未達標，全額退費，業界唯一。",
+    answer: "流量以全網年度總觀看次數計算（含 TikTok、Reels、YouTube Shorts 等平台）。菁英 IP 啟航版依月費方案對應保底觀看量：8 萬方案保底 800 萬、12 萬方案保底 1,200 萬、24 萬方案保底 2,400 萬。若年度結算未達標，全額退費，業界唯一。",
   },
   {
     id: "v-faq-4",
@@ -144,7 +144,7 @@ const videoBuiltInFAQs = [
   {
     id: "v-faq-6",
     question: "跟自己請一個剪輯師比，哪個划算？",
-    answer: "請一個全職剪輯師月薪約 3-5 萬，但你還需要企劃、攝影、營運人員，加起來每月人事成本超過 10 萬，還不含設備與場地。我們的菁英方案 6 萬/月涵蓋全部，且保證流量成效，風險更低、效率更高。",
+    answer: "請一個全職剪輯師月薪約 3-5 萬，但你還需要企劃、攝影、營運人員，加起來每月人事成本超過 10 萬，還不含設備與場地。我們的菁英 IP 啟航版可依預算選擇 8 萬、12 萬、24 萬（每支 1 萬元）並涵蓋完整團隊執行，且保證流量成效，風險更低、效率更高。",
   },
   {
     id: "v-faq-7",
@@ -221,6 +221,33 @@ const tabs = [
   { key: "ad", label: "TikTok 廣告投放" },
 ];
 
+const elitePricingOptions = [
+  {
+    id: "80000",
+    label: "8 萬",
+    monthlyPrice: 80000,
+    videosPerMonth: 8,
+    yearlyPrice: 960000,
+    trafficGuarantee: "保底 800 萬次觀看/年",
+  },
+  {
+    id: "120000",
+    label: "12 萬",
+    monthlyPrice: 120000,
+    videosPerMonth: 12,
+    yearlyPrice: 1440000,
+    trafficGuarantee: "保底 1,200 萬次觀看/年",
+  },
+  {
+    id: "240000",
+    label: "24 萬",
+    monthlyPrice: 240000,
+    videosPerMonth: 24,
+    yearlyPrice: 2880000,
+    trafficGuarantee: "保底 2,400 萬次觀看/年",
+  },
+];
+
 export default function ShortVideoContent({
   videoFaqs,
   adFaqs,
@@ -229,6 +256,9 @@ export default function ShortVideoContent({
 }: ShortVideoContentProps) {
   const [activeTab, setActiveTab] = useState("video");
   const [showPttModal, setShowPttModal] = useState(false);
+  const [selectedEliteOptionId, setSelectedEliteOptionId] = useState("120000");
+  const selectedEliteOption =
+    elitePricingOptions.find((option) => option.id === selectedEliteOptionId) ?? elitePricingOptions[1];
 
   return (
     <main className="relative z-10 flex min-h-dvh flex-col px-6 pt-10 pb-12">
@@ -242,7 +272,7 @@ export default function ShortVideoContent({
 
       {/* Hero */}
       <HeroSection
-        title="短影音與廣告服務"
+        title="短影音代操與廣告投放"
         subtitle="全方位短影音品牌代操 + 精準廣告投放"
         imageUrl={heroImageUrl}
         imageUrls={heroImageUrls}
@@ -371,53 +401,44 @@ export default function ShortVideoContent({
 
             <div className="flex gap-4 overflow-x-auto pt-4 pb-4 px-1 -mx-1 snap-x snap-mandatory" style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(226,193,145,0.3) transparent" }}>
 
-              {/* 菁英版 */}
-              <div className="flex-shrink-0 w-[280px] snap-start bg-bg-surface border border-divider rounded-xl p-5">
+              {/* 菁英 IP 啟航版（可選三種價位） */}
+              <div className="flex-shrink-0 w-[280px] snap-start bg-accent/10 border border-accent/30 rounded-xl p-5">
                 <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">保證流量方案</p>
-                <h3 className="text-sm font-bold text-text-primary mb-1">菁英 IP 啟航版</h3>
-                <p className="text-xs text-text-secondary/60 mb-3">建立品牌權威門面</p>
-                <p className="mb-2">
-                  <span className="text-2xl font-black text-accent">$60,000</span>
-                  <span className="text-xs text-text-secondary/60 ml-1">/ 月</span>
-                </p>
-                <p className="text-[11px] text-text-secondary/50 mb-3">年度：$720,000（含稅）</p>
-                <ul className="flex flex-col gap-1">
-                  {["保底 600 萬次觀看/年", "每月 8 支短影音", "品牌權威門面建立", "精準打擊潛在受眾"].map((p) => (
-                    <li key={p} className="text-[11px] text-text-secondary leading-[1.7] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent/40 before:text-[10px]">{p}</li>
+                <h3 className="text-base font-bold text-accent mb-1">菁英 IP 啟航版</h3>
+                <p className="text-xs text-text-secondary/60 mb-3">一版整合三種價位自由選擇</p>
+                <div className="grid grid-cols-3 gap-2 mb-3">
+                  {elitePricingOptions.map((option) => (
+                    <button
+                      key={option.id}
+                      type="button"
+                      onClick={() => setSelectedEliteOptionId(option.id)}
+                      className={`rounded-md border px-2 py-1.5 text-xs font-semibold transition-colors ${
+                        selectedEliteOptionId === option.id
+                          ? "bg-sky-500/20 border-sky-400 text-sky-300"
+                          : "border-divider text-text-secondary hover:border-sky-400/40 hover:text-sky-300"
+                      }`}
+                    >
+                      {option.label}
+                    </button>
                   ))}
-                </ul>
-              </div>
-
-              {/* 霸主版 — MOST POPULAR */}
-              <div className="flex-shrink-0 w-[280px] snap-start bg-accent/10 border border-accent/30 rounded-xl p-5 relative">
-                <span className="absolute -top-3 left-4 bg-accent text-bg-primary text-[10px] font-bold px-3 py-1 rounded-full tracking-wider">MOST POPULAR</span>
-                <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2 mt-1">保證流量方案</p>
-                <h3 className="text-base font-bold text-accent mb-1">霸主 IP 領航版</h3>
-                <p className="text-xs text-text-secondary/60 mb-3">壟斷市場視線</p>
+                </div>
                 <p className="mb-2">
-                  <span className="text-3xl font-black text-accent">$90,000</span>
+                  <span className="text-3xl font-black text-accent">
+                    ${selectedEliteOption.monthlyPrice.toLocaleString()}
+                  </span>
                   <span className="text-xs text-text-secondary/60 ml-1">/ 月</span>
                 </p>
-                <p className="text-[11px] text-text-secondary/50 mb-3">年度：$1,080,000（含稅）</p>
-                <ul className="flex flex-col gap-1">
-                  {["保底 1,200 萬次觀看/年", "每月 12 支短影音", "精準廣告投放操盤", "爆款話題製造", "人設深度刻畫", "流量轉化為詢問單"].map((p) => (
-                    <li key={p} className="text-[11px] text-text-secondary leading-[1.7] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent/40 before:text-[10px]">{p}</li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* 集團版 */}
-              <div className="flex-shrink-0 w-[280px] snap-start bg-bg-surface border border-accent/40 rounded-xl p-5">
-                <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">保證流量方案</p>
-                <h3 className="text-base font-bold text-text-primary mb-1">行業頂峰 集團版</h3>
-                <p className="text-xs text-text-secondary/60 mb-3">行業天花板級曝光</p>
-                <p className="mb-2">
-                  <span className="text-3xl font-black text-accent">$216,000</span>
-                  <span className="text-xs text-text-secondary/60 ml-1">/ 月</span>
+                <p className="text-[11px] text-text-secondary/50 mb-3">
+                  年度：${selectedEliteOption.yearlyPrice.toLocaleString()}（含稅）
                 </p>
-                <p className="text-[11px] text-text-secondary/50 mb-3">年度：$2,600,000（含稅）</p>
                 <ul className="flex flex-col gap-1">
-                  {["保底 3,000 萬次觀看/年", "每月 20 支短影音", "IP 定位 + 爆款腳本", "每月三日專業拍攝", "矩陣式鋪量策略", "商業閉環變現建議", "未達標全額退費"].map((p) => (
+                  {[
+                    selectedEliteOption.trafficGuarantee,
+                    `每月 ${selectedEliteOption.videosPerMonth} 支短影音（每支 1 萬元）`,
+                    "IP 定位 + 爆款腳本",
+                    "精準廣告投放操盤",
+                    "未達標全額退費",
+                  ].map((p) => (
                     <li key={p} className="text-[11px] text-text-secondary leading-[1.7] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent/40 before:text-[10px]">{p}</li>
                   ))}
                 </ul>
@@ -471,9 +492,9 @@ export default function ShortVideoContent({
           {/* Registration Form */}
           <RegistrationForm
             courseOptions={[
-              "菁英 IP 啟航版（$60,000/月）",
-              "霸主 IP 領航版（$90,000/月）",
-              "行業頂峰 集團版（$216,000/月）",
+              "菁英 IP 啟航版（8 支 / $80,000/月）",
+              "菁英 IP 啟航版（12 支 / $120,000/月）",
+              "菁英 IP 啟航版（24 支 / $240,000/月）",
               "對賭企業方案（PTT）",
               "六六大順體驗版（$72,000）",
             ]}
