@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 
 export const metadata: Metadata = {
-  title: "案例展示 | LUOWEI MEDIA",
-  description: "成功學員的真實故事。短影音案例、課程案例一覽。",
+  title: "客戶見證 | LUOWEI MEDIA",
+  description: "企業合作的實戰成果。廣告代操見證、授課培訓見證。",
 };
 
 export default function CasesLayout({ children }: { children: React.ReactNode }) {
@@ -12,8 +12,8 @@ export default function CasesLayout({ children }: { children: React.ReactNode })
       <JsonLd data={{
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        name: "案例展示",
-        description: "成功學員的真實故事。短影音案例、課程案例。",
+        name: "客戶見證",
+        description: "企業合作的實戰成果。廣告代操見證、授課培訓見證。",
         url: "https://luowei-media.com/cases",
         isPartOf: { "@type": "WebSite", name: "羅威傳媒 LUOWEI MEDIA", url: "https://luowei-media.com" },
       }} />

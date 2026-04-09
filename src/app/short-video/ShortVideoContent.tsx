@@ -433,8 +433,8 @@ export default function ShortVideoContent({
                       onClick={() => setSelectedEliteOptionId(option.id)}
                       className={`rounded-md border px-2 py-1.5 text-xs font-semibold transition-colors ${
                         selectedEliteOptionId === option.id
-                          ? "bg-sky-500/20 border-sky-400 text-sky-300"
-                          : "border-divider text-text-secondary hover:border-sky-400/40 hover:text-sky-300"
+                          ? "bg-accent/15 border-accent text-accent"
+                          : "border-divider text-text-secondary hover:border-accent/40 hover:text-accent"
                       }`}
                     >
                       {option.label}

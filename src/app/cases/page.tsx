@@ -29,14 +29,14 @@ function LoadingSkeleton() {
       {Array.from({ length: 6 }).map((_, i) => (
         <div key={i} className="flex flex-col items-center gap-2">
           <div
-            className="w-20 h-20 rounded-full bg-surface-light"
+            className="w-20 h-20 rounded-full bg-bg-surface-light"
             style={{
               animation: "skeleton-pulse 1.5s ease-in-out infinite",
               animationDelay: `${i * 100}ms`,
             }}
           />
           <div
-            className="w-12 h-3 rounded bg-surface-light"
+            className="w-12 h-3 rounded bg-bg-surface-light"
             style={{
               animation: "skeleton-pulse 1.5s ease-in-out infinite",
               animationDelay: `${i * 100 + 50}ms`,
@@ -70,7 +70,26 @@ export default function CasesPage() {
   }, [activeTab]);
 
   return (
-    <main className="relative z-10 flex min-h-dvh flex-col items-center px-6 pt-12 pb-20">
+    <main
+      className="relative z-10 flex min-h-dvh flex-col items-center px-6 pt-12 pb-20"
+      style={{
+        background: "#EFF6FC",
+        ["--color-bg-primary" as string]: "#EFF6FC",
+        ["--color-bg-surface" as string]: "#FFFFFF",
+        ["--color-bg-surface-light" as string]: "#F5F9FD",
+        ["--color-text-primary" as string]: "#1A2744",
+        ["--color-text-secondary" as string]: "#4A6178",
+        ["--color-text-white" as string]: "#1A2744",
+        ["--color-accent" as string]: "#D4870E",
+        ["--color-accent-hover" as string]: "#C07A0A",
+        ["--color-accent-warm" as string]: "#D4870E",
+        ["--color-divider" as string]: "#C8D8E8",
+        ["--color-glow" as string]: "rgba(46, 107, 198, 0.1)",
+        ["--color-gold-gradient-start" as string]: "#1A2744",
+        ["--color-gold-gradient-mid" as string]: "#2E6BC6",
+        ["--color-gold-gradient-end" as string]: "#1A2744",
+      }}
+    >
       {/* Back link */}
       <Link
         href="/"

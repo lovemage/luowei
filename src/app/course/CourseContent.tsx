@@ -115,7 +115,7 @@ export default function CourseContent() {
         </h2>
         <p className="text-xs text-[#7B91A5] mb-8">兩種方案皆可同日排課，或分批進行</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 gap-5">
 
           {/* Card A: AI 節流 */}
           <div className="flex flex-col rounded-2xl bg-white border border-[#C8D8E8] overflow-hidden shadow-sm">

@@ -67,14 +67,14 @@ export default function CaseLogoWall({ cases, onSelect }: CaseLogoWallProps) {
 
       <style dangerouslySetInnerHTML={{ __html: `
         .case-glow {
-          box-shadow: 0 0 20px rgba(226, 193, 145, 0.25), inset 0 0 20px rgba(226, 193, 145, 0.1);
+          box-shadow: 0 0 20px rgba(212, 135, 14, 0.2), inset 0 0 20px rgba(212, 135, 14, 0.08);
         }
         .case-avatar-ring {
-          box-shadow: 0 0 12px rgba(226, 193, 145, 0.12);
+          box-shadow: 0 0 8px rgba(26, 39, 68, 0.08);
           transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.15s ease;
         }
         .case-avatar-ring:hover {
-          box-shadow: 0 0 24px rgba(226, 193, 145, 0.3);
+          box-shadow: 0 0 20px rgba(212, 135, 14, 0.25);
         }
         @media (prefers-reduced-motion: reduce) {
           .case-avatar-ring, .case-glow {
