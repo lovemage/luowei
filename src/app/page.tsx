@@ -7,7 +7,7 @@ import JsonLd from "@/components/JsonLd";
 const navItems: { label: string; href: string; external?: boolean; tag?: string }[] = [
   { label: "短影音代操與廣告投放", href: "/short-video", tag: "企業專屬" },
   { label: "素人代操與課程案例", href: "/cases" },
-  { label: "短影音影響力變現課程", href: "/course", tag: "素人提升" },
+  { label: "企業品牌影響力包班實戰課", href: "/course", tag: "企業培訓" },
 ];
 
 export default function Home() {
