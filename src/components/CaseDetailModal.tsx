@@ -183,7 +183,7 @@ export default function CaseDetailModal({ caseData, onClose }: CaseDetailModalPr
             }}
           >
             <h3 className="text-sm font-medium text-accent tracking-widest mb-3">
-              自我介紹
+              合作見證
             </h3>
             <div className="text-sm text-text-secondary leading-relaxed whitespace-pre-line">
               {data.bio}

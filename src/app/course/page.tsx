@@ -1,35 +1,36 @@
-import { prisma } from "@/lib/prisma";
 import CourseContent from "./CourseContent";
 import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "短影音影響力變現課程 | LUOWEI MEDIA",
-  description: "用短影音翻轉人生，從零基礎到商業變現。初階實戰班、進階陪跑班。",
+  title: "2026 企業品牌影響力｜客製化包班實戰課 | LUOWEI MEDIA",
+  description: "讓 AI 成為你的員工，讓短影音成為你的業務。企業客製化包班課程，單場 $36,000（含稅），上限 30 人，現場保證實作產出。",
 };
 
 export const dynamic = "force-dynamic";
 
-export default async function CoursePage() {
-  const faqs = await prisma.fAQ.findMany({
-    where: { pageSlug: "course" },
-    orderBy: { order: "asc" },
-  });
+export default function CoursePage() {
   return (
     <>
       <JsonLd data={{
         "@context": "https://schema.org",
         "@type": "Course",
-        name: "短影音影響力變現課程",
+        name: "2026 企業品牌影響力｜客製化包班實戰課",
         provider: { "@type": "Organization", name: "羅威傳媒 LUOWEI MEDIA", url: "https://luowei-media.com" },
-        description: "用短影音翻轉人生，從零基礎到商業變現。系統化實戰教學，團隊督促保證產出。",
+        description: "讓 AI 成為你的員工，讓短影音成為你的業務。拒絕空談理論，現場保證學會，直接產出成果。",
         url: "https://luowei-media.com/course",
+        offers: {
+          "@type": "Offer",
+          price: "36000",
+          priceCurrency: "TWD",
+          description: "單場包班（含稅），上限 30 人",
+        },
         hasCourseInstance: [
-          { "@type": "CourseInstance", name: "初階實戰班", courseMode: "onsite" },
-          { "@type": "CourseInstance", name: "進階陪跑班", courseMode: "blended" },
+          { "@type": "CourseInstance", name: "AI 影像力應用軟體課程", courseMode: "onsite" },
+          { "@type": "CourseInstance", name: "短影音影響力變現課程", courseMode: "onsite" },
         ],
       }} />
-      <CourseContent faqs={faqs} />
+      <CourseContent />
     </>
   );
 }

@@ -19,8 +19,8 @@ interface CaseItem {
 }
 
 const TABS = [
-  { key: "short-video", label: "短影音案例" },
-  { key: "course", label: "課程案例" },
+  { key: "short-video", label: "廣告代操見證" },
+  { key: "course", label: "授課培訓見證" },
 ];
 
 function LoadingSkeleton() {
@@ -93,7 +93,7 @@ export default function CasesPage() {
           transition: "opacity 0.5s ease 0.1s, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.1s",
         }}
       >
-        案例展示
+        客戶見證
       </h1>
       <p
         className="text-sm text-text-secondary mb-8"
@@ -103,7 +103,7 @@ export default function CasesPage() {
           transition: "opacity 0.5s ease 0.2s, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.2s",
         }}
       >
-        成功學員的真實故事
+        企業合作的實戰成果
       </p>
 
       {/* Divider */}
