@@ -76,7 +76,7 @@ export default function CaseDetailModal({ caseData, onClose }: CaseDetailModalPr
     <div className="fixed inset-0 z-[60] flex items-center justify-center">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        className="absolute inset-0 bg-bg-primary/78 backdrop-blur-sm"
         onClick={handleClose}
         style={{
           opacity: isOpen ? 1 : isExiting ? 0 : 0,
