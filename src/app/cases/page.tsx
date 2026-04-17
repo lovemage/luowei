@@ -122,7 +122,7 @@ export default function CasesPage() {
           transition: "opacity 0.5s ease 0.2s, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.2s",
         }}
       >
-        企業合作的實戰成果
+        企業合作的實戰成果｜羅威傳媒 X 共好新創 共同出品
       </p>
 
       {/* Divider */}

@@ -129,7 +129,7 @@ const videoBuiltInFAQs = [
   {
     id: "v-faq-3",
     question: "保證流量是怎麼計算的？沒達標怎麼辦？",
-    answer: "流量以全網年度總觀看次數計算（含 TikTok、Reels、YouTube Shorts 等平台）。菁英 IP 啟航版依月費方案對應保底觀看量：8 萬方案保底 800 萬、12 萬方案保底 1,200 萬、24 萬方案保底 2,400 萬。若年度結算未達標，全額退費，業界唯一。",
+    answer: "流量以全網年度總觀看次數計算（含 TikTok、Reels、YouTube Shorts 等平台）。菁英 IP 啟航版依月費方案對應保底觀看量：8 萬方案保底 800 萬、12 萬方案保底 1,000 萬、24 萬方案保底 1,000 萬。若年度結算未達標，全額退費，業界唯一。",
   },
   {
     id: "v-faq-4",
@@ -236,7 +236,7 @@ const elitePricingOptions = [
     monthlyPrice: 120000,
     videosPerMonth: 12,
     yearlyPrice: 1440000,
-    trafficGuarantee: "保底 1,200 萬次觀看/年",
+    trafficGuarantee: "保底 1,000 萬總流量觀看/年",
   },
   {
     id: "240000",
@@ -244,7 +244,7 @@ const elitePricingOptions = [
     monthlyPrice: 240000,
     videosPerMonth: 24,
     yearlyPrice: 2880000,
-    trafficGuarantee: "保底 2,400 萬次觀看/年",
+    trafficGuarantee: "保底 1,000 萬總流量觀看/年",
   },
 ];
 
