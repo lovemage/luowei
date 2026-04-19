@@ -64,10 +64,10 @@ export default function NewCasePage() {
     <div>
       <div className="flex items-center gap-4 mb-6">
         <Link href="/admin/cases" className="text-gray-500 hover:text-gray-700">← 返回</Link>
-        <h1 className="text-2xl font-bold text-gray-900">新增案例</h1>
+        <h1 className="text-xl md:text-2xl font-bold text-gray-900">新增案例</h1>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 p-6 space-y-4 max-w-2xl">
+      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 p-4 md:p-6 space-y-4 max-w-2xl">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Slug (URL 識別碼)</label>
           <input
@@ -87,8 +87,9 @@ export default function NewCasePage() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">頭像圖片</label>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             {form.avatarUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
               <img src={form.avatarUrl} alt="預覽" className="w-12 h-12 rounded-full object-cover border border-gray-200" />
             )}
             <input ref={fileInputRef} type="file" accept="image/*" onChange={handleUpload} className="hidden" />
@@ -141,7 +142,7 @@ export default function NewCasePage() {
             placeholder='{"followers": "12.8K", "likes": "132.6K"}'
           />
         </div>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4 items-end">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">排序</label>
             <input
@@ -150,7 +151,7 @@ export default function NewCasePage() {
               className="w-24 border border-gray-200 rounded-lg px-3 py-2 text-sm"
             />
           </div>
-          <div className="flex items-end pb-1">
+          <div className="pb-1">
             <label className="flex items-center gap-2 text-sm text-gray-700">
               <input
                 type="checkbox" checked={form.visible}
@@ -162,7 +163,7 @@ export default function NewCasePage() {
         </div>
         <button
           type="submit" disabled={saving}
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50"
+          className="w-full sm:w-auto bg-blue-600 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50"
         >
           {saving ? "儲存中..." : "儲存"}
         </button>

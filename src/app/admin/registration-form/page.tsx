@@ -193,13 +193,13 @@ export default function AdminRegistrationFormPage() {
   return (
     <div className="flex flex-col xl:flex-row gap-6">
       {/* Left: Editor */}
-      <div className="flex-1 max-w-2xl">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">報名表單管理</h1>
+      <div className="flex-1 w-full xl:max-w-2xl">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+          <h1 className="text-xl md:text-2xl font-bold text-gray-900">報名表單管理</h1>
           <button
             onClick={handleSave}
             disabled={saving}
-            className="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50"
+            className="inline-flex justify-center bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50"
           >
             {saving ? "儲存中..." : "儲存全部"}
           </button>
@@ -212,12 +212,12 @@ export default function AdminRegistrationFormPage() {
         )}
 
         {/* Tabs */}
-        <div className="flex border-b border-gray-200 mb-6">
+        <div className="flex border-b border-gray-200 mb-6 overflow-x-auto">
           {TABS.map((tab) => (
             <button
               key={tab.key}
               onClick={() => { setActiveTab(tab.key); setMessage(""); }}
-              className={`px-4 py-2.5 text-sm font-medium transition-colors ${
+              className={`flex-shrink-0 px-4 py-2.5 text-sm font-medium transition-colors whitespace-nowrap ${
                 activeTab === tab.key
                   ? "text-blue-600 border-b-2 border-blue-600"
                   : "text-gray-500 hover:text-gray-700"
@@ -229,9 +229,9 @@ export default function AdminRegistrationFormPage() {
         </div>
 
         {/* Title Settings */}
-        <div className="bg-white border border-gray-200 rounded-lg p-5 mb-5">
+        <div className="bg-white border border-gray-200 rounded-lg p-4 md:p-5 mb-5">
           <h2 className="text-sm font-bold text-gray-900 mb-4">表單設定</h2>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="block text-xs text-gray-500 mb-1">表單標題</label>
               <input type="text" value={config.title} onChange={(e) => setConfig({ ...config, title: e.target.value })}
@@ -274,19 +274,19 @@ export default function AdminRegistrationFormPage() {
             {config.fields.map((field, index) => (
               <div key={field.key} className="bg-white border border-gray-200 rounded-xl p-4">
                 <div className="flex items-start gap-3">
-                  <div className="flex-1 space-y-2">
-                    <div className="flex gap-2">
-                      <div className="flex-1">
+                  <div className="flex-1 min-w-0 space-y-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_7rem] gap-2">
+                      <div>
                         <label className="block text-xs text-gray-400 mb-1">標籤</label>
                         <input type="text" value={field.label} onChange={(e) => updateField(index, { label: e.target.value })}
                           placeholder="欄位名稱" className="w-full px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500" />
                       </div>
-                      <div className="flex-1">
+                      <div>
                         <label className="block text-xs text-gray-400 mb-1">提示文字</label>
                         <input type="text" value={field.placeholder} onChange={(e) => updateField(index, { placeholder: e.target.value })}
                           placeholder="Placeholder" className="w-full px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500" />
                       </div>
-                      <div className="w-28">
+                      <div>
                         <label className="block text-xs text-gray-400 mb-1">類型</label>
                         <select value={field.type} onChange={(e) => updateField(index, { type: e.target.value as FormField["type"] })}
                           className="w-full px-2 py-1.5 border border-gray-200 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
@@ -310,21 +310,49 @@ export default function AdminRegistrationFormPage() {
                     </div>
                   </div>
                   {/* Arrows */}
-                  <div className="flex flex-col gap-0.5 flex-shrink-0 pt-5">
-                    <button onClick={() => moveField(index, "up")} disabled={index === 0}
-                      className="p-0.5 text-gray-400 hover:text-gray-700 disabled:opacity-30" title="上移">▲</button>
-                    <button onClick={() => moveField(index, "down")} disabled={index === config.fields.length - 1}
-                      className="p-0.5 text-gray-400 hover:text-gray-700 disabled:opacity-30" title="下移">▼</button>
+                  <div className="flex flex-col gap-0.5 flex-shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => moveField(index, "up")}
+                      disabled={index === 0}
+                      className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-gray-700 active:text-gray-900 disabled:opacity-30 rounded hover:bg-gray-100"
+                      aria-label="上移"
+                    >
+                      ▲
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => moveField(index, "down")}
+                      disabled={index === config.fields.length - 1}
+                      className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-gray-700 active:text-gray-900 disabled:opacity-30 rounded hover:bg-gray-100"
+                      aria-label="下移"
+                    >
+                      ▼
+                    </button>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         )}
+
+        {/* Mobile sticky save */}
+        <div
+          className="md:hidden sticky bottom-0 -mx-4 mt-6 px-4 py-3 bg-white/95 backdrop-blur border-t border-gray-200"
+          style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+        >
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-blue-700 active:bg-blue-800 transition-colors disabled:opacity-50"
+          >
+            {saving ? "儲存中..." : "儲存全部"}
+          </button>
+        </div>
       </div>
 
-      {/* Right: Preview */}
-      <div className="flex-shrink-0">
+      {/* Right: Preview (hidden on mobile — limited screen real estate) */}
+      <div className="hidden xl:block flex-shrink-0">
         <div className="sticky top-4">
           <h3 className="text-sm font-semibold text-gray-700 mb-3">
             即時預覽 — {TABS.find((t) => t.key === activeTab)?.label}

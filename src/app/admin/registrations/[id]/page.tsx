@@ -68,18 +68,18 @@ export default function RegistrationDetailPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">報名詳情</h1>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <h1 className="text-xl md:text-2xl font-bold text-gray-900">報名詳情</h1>
         <div className="flex gap-2">
           <Link
             href="/admin/registrations"
-            className="px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition-colors"
+            className="flex-1 sm:flex-initial text-center px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition-colors"
           >
             返回列表
           </Link>
           <button
             onClick={handleDelete}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 transition-colors"
+            className="flex-1 sm:flex-initial px-4 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 transition-colors"
           >
             刪除
           </button>
@@ -88,11 +88,14 @@ export default function RegistrationDetailPage() {
 
       <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
         {fields.map((f) => (
-          <div key={f.label} className="flex border-b border-gray-100 last:border-0">
-            <div className="w-32 px-4 py-3 bg-gray-50 text-sm font-medium text-gray-600 shrink-0">
+          <div
+            key={f.label}
+            className="flex flex-col sm:flex-row border-b border-gray-100 last:border-0"
+          >
+            <div className="w-full sm:w-32 px-4 pt-3 sm:py-3 bg-gray-50 text-xs sm:text-sm font-medium text-gray-600 sm:shrink-0">
               {f.label}
             </div>
-            <div className="px-4 py-3 text-sm text-gray-900">
+            <div className="px-4 pb-3 sm:py-3 text-sm text-gray-900 break-all">
               {f.value || <span className="text-gray-400">-</span>}
             </div>
           </div>

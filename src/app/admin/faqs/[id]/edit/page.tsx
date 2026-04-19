@@ -62,12 +62,12 @@ export default function EditFAQPage() {
         >
           &larr; 返回
         </Link>
-        <h1 className="text-2xl font-bold text-gray-900">編輯 FAQ</h1>
+        <h1 className="text-xl md:text-2xl font-bold text-gray-900">編輯 FAQ</h1>
       </div>
 
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-xl border border-gray-200 p-6 space-y-5 max-w-2xl"
+        className="bg-white rounded-xl border border-gray-200 p-4 md:p-6 space-y-5 max-w-2xl"
       >
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -126,7 +126,7 @@ export default function EditFAQPage() {
           />
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <button
             type="submit"
             disabled={saving}
@@ -136,7 +136,7 @@ export default function EditFAQPage() {
           </button>
           <Link
             href="/admin/faqs"
-            className="px-5 py-2.5 rounded-lg text-sm font-medium text-gray-600 border border-gray-200 hover:bg-gray-50 transition-colors"
+            className="text-center px-5 py-2.5 rounded-lg text-sm font-medium text-gray-600 border border-gray-200 hover:bg-gray-50 transition-colors"
           >
             取消
           </Link>

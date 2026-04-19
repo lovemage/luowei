@@ -70,7 +70,7 @@ export default function MediaPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">圖片庫</h1>
+      <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">圖片庫</h1>
 
       <label className="block mb-6 cursor-pointer">
         <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-blue-400 transition-colors">

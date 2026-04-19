@@ -110,12 +110,12 @@ export default function AdminFloatingButtonsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">懸浮按鈕管理</h1>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <h1 className="text-xl md:text-2xl font-bold text-gray-900">懸浮按鈕管理</h1>
         <button
           onClick={handleAdd}
           disabled={buttons.length >= MAX_BUTTONS}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex justify-center bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           新增按鈕
         </button>
@@ -142,13 +142,14 @@ export default function AdminFloatingButtonsPage() {
           {buttons.map((btn, index) => (
             <div
               key={btn.key}
-              className="bg-white border border-gray-200 rounded-xl p-5"
+              className="bg-white border border-gray-200 rounded-xl p-4 md:p-5"
             >
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-3 md:gap-4">
                 {/* Icon preview */}
                 <div className="flex-shrink-0">
                   <div className="w-12 h-12 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center overflow-hidden">
                     {btn.iconUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={btn.iconUrl}
                         alt={btn.label}
@@ -161,9 +162,9 @@ export default function AdminFloatingButtonsPage() {
                 </div>
 
                 {/* Fields */}
-                <div className="flex-1 space-y-3">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
+                <div className="flex-1 min-w-0 space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
                       <label className="block text-xs text-gray-500 mb-1">按鈕名稱</label>
                       <input
                         type="text"
@@ -173,7 +174,7 @@ export default function AdminFloatingButtonsPage() {
                         className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                     </div>
-                    <div className="flex-1">
+                    <div>
                       <label className="block text-xs text-gray-500 mb-1">連結網址</label>
                       <input
                         type="text"
@@ -185,7 +186,7 @@ export default function AdminFloatingButtonsPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-2 md:gap-3">
                     <input
                       type="file"
                       accept="image/*"
@@ -204,7 +205,7 @@ export default function AdminFloatingButtonsPage() {
                     </button>
                     <button
                       onClick={() => handleDelete(index)}
-                      className="text-red-500 text-sm hover:text-red-700 transition-colors"
+                      className="text-red-500 text-sm px-2 py-1.5 hover:text-red-700 transition-colors"
                     >
                       刪除
                     </button>
@@ -216,8 +217,9 @@ export default function AdminFloatingButtonsPage() {
                   <button
                     onClick={() => handleMoveUp(index)}
                     disabled={index === 0}
-                    className="p-1 text-gray-400 hover:text-gray-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="w-10 h-10 md:w-9 md:h-9 flex items-center justify-center text-gray-400 hover:text-gray-700 active:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg hover:bg-gray-100 transition-colors"
                     title="上移"
+                    aria-label="上移"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
@@ -226,8 +228,9 @@ export default function AdminFloatingButtonsPage() {
                   <button
                     onClick={() => handleMoveDown(index)}
                     disabled={index === buttons.length - 1}
-                    className="p-1 text-gray-400 hover:text-gray-700 disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="w-10 h-10 md:w-9 md:h-9 flex items-center justify-center text-gray-400 hover:text-gray-700 active:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg hover:bg-gray-100 transition-colors"
                     title="下移"
+                    aria-label="下移"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -241,11 +244,14 @@ export default function AdminFloatingButtonsPage() {
       )}
 
       {buttons.length > 0 && (
-        <div className="mt-6 flex justify-end">
+        <div
+          className="mt-6 sticky bottom-0 -mx-4 px-4 py-3 bg-white/95 backdrop-blur border-t border-gray-200 md:static md:mx-0 md:px-0 md:py-0 md:bg-transparent md:backdrop-blur-none md:border-0 md:flex md:justify-end"
+          style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+        >
           <button
             onClick={handleSave}
             disabled={saving}
-            className="bg-blue-600 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50"
+            className="w-full md:w-auto bg-blue-600 text-white px-6 py-3 md:py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 active:bg-blue-800 transition-colors disabled:opacity-50"
           >
             {saving ? "儲存中..." : "儲存設定"}
           </button>

@@ -447,21 +447,21 @@ export default function EditPage({
   return (
     <div className="flex flex-col xl:flex-row gap-6">
       {/* ── Left: Editor ── */}
-      <div className="flex-1 max-w-2xl">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">
+      <div className="flex-1 w-full xl:max-w-2xl">
+        <div className="flex items-center justify-between gap-3 mb-6">
+          <h1 className="text-xl md:text-2xl font-bold text-gray-900 min-w-0 truncate">
             編輯頁面: {page.slug}
           </h1>
           <button
             onClick={() => router.back()}
-            className="text-sm text-gray-500 hover:text-gray-700"
+            className="flex-shrink-0 text-sm text-gray-500 hover:text-gray-700"
           >
             返回
           </button>
         </div>
 
         {/* 儲存按鈕（頂部） */}
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
           <button
             onClick={handleSave}
             disabled={saving}
@@ -479,7 +479,7 @@ export default function EditPage({
         </div>
 
         {/* 基本設定 */}
-        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+        <div className="bg-white border border-gray-200 rounded-lg p-4 md:p-6 mb-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">
             基本設定
           </h2>
@@ -530,7 +530,7 @@ export default function EditPage({
         </div>
 
         {/* 頁面內容 */}
-        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+        <div className="bg-white border border-gray-200 rounded-lg p-4 md:p-6 mb-6">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">
             頁面內容
           </h2>
@@ -575,11 +575,14 @@ export default function EditPage({
         </div>
 
         {/* 儲存按鈕（底部） */}
-        <div className="flex items-center gap-4">
+        <div
+          className="sticky bottom-0 -mx-4 px-4 py-3 bg-white/95 backdrop-blur border-t border-gray-200 flex flex-col sm:flex-row sm:items-center gap-3 md:static md:mx-0 md:px-0 md:py-0 md:bg-transparent md:backdrop-blur-none md:border-0"
+          style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+        >
           <button
             onClick={handleSave}
             disabled={saving}
-            className="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+            className="w-full md:w-auto rounded-lg bg-blue-600 px-6 py-3 md:py-2.5 text-sm font-medium text-white hover:bg-blue-700 active:bg-blue-800 disabled:opacity-50 transition-colors"
           >
             {saving ? "儲存中..." : "儲存"}
           </button>
@@ -593,8 +596,8 @@ export default function EditPage({
         </div>
       </div>
 
-      {/* ── Right: Preview ── */}
-      <div className="flex-shrink-0">
+      {/* ── Right: Preview (hidden on small/medium — not useful on narrow viewports) ── */}
+      <div className="hidden xl:block flex-shrink-0">
         <div className="sticky top-4">
           <h3 className="text-sm font-semibold text-gray-700 mb-3">
             即時預覽

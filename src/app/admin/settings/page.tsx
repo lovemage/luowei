@@ -108,11 +108,11 @@ export default function SettingsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">網站設定</h1>
+      <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">網站設定</h1>
 
-      <div className="space-y-8 max-w-xl">
+      <div className="space-y-6 md:space-y-8 max-w-xl">
         {/* Section 1: Admin Email */}
-        <div className="bg-white border border-gray-200 rounded-xl p-6">
+        <div className="bg-white border border-gray-200 rounded-xl p-5 md:p-6">
           <h2 className="text-base font-semibold text-gray-800 mb-4">管理員通知 Email</h2>
           <div className="space-y-3">
             <input
@@ -122,11 +122,11 @@ export default function SettingsPage() {
               placeholder="admin@example.com"
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
               <button
                 onClick={handleSaveEmail}
                 disabled={savingEmail}
-                className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
               >
                 {savingEmail ? "儲存中..." : "儲存"}
               </button>
@@ -140,7 +140,7 @@ export default function SettingsPage() {
         </div>
 
         {/* Section 2: Footer Text */}
-        <div className="bg-white border border-gray-200 rounded-xl p-6">
+        <div className="bg-white border border-gray-200 rounded-xl p-5 md:p-6">
           <h2 className="text-base font-semibold text-gray-800 mb-4">頁腳文字</h2>
           <div className="space-y-3">
             <textarea
@@ -150,11 +150,11 @@ export default function SettingsPage() {
               rows={3}
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
             />
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
               <button
                 onClick={handleSaveFooter}
                 disabled={savingFooter}
-                className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
               >
                 {savingFooter ? "儲存中..." : "儲存"}
               </button>
@@ -168,7 +168,7 @@ export default function SettingsPage() {
         </div>
 
         {/* Section 3: Change Password */}
-        <div className="bg-white border border-gray-200 rounded-xl p-6">
+        <div className="bg-white border border-gray-200 rounded-xl p-5 md:p-6">
           <h2 className="text-base font-semibold text-gray-800 mb-4">修改密碼</h2>
           <div className="space-y-3">
             <input
@@ -192,11 +192,11 @@ export default function SettingsPage() {
               placeholder="確認新密碼"
               className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
               <button
                 onClick={handleSavePassword}
                 disabled={savingPassword}
-                className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
               >
                 {savingPassword ? "儲存中..." : "更新密碼"}
               </button>

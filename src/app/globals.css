@@ -168,6 +168,21 @@ body {
   animation: blink 1.5s ease-in-out infinite;
 }
 
+/* ===== Admin-scoped adaptations ===== */
+/* Prevent iOS Safari from zooming on focus (needs >= 16px). Scoped to admin so
+   public site typography is untouched. */
+@media (max-width: 767px) {
+  .admin-root input,
+  .admin-root textarea,
+  .admin-root select {
+    font-size: 16px;
+  }
+}
+
+.admin-root .admin-main {
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+
 /* ===== Reduced Motion ===== */
 
 @media (prefers-reduced-motion: reduce) {

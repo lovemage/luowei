@@ -12,8 +12,10 @@ export default async function AdminPages() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6 text-gray-900">頁面管理</h1>
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <h1 className="text-xl md:text-2xl font-bold mb-6 text-gray-900">頁面管理</h1>
+
+      {/* Desktop table */}
+      <div className="hidden md:block bg-white rounded-xl border border-gray-200 overflow-hidden">
         <table className="w-full">
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
@@ -43,6 +45,28 @@ export default async function AdminPages() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile cards */}
+      <div className="md:hidden space-y-3">
+        {pages.map((page) => (
+          <Link
+            key={page.id}
+            href={`/admin/pages/${page.slug}/edit`}
+            className="block rounded-xl border border-gray-200 bg-white p-4 active:bg-gray-50"
+          >
+            <p className="text-base font-medium text-gray-900 mb-1">
+              {page.title}
+            </p>
+            <p className="text-xs text-gray-500 font-mono mb-2">{page.slug}</p>
+            <div className="flex items-center justify-between text-xs text-gray-400">
+              <span>
+                更新：{new Date(page.updatedAt).toLocaleDateString("zh-TW")}
+              </span>
+              <span className="text-blue-600">編輯 →</span>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );

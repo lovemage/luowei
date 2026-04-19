@@ -91,12 +91,12 @@ export default function AdminAnnouncementsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">公告管理</h1>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <h1 className="text-xl md:text-2xl font-bold text-gray-900">公告管理</h1>
         <button
           onClick={handleAdd}
           disabled={config.items.length >= MAX_ANNOUNCEMENTS}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex justify-center bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           新增公告
         </button>
@@ -194,11 +194,13 @@ export default function AdminAnnouncementsPage() {
         </div>
       )}
 
-      <div className="mt-6 flex justify-end">
+      <div className="mt-6 sticky bottom-0 -mx-4 px-4 py-3 bg-white/95 backdrop-blur border-t border-gray-200 md:static md:mx-0 md:px-0 md:py-0 md:bg-transparent md:backdrop-blur-none md:border-0 md:flex md:justify-end"
+        style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+      >
         <button
           onClick={handleSave}
           disabled={saving}
-          className="bg-blue-600 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50"
+          className="w-full md:w-auto bg-blue-600 text-white px-6 py-3 md:py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 active:bg-blue-800 transition-colors disabled:opacity-50"
         >
           {saving ? "儲存中..." : "儲存設定"}
         </button>
