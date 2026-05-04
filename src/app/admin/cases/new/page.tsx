@@ -8,18 +8,18 @@ export default function NewCasePage() {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState({
-    slug: "",
     name: "",
     avatarUrl: "",
     category: "short-video",
     title: "",
     bio: "",
-    stats: "{}",
     order: 0,
     visible: true,
   });
+  const [statRows, setStatRows] = useState([{ key: "", value: "" }]);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -44,18 +44,29 @@ export default function NewCasePage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSaving(true);
+    setErrorMsg("");
     try {
       const res = await fetch("/api/admin/cases", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...form,
-          stats: JSON.parse(form.stats),
+          stats: Object.fromEntries(
+            statRows
+              .map((row) => [row.key.trim(), row.value.trim()] as const)
+              .filter(([key, value]) => key && value)
+          ),
         }),
       });
-      if (res.ok) router.push("/admin/cases");
+      if (res.ok) {
+        router.push("/admin/cases");
+        return;
+      }
+      const payload = await res.json().catch(() => null);
+      setErrorMsg(payload?.error || "儲存失敗，請稍後再試");
     } catch (err) {
       console.error(err);
+      setErrorMsg("儲存失敗，請稍後再試");
     }
     setSaving(false);
   };
@@ -68,15 +79,6 @@ export default function NewCasePage() {
       </div>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 p-4 md:p-6 space-y-4 max-w-2xl">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Slug (URL 識別碼)</label>
-          <input
-            type="text" required value={form.slug}
-            onChange={(e) => setForm({ ...form, slug: e.target.value })}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm"
-            placeholder="dr-frankshen"
-          />
-        </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">名稱</label>
           <input
@@ -133,14 +135,50 @@ export default function NewCasePage() {
             className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm h-40"
           />
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">數據亮點 (JSON)</label>
-          <textarea
-            value={form.stats}
-            onChange={(e) => setForm({ ...form, stats: e.target.value })}
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm font-mono h-20"
-            placeholder='{"followers": "12.8K", "likes": "132.6K"}'
-          />
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">數據亮點</label>
+          {statRows.map((row, index) => (
+            <div key={index} className="flex gap-2">
+              <input
+                type="text"
+                value={row.key}
+                onChange={(e) =>
+                  setStatRows((prev) =>
+                    prev.map((item, i) => (i === index ? { ...item, key: e.target.value } : item))
+                  )
+                }
+                className="w-1/2 border border-gray-200 rounded-lg px-3 py-2 text-sm"
+                placeholder="欄位名稱，例如 followers"
+              />
+              <input
+                type="text"
+                value={row.value}
+                onChange={(e) =>
+                  setStatRows((prev) =>
+                    prev.map((item, i) => (i === index ? { ...item, value: e.target.value } : item))
+                  )
+                }
+                className="w-1/2 border border-gray-200 rounded-lg px-3 py-2 text-sm"
+                placeholder="值，例如 12.8K"
+              />
+              <button
+                type="button"
+                onClick={() =>
+                  setStatRows((prev) => (prev.length === 1 ? prev : prev.filter((_, i) => i !== index)))
+                }
+                className="px-3 py-2 text-sm border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50"
+              >
+                刪除
+              </button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => setStatRows((prev) => [...prev, { key: "", value: "" }])}
+            className="text-sm text-blue-600 hover:text-blue-700"
+          >
+            + 新增一列
+          </button>
         </div>
         <div className="flex flex-wrap gap-4 items-end">
           <div>
@@ -167,6 +205,7 @@ export default function NewCasePage() {
         >
           {saving ? "儲存中..." : "儲存"}
         </button>
+        {errorMsg && <p className="text-sm text-red-600">{errorMsg}</p>}
       </form>
     </div>
   );
