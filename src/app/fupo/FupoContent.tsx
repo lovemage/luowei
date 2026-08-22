@@ -143,14 +143,14 @@ export default function FupoContent() {
       className="relative w-full overflow-x-clip"
       style={{ background: C.bg, color: C.body }}
     >
-      <SectionNav sections={NAV_SECTIONS} brand="富婆組建籌備會" />
+      <SectionNav sections={NAV_SECTIONS} brand="BNI - 富婆分會" />
 
       {/* ══════════ 封面 ══════════ */}
       <div className="relative min-h-[88vh] w-full overflow-hidden">
         <div className="absolute inset-0">
           <SceneImage
             src={SCENE.hero}
-            alt="富婆組建籌備會"
+            alt="BNI - 富婆分會"
             placeholder="情境圖 01 ─ 封面"
             ratio="auto"
             scrim={0.35}
@@ -174,7 +174,7 @@ export default function FupoContent() {
 
           <Reveal variant="up" delay={160}>
             <h1
-              className="mt-7 max-w-[13ch] font-[family-name:var(--font-noto-serif-tc)] text-[44px] leading-[1.18] font-bold sm:text-[72px]"
+              className="mt-7 max-w-[16ch] font-[family-name:var(--font-noto-serif-tc)] text-[40px] leading-[1.18] font-bold sm:text-[66px]"
               style={{
                 background:
                   "linear-gradient(100deg, #5E4418 0%, #8F6B2E 35%, #B08D4F 50%, #8F6B2E 65%, #5E4418 100%)",
@@ -185,7 +185,7 @@ export default function FupoContent() {
                 animation: "fp-sheen 6s linear infinite",
               }}
             >
-              富婆組建籌備會
+              BNI - 富婆分會
             </h1>
           </Reveal>
 
@@ -492,7 +492,7 @@ export default function FupoContent() {
       </section>
 
       <footer className="border-t px-6 py-12 text-center sm:px-10" style={{ borderColor: LINE_SOFT }}>
-        <p className="text-[12px] tracking-[0.28em] text-[#6B5F51]">富婆組建籌備會</p>
+        <p className="text-[12px] tracking-[0.28em] text-[#6B5F51]">BNI - 富婆分會</p>
       </footer>
     </main>
   );

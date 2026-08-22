@@ -6,7 +6,7 @@ import JsonLd from "@/components/JsonLd";
 
 // 兩個路由刻意不放進首頁導覽，皆保留可直接訪問：
 //   /course 企業包班 — 依業主指示暫時隱藏
-//   /fupo   富婆組建籌備會 — 獨立形象頁，只透過直接連結分享
+//   /fupo   BNI - 富婆分會 — 獨立形象頁，只透過直接連結分享
 const navItems: { label: string; href: string; external?: boolean; tag?: string }[] = [
   { label: "短影音代操與短影音孵化", href: "/short-video", tag: "企業專屬" },
   { label: "廣告投放", href: "/short-video-ad", tag: "官方二級代理" },
