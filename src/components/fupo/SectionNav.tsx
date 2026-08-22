@@ -21,11 +21,23 @@ interface SectionNavProps {
   /** 選用的行動呼籲。形象頁不放，招募頁才給。 */
   ctaHref?: string;
   ctaLabel?: string;
+  /** 給頁內互動用（例如開啟報名表單）；有給就優先於 ctaHref。 */
+  onCtaClick?: () => void;
 }
 
 const NAV_HEIGHT = 58;
 
-export default function SectionNav({ sections, brand, markSrc, ctaHref, ctaLabel }: SectionNavProps) {
+const CTA_CLASS =
+  "hidden shrink-0 items-center px-4 text-[12px] font-semibold tracking-[0.14em] text-[#FAF7F2] transition-opacity duration-300 hover:opacity-85 sm:flex";
+
+export default function SectionNav({
+  sections,
+  brand,
+  markSrc,
+  ctaHref,
+  ctaLabel,
+  onCtaClick,
+}: SectionNavProps) {
   const [activeId, setActiveId] = useState(sections[0]?.id ?? "");
   const [progress, setProgress] = useState(0);
   const [condensed, setCondensed] = useState(false);
@@ -178,13 +190,23 @@ export default function SectionNav({ sections, brand, markSrc, ctaHref, ctaLabel
           </div>
         </nav>
 
-        {/* CTA（選用） */}
-        {ctaHref && ctaLabel && (
+        {/* CTA（選用）：頁內互動走 button，外連走 a */}
+        {ctaLabel && onCtaClick && (
+          <button
+            type="button"
+            onClick={onCtaClick}
+            className={CTA_CLASS}
+            style={{ background: "#7E5D28" }}
+          >
+            {ctaLabel}
+          </button>
+        )}
+        {ctaLabel && !onCtaClick && ctaHref && (
           <a
             href={ctaHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden shrink-0 items-center px-4 text-[12px] font-semibold tracking-[0.14em] text-[#FAF7F2] transition-opacity duration-300 hover:opacity-85 sm:flex"
+            className={CTA_CLASS}
             style={{ background: "#7E5D28" }}
           >
             {ctaLabel}

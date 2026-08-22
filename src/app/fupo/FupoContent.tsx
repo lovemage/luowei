@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
+import JoinModal from "@/components/fupo/JoinModal";
 import Reveal from "@/components/fupo/Reveal";
 import CountUp from "@/components/fupo/CountUp";
 import SceneImage from "@/components/fupo/SceneImage";
@@ -35,9 +37,108 @@ const C = {
   deco: "#B08D4F",
 } as const;
 
-const LINE = "rgba(126,93,40,0.16)";
 const LINE_SOFT = "rgba(126,93,40,0.11)";
 const TINT = "rgba(126,93,40,0.06)";
+
+/**
+ * 材質素材的不透明度。55% 是量出來的門檻——100% 時全部素材都會讓
+ * 內文色 #6B5F51 掉到 WCAG AA 的 4.5:1 以下。驗證：
+ *   node scripts/check-textures.mjs
+ */
+const TEX_OPACITY = 0.55;
+
+/**
+ * 材質底層。疊在容器既有底色之上，不取代它。
+ *
+ * fit="stretch"（預設）讓手撕邊剛好落在容器邊界；cover 用在高度只有
+ * 30 幾 px 的小標籤，那個尺寸看不見手撕邊，拉伸反而會把紋理扯糊。
+ */
+function Texture({
+  src,
+  flip = false,
+  fit = "stretch",
+}: {
+  src: string;
+  flip?: boolean;
+  fit?: "stretch" | "cover";
+}) {
+  return (
+    <span
+      aria-hidden
+      className="pointer-events-none absolute inset-0 z-0"
+      style={{
+        backgroundImage: `url(/images/fupo/tex/${src}.webp)`,
+        backgroundSize: fit === "cover" ? "cover" : "100% 100%",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        opacity: TEX_OPACITY,
+        transform: flip ? "scaleX(-1)" : undefined,
+      }}
+    />
+  );
+}
+
+interface TexRef {
+  src: string;
+  flip?: boolean;
+}
+
+/* 素材配置。同族群只用少數幾張輪替，靠順序與鏡射讓相鄰容器不撞在一起。
+   完整推導見 docs/plans/2026-08-23-fupo-texture-prompts.md */
+const TEX_BELIEF: TexRef[] = [
+  { src: "belief-01" },
+  { src: "belief-02" },
+  { src: "belief-03" },
+];
+
+const TEX_SYSTEM: TexRef[] = [
+  { src: "system-01" },
+  { src: "system-03" },
+  { src: "system-04" },
+  // 第 4 條重用理念區的素材並鏡射；兩處隔了一整個 section，看不出來
+  { src: "belief-02", flip: true },
+];
+
+const TEX_STAT: TexRef[] = [
+  { src: "stat-04" },
+  { src: "stat-03" },
+  { src: "stat-04", flip: true },
+  { src: "stat-03", flip: true },
+];
+
+const TEX_TOUCH = ["touch-a", "touch-b"];
+
+/** 產業鏈 label：5 張輪替，配合 (i + gi * 2) % 5 讓同一欄上下三格都不同 */
+const TEX_CHAIN_LABEL = [
+  "chain-label-02",
+  "chain-label-03",
+  "chain-label-05",
+  "chain-label-08",
+  "chain-label-12",
+];
+
+/** 產業鏈細節卡：4 張輪替 + 鏡射穿插，上下相鄰永遠不是同一張同方向 */
+const TEX_CHAIN_BG: TexRef[] = [
+  { src: "chain-bg-01" },
+  { src: "chain-bg-03" },
+  { src: "chain-bg-04" },
+  { src: "chain-bg-08" },
+  { src: "chain-bg-01", flip: true },
+  { src: "chain-bg-04", flip: true },
+  { src: "chain-bg-08", flip: true },
+  { src: "chain-bg-01" },
+  { src: "chain-bg-03", flip: true },
+  { src: "chain-bg-04" },
+  { src: "chain-bg-03" },
+  { src: "chain-bg-04" },
+  { src: "chain-bg-08" },
+  { src: "chain-bg-01", flip: true },
+  { src: "chain-bg-03", flip: true },
+];
+
+/** 產業鏈項目標籤與「舉個例」的輪替素材 */
+const TEX_ITEM_CHIP = ["chain-label-12", "chain-label-03"];
+const TEX_EXAMPLE = ["system-01", "system-03", "belief-02"];
 
 /**
  * 產業鏈 icon。SVG 是黑色填色路徑，改用 mask-image 上色，
@@ -112,21 +213,27 @@ function NumberedRow({
   title,
   body,
   first,
+  tex,
 }: {
   no: string;
   title: string;
   body: string;
   first: boolean;
+  tex: TexRef;
 }) {
   return (
+    // 原本用 borderTop 當分隔線，改鋪素材後拿掉：1px 線會從手撕邊的破口
+    // 穿出來，看起來像沒對齊的裂縫。改用間距分隔。
     <div
-      className="grid gap-3 py-9 sm:grid-cols-[88px_1fr] sm:gap-8"
-      style={{ borderTop: first ? "none" : `1px solid ${LINE}` }}
+      className={`relative grid gap-3 px-6 py-9 sm:grid-cols-[88px_1fr] sm:gap-8 sm:px-8 ${
+        first ? "" : "mt-5"
+      }`}
     >
-      <p className="font-[family-name:var(--font-noto-serif-tc)] text-[26px] leading-none font-bold text-[#B08D4F]">
+      <Texture {...tex} />
+      <p className="relative z-10 font-[family-name:var(--font-noto-serif-tc)] text-[26px] leading-none font-bold text-[#B08D4F]">
         {no}
       </p>
-      <div className="min-w-0">
+      <div className="relative z-10 min-w-0">
         <h3 className="font-[family-name:var(--font-noto-serif-tc)] text-[19px] font-bold text-[#2B2318] sm:text-[21px]">
           {title}
         </h3>
@@ -136,7 +243,37 @@ function NumberedRow({
   );
 }
 
+/**
+ * 行動呼籲按鈕。維持全頁的直角、深金塊面，不做圓角或漸層描邊。
+ * 槌打黃銅材質與按下狀態都在 globals.css 的 .fp-cta（見該處註解）。
+ */
+function CtaButton({ onClick, label }: { onClick: () => void; label: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="fp-cta group inline-flex items-center gap-3 px-8 py-4 text-[14px] font-semibold tracking-[0.22em] transition-opacity duration-300 hover:opacity-88"
+      style={{ color: "#FAF7F2" }}
+    >
+      {label}
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden
+        className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.6}
+      >
+        <path d="M4 12h15M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </button>
+  );
+}
+
 export default function FupoContent() {
+  const [joinOpen, setJoinOpen] = useState(false);
+  const openJoin = () => setJoinOpen(true);
+
   return (
     <main
       data-standalone
@@ -155,6 +292,8 @@ export default function FupoContent() {
         sections={NAV_SECTIONS}
         brand="BNI - 富婆分會"
         markSrc="/images/fupo/owl-mark.webp"
+        ctaLabel="我想加入"
+        onCtaClick={openJoin}
       />
 
       {/* ══════════ 封面 ══════════ */}
@@ -228,6 +367,15 @@ export default function FupoContent() {
               富婆 自己當．江山 自己扛
             </p>
           </Reveal>
+
+          <Reveal variant="up" delay={720}>
+            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <CtaButton onClick={openJoin} label="我想加入" />
+              <span className="text-[12.5px] tracking-[0.12em] text-[#6B5F51]">
+                一個行業一位代表
+              </span>
+            </div>
+          </Reveal>
         </div>
 
         <div
@@ -256,6 +404,7 @@ export default function FupoContent() {
                     title={point.title}
                     body={point.body}
                     first={i === 0}
+                    tex={TEX_BELIEF[i]}
                   />
                 </Reveal>
               ))}
@@ -275,11 +424,14 @@ export default function FupoContent() {
 
           {/* 理念收尾金句 */}
           <Reveal variant="wipe" delay={120}>
-            <div className="mt-20 border-t pt-14" style={{ borderColor: LINE }}>
+            <div className="relative mt-20 px-6 py-12 sm:px-10">
+              {/* 這一格的容器比例遠比素材扁，用 cover 置中裁切而非拉伸，
+                  代價是看不到手撕邊——收尾金句本來就不需要邊界感。 */}
+              <Texture src="belief-closing" fit="cover" />
               {BELIEF_CLOSING.map((line) => (
                 <p
                   key={line}
-                  className="font-[family-name:var(--font-noto-serif-tc)] text-[20px] leading-[2] font-bold text-[#2B2318] sm:text-[26px]"
+                  className="relative z-10 font-[family-name:var(--font-noto-serif-tc)] text-[20px] leading-[2] font-bold text-[#2B2318] sm:text-[26px]"
                 >
                   {line}
                 </p>
@@ -296,17 +448,20 @@ export default function FupoContent() {
 
           {/* 規模佐證 */}
           <Reveal variant="up">
-            <div className="mb-16 grid grid-cols-2 gap-px sm:grid-cols-4" style={{ background: LINE }}>
+            <div className="mb-16 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {SYSTEM_STATS.map((stat, i) => (
                 <div
                   key={stat.label}
-                  className="stagger-item px-4 py-9 text-center"
+                  className="stagger-item relative px-4 py-9 text-center"
                   style={{ background: C.band, ["--i" as string]: i }}
                 >
-                  <p className="font-[family-name:var(--font-noto-serif-tc)] text-[30px] leading-none font-black text-[#7E5D28] sm:text-[38px]">
+                  <Texture {...TEX_STAT[i]} />
+                  <p className="relative z-10 font-[family-name:var(--font-noto-serif-tc)] text-[30px] leading-none font-black text-[#7E5D28] sm:text-[38px]">
                     <CountUp to={stat.value} suffix={stat.suffix} grouped={stat.value >= 1000} />
                   </p>
-                  <p className="mt-3 text-[12px] tracking-[0.2em] text-[#6B5F51]">{stat.label}</p>
+                  <p className="relative z-10 mt-3 text-[12px] tracking-[0.2em] text-[#6B5F51]">
+                    {stat.label}
+                  </p>
                 </div>
               ))}
             </div>
@@ -332,6 +487,7 @@ export default function FupoContent() {
                     title={rule.title}
                     body={rule.body}
                     first={i === 0}
+                    tex={TEX_SYSTEM[i]}
                   />
                 </Reveal>
               ))}
@@ -375,10 +531,11 @@ export default function FupoContent() {
                 {TOUCHPOINTS.map((t, i) => (
                   <span
                     key={t}
-                    className="stagger-item border px-4 py-2 text-[14px] tracking-wide text-[#7E5D28]"
+                    className="stagger-item relative overflow-hidden border px-4 py-2 text-[14px] tracking-wide text-[#7E5D28]"
                     style={{ borderColor: "rgba(126,93,40,0.28)", background: TINT, ["--i" as string]: i }}
                   >
-                    {t}
+                    <Texture src={TEX_TOUCH[i % TEX_TOUCH.length]} fit="cover" />
+                    <span className="relative z-10">{t}</span>
                   </span>
                 ))}
               </div>
@@ -402,20 +559,24 @@ export default function FupoContent() {
                           {group.tagline}
                         </span>
                       </div>
-                      <div className="grid grid-cols-2 gap-px sm:grid-cols-5" style={{ background: LINE }}>
+                      <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
                         {members.map((chain, i) => (
                           <a
                             key={chain.no}
                             href={`#chain-${chain.no}`}
-                            className="stagger-item group flex flex-col items-center gap-2 px-4 py-7 transition-colors hover:bg-[#F7F1E6]"
+                            className="stagger-item group relative flex flex-col items-center gap-2 px-4 py-7 transition-colors hover:bg-[#F7F1E6]"
                             style={{ background: C.card, ["--i" as string]: i }}
                           >
-                            <ChainIcon name={chain.icon} size={30} />
-                            <span className="font-[family-name:var(--font-noto-serif-tc)] text-[12px] font-bold text-[#B08D4F]">
-                              {chain.no}
-                            </span>
-                            <span className="text-[13.5px] font-semibold text-[#2B2318] transition-colors group-hover:text-[#7E5D28]">
-                              {chain.name}
+                            {/* (i + gi * 2) % 5：每組換起始變體，讓同一欄上下三格都不同 */}
+                            <Texture src={TEX_CHAIN_LABEL[(i + gi * 2) % TEX_CHAIN_LABEL.length]} />
+                            <span className="relative z-10 flex flex-col items-center gap-2">
+                              <ChainIcon name={chain.icon} size={30} />
+                              <span className="font-[family-name:var(--font-noto-serif-tc)] text-[12px] font-bold text-[#B08D4F]">
+                                {chain.no}
+                              </span>
+                              <span className="text-[13.5px] font-semibold text-[#2B2318] transition-colors group-hover:text-[#7E5D28]">
+                                {chain.name}
+                              </span>
                             </span>
                           </a>
                         ))}
@@ -431,21 +592,22 @@ export default function FupoContent() {
         {/* 15 條鏈細節 */}
         <div className="border-t" style={{ borderColor: LINE_SOFT, background: C.band }}>
           <div className="mx-auto max-w-5xl px-6 py-16 sm:px-10 sm:py-32">
-            <div className="flex flex-col gap-px" style={{ background: LINE }}>
-              {CHAINS.map((chain) => (
+            <div className="flex flex-col gap-5">
+              {CHAINS.map((chain, ci) => (
                 <Reveal key={chain.no} id={`chain-${chain.no}`} variant="up" threshold={0.08} className="scroll-mt-20">
                   <article
-                    className="grid gap-6 px-6 py-10 sm:grid-cols-[auto_1fr] sm:gap-8 sm:px-10 sm:py-12"
+                    className="relative grid gap-6 px-6 py-10 sm:grid-cols-[auto_1fr] sm:gap-8 sm:px-10 sm:py-12"
                     style={{ background: C.card }}
                   >
-                    <div className="flex items-center gap-4 sm:w-[92px] sm:flex-col sm:items-start sm:gap-2">
+                    <Texture {...TEX_CHAIN_BG[ci]} />
+                    <div className="relative z-10 flex items-center gap-4 sm:w-[92px] sm:flex-col sm:items-start sm:gap-2">
                       <ChainIcon name={chain.icon} size={38} />
                       <p className="font-[family-name:var(--font-noto-serif-tc)] text-[26px] leading-none font-bold text-[#B08D4F]">
                         {chain.no}
                       </p>
                     </div>
 
-                    <div className="min-w-0">
+                    <div className="relative z-10 min-w-0">
                       <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
                         <h3 className="font-[family-name:var(--font-noto-serif-tc)] text-[20px] font-bold text-[#2B2318] sm:text-[23px]">
                           {chain.name}
@@ -459,19 +621,23 @@ export default function FupoContent() {
                         {chain.items.map((item, k) => (
                           <span
                             key={item}
-                            className="stagger-item border px-3 py-1.5 text-[12.5px] text-[#4C4236]"
+                            className="stagger-item relative overflow-hidden border px-3 py-1.5 text-[12.5px] text-[#4C4236]"
                             style={{ borderColor: "rgba(126,93,40,0.26)", ["--i" as string]: k }}
                           >
-                            {item}
+                            <Texture src={TEX_ITEM_CHIP[k % TEX_ITEM_CHIP.length]} fit="cover" />
+                            <span className="relative z-10">{item}</span>
                           </span>
                         ))}
                       </div>
 
-                      <div className="mt-6 px-5 py-4" style={{ background: TINT }}>
-                        <p className="mb-2 text-[11px] font-semibold tracking-[0.3em] text-[#7E5D28]">
+                      <div className="relative mt-6 px-5 py-4" style={{ background: TINT }}>
+                        <Texture src={TEX_EXAMPLE[ci % TEX_EXAMPLE.length]} fit="cover" />
+                        <p className="relative z-10 mb-2 text-[11px] font-semibold tracking-[0.3em] text-[#7E5D28]">
                           舉個例
                         </p>
-                        <p className="text-[14px] leading-[2] text-[#6B5F51]">{chain.example}</p>
+                        <p className="relative z-10 text-[14px] leading-[2] text-[#6B5F51]">
+                          {chain.example}
+                        </p>
                       </div>
                     </div>
                   </article>
@@ -517,6 +683,14 @@ export default function FupoContent() {
               style={{ background: `linear-gradient(90deg, transparent, ${C.deco}, transparent)` }}
             />
           </Reveal>
+          <Reveal variant="up" delay={300}>
+            <div className="mt-10 flex flex-col items-center gap-4">
+              <CtaButton onClick={openJoin} label="我想加入" />
+              <p className="text-[13px] leading-[1.9] text-[#6B5F51]">
+                留下聯絡方式，我們會盡快與妳聯繫
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -530,6 +704,8 @@ export default function FupoContent() {
           className="mx-auto h-auto w-[180px] sm:w-[220px]"
         />
       </footer>
+
+      <JoinModal open={joinOpen} onClose={() => setJoinOpen(false)} />
     </main>
   );
 }

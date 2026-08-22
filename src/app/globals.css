@@ -306,3 +306,49 @@ body {
     clip-path: none !important;
   }
 }
+
+/* ── /fupo CTA 按鈕的槌打黃銅材質 ──
+   兩層都用同一張素材，各司其職：
+
+   mask-image  取它的 alpha，把按鈕本體裁成手撕輪廓。少了這層，
+               實心底色會填滿整個矩形，材質只蓋住中間，外圈就會
+               露出一圈淺金、看起來像沒對齊的外框。
+   ::before    取它的顏色，用 multiply 疊出槌打質感。不能用 normal
+               混色——黃銅高光會把象牙白文字洗掉（對比只剩 2.85:1）。
+               但 multiply 全開會把底色壓成 #422206 的深褐，槌打質感
+               反而糊掉；35% 的平均色回到 #6a4a1c，貼近全頁的深金，
+               對比仍有 7.4:1。
+
+   isolation 讓 ::before 的 z-index:-1 停在按鈕自己的堆疊環境內，
+   才不會掉到頁面背景後面。 */
+.fp-cta {
+  position: relative;
+  isolation: isolate;
+  background-color: #7e5d28;
+  -webkit-mask-image: url("/images/fupo/tex/cta-idle.webp");
+  mask-image: url("/images/fupo/tex/cta-idle.webp");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.fp-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url("/images/fupo/tex/cta-idle.webp") center / 100% 100% no-repeat;
+  mix-blend-mode: multiply;
+  opacity: 0.35;
+}
+
+.fp-cta:active {
+  background-color: #5e4418;
+  -webkit-mask-image: url("/images/fupo/tex/cta-active.webp");
+  mask-image: url("/images/fupo/tex/cta-active.webp");
+}
+
+.fp-cta:active::before {
+  background-image: url("/images/fupo/tex/cta-active.webp");
+}
