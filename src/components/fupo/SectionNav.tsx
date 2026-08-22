@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface NavSection {
@@ -15,6 +16,8 @@ interface SectionNavProps {
   sections: NavSection[];
   /** 品牌字樣，點擊回到頁首 */
   brand: string;
+  /** 品牌徽章。窄螢幕只留徽章、隱藏字樣，把橫向空間讓給分段。 */
+  markSrc?: string;
   /** 選用的行動呼籲。形象頁不放，招募頁才給。 */
   ctaHref?: string;
   ctaLabel?: string;
@@ -22,7 +25,7 @@ interface SectionNavProps {
 
 const NAV_HEIGHT = 58;
 
-export default function SectionNav({ sections, brand, ctaHref, ctaLabel }: SectionNavProps) {
+export default function SectionNav({ sections, brand, markSrc, ctaHref, ctaLabel }: SectionNavProps) {
   const [activeId, setActiveId] = useState(sections[0]?.id ?? "");
   const [progress, setProgress] = useState(0);
   const [condensed, setCondensed] = useState(false);
@@ -112,9 +115,20 @@ export default function SectionNav({ sections, brand, ctaHref, ctaLabel }: Secti
         <button
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex shrink-0 items-center text-[13px] font-semibold tracking-[0.22em] text-[#7E5D28] sm:text-sm"
+          aria-label={brand}
+          className="flex shrink-0 items-center gap-2 text-[13px] font-semibold tracking-[0.22em] text-[#7E5D28] sm:text-sm"
         >
-          {brand}
+          {markSrc && (
+            <Image
+              src={markSrc}
+              alt=""
+              width={30}
+              height={30}
+              priority
+              className="h-[28px] w-[28px] shrink-0 sm:h-[32px] sm:w-[32px]"
+            />
+          )}
+          <span className="max-[440px]:hidden">{brand}</span>
         </button>
 
         {/* 分段 */}

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Reveal from "@/components/fupo/Reveal";
 import CountUp from "@/components/fupo/CountUp";
 import SceneImage from "@/components/fupo/SceneImage";
@@ -150,7 +151,11 @@ export default function FupoContent() {
         overflowWrap: "break-word",
       }}
     >
-      <SectionNav sections={NAV_SECTIONS} brand="BNI - 富婆分會" />
+      <SectionNav
+        sections={NAV_SECTIONS}
+        brand="BNI - 富婆分會"
+        markSrc="/images/fupo/owl-mark.webp"
+      />
 
       {/* ══════════ 封面 ══════════ */}
       <div className="relative min-h-[88dvh] w-full overflow-hidden">
@@ -175,13 +180,24 @@ export default function FupoContent() {
         />
 
         <div className="relative mx-auto flex min-h-[88dvh] max-w-6xl flex-col justify-center px-6 py-24 sm:px-10">
-          <Reveal variant="wipe">
+          <Reveal variant="up">
+            <Image
+              src="/images/fupo/owl-mark.webp"
+              alt=""
+              width={112}
+              height={112}
+              priority
+              className="mb-7 h-[72px] w-[72px] sm:h-[104px] sm:w-[104px]"
+            />
+          </Reveal>
+
+          <Reveal variant="wipe" delay={80}>
             <p className="text-[11px] font-semibold tracking-[0.5em] text-[#7E5D28]">
               以女性商業為主的團隊
             </p>
           </Reveal>
 
-          <Reveal variant="up" delay={160}>
+          <Reveal variant="up" delay={240}>
             <h1
               className="mt-7 max-w-[16ch] font-[family-name:var(--font-noto-serif-tc)] text-[40px] leading-[1.18] font-bold sm:text-[66px]"
               style={{
@@ -198,7 +214,7 @@ export default function FupoContent() {
             </h1>
           </Reveal>
 
-          <Reveal variant="up" delay={340}>
+          <Reveal variant="up" delay={420}>
             <p className="mt-9 max-w-[22ch] text-[17px] leading-[2] text-[#4C4236] sm:max-w-md sm:text-[19px]">
               {MANIFESTO.lead}
             </p>
@@ -207,7 +223,7 @@ export default function FupoContent() {
             </p>
           </Reveal>
 
-          <Reveal variant="up" delay={520}>
+          <Reveal variant="up" delay={600}>
             <p className="mt-12 font-[family-name:var(--font-noto-serif-tc)] text-[15px] tracking-[0.28em] text-[#7E5D28]">
               富婆 自己當．江山 自己扛
             </p>
@@ -504,8 +520,15 @@ export default function FupoContent() {
         </div>
       </section>
 
-      <footer className="border-t px-6 py-12 text-center sm:px-10" style={{ borderColor: LINE_SOFT }}>
-        <p className="text-[12px] tracking-[0.28em] text-[#6B5F51]">BNI - 富婆分會</p>
+      <footer className="border-t px-6 py-14 text-center sm:px-10" style={{ borderColor: LINE_SOFT }}>
+        <Image
+          src="/images/fupo/owl-logo.webp"
+          alt="BNI - 富婆分會．雅典娜美人團"
+          width={760}
+          height={752}
+          sizes="(min-width: 640px) 220px, 180px"
+          className="mx-auto h-auto w-[180px] sm:w-[220px]"
+        />
       </footer>
     </main>
   );
