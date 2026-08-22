@@ -71,8 +71,16 @@ export default function SectionNav({ sections, brand, ctaHref, ctaLabel }: Secti
     if (!list) return;
     const button = list.querySelector<HTMLElement>(`[data-nav-id="${activeId}"]`);
     if (!button) return;
-    const target = button.offsetLeft - list.clientWidth / 2 + button.clientWidth / 2;
-    list.scrollTo({ left: Math.max(target, 0), behavior: "smooth" });
+    // 用 rect 差值而非 offsetLeft：header 是 sticky，會成為 offsetParent，
+    // offsetLeft 會把品牌字的寬度也算進去，導致作用中的按鈕被推出視野。
+    const listRect = list.getBoundingClientRect();
+    const buttonRect = button.getBoundingClientRect();
+    const target =
+      list.scrollLeft +
+      (buttonRect.left - listRect.left) -
+      (list.clientWidth - buttonRect.width) / 2;
+    const max = list.scrollWidth - list.clientWidth;
+    list.scrollTo({ left: Math.min(Math.max(target, 0), Math.max(max, 0)), behavior: "smooth" });
   }, [activeId]);
 
   const jumpTo = useCallback((id: string) => {

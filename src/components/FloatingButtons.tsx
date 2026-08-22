@@ -2,6 +2,7 @@
 
 import { useState, useEffect, type ReactNode } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface ApiButton {
   key: string;
@@ -63,11 +64,19 @@ function getDefaultIcon(label: string): ReactNode {
   );
 }
 
+/* /fupo 是獨立形象頁，只掛一個 LINE 聯繫窗口，不沿用全站的社群清單。 */
+const FUPO_PATH = "/fupo";
+const FUPO_LINE_URL = "https://lin.ee/PQzIWDd";
+
 export default function FloatingButtons() {
+  const pathname = usePathname();
+  const isFupo = pathname === FUPO_PATH;
+
   const [open, setOpen] = useState(false);
   const [socials, setSocials] = useState<SocialItem[]>(defaultSocials);
 
   useEffect(() => {
+    if (isFupo) return;
     fetch("/api/floating-buttons")
       .then((res) => res.json())
       .then((data: ApiButton[]) => {
@@ -91,7 +100,24 @@ export default function FloatingButtons() {
         }
       })
       .catch(() => {});
-  }, []);
+  }, [isFupo]);
+
+  // 單一按鈕，直接連出去，不做展開；配色沿用該頁的深金／象牙。
+  if (isFupo) {
+    return (
+      <a
+        href={FUPO_LINE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="透過 LINE 聯繫"
+        className="fixed bottom-6 right-4 z-50 flex items-center gap-2 rounded-full py-3 pl-4 pr-5 shadow-lg transition-opacity duration-300 hover:opacity-90"
+        style={{ background: "#7E5D28", color: "#FAF7F2" }}
+      >
+        {lineSvg}
+        <span className="text-[13px] font-semibold tracking-[0.1em]">LINE 聯繫</span>
+      </a>
+    );
+  }
 
   return (
     <div className="fixed bottom-6 right-4 z-50">
