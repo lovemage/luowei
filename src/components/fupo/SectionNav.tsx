@@ -120,7 +120,8 @@ export default function SectionNav({ sections, brand, ctaHref, ctaLabel }: Secti
         {/* 分段 */}
         <nav
           ref={listRef}
-          className="flex flex-1 items-stretch overflow-x-auto"
+          // min-w-0：Safari 的 flex 項目若不明確允許縮小，會被內容撐到 scrollWidth 而撐爆 header
+          className="flex min-w-0 flex-1 items-stretch overflow-x-auto"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           aria-label="章節導覽"
         >

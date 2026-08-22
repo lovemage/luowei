@@ -125,7 +125,7 @@ function NumberedRow({
       <p className="font-[family-name:var(--font-noto-serif-tc)] text-[26px] leading-none font-bold text-[#B08D4F]">
         {no}
       </p>
-      <div>
+      <div className="min-w-0">
         <h3 className="font-[family-name:var(--font-noto-serif-tc)] text-[19px] font-bold text-[#2B2318] sm:text-[21px]">
           {title}
         </h3>
@@ -141,7 +141,14 @@ export default function FupoContent() {
       data-standalone
       // overflow-x-clip 而非 overflow-hidden：hidden 會讓 SectionNav 的 position:sticky 失效
       className="relative w-full overflow-x-clip"
-      style={{ background: C.bg, color: C.body }}
+      style={{
+        background: C.bg,
+        color: C.body,
+        // 全站 body 設 keep-all，Safari 會據此讓中文整句不可斷行，
+        // 進而把 min-width:auto 的格線項目撐得比視窗還寬。這頁改回 normal。
+        wordBreak: "normal",
+        overflowWrap: "break-word",
+      }}
     >
       <SectionNav sections={NAV_SECTIONS} brand="BNI - 富婆分會" />
 
@@ -225,7 +232,7 @@ export default function FupoContent() {
           />
 
           <div className="grid gap-14 md:grid-cols-[1.25fr_1fr] md:items-start">
-            <div>
+            <div className="min-w-0">
               {BELIEF_POINTS.map((point, i) => (
                 <Reveal key={point.no} variant="up" delay={i * 90}>
                   <NumberedRow
@@ -301,7 +308,7 @@ export default function FupoContent() {
               />
             </Reveal>
 
-            <div>
+            <div className="min-w-0">
               {SYSTEM_RULES.map((rule, i) => (
                 <Reveal key={rule.no} variant="up" delay={i * 90}>
                   <NumberedRow
@@ -422,7 +429,7 @@ export default function FupoContent() {
                       </p>
                     </div>
 
-                    <div>
+                    <div className="min-w-0">
                       <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
                         <h3 className="font-[family-name:var(--font-noto-serif-tc)] text-[20px] font-bold text-[#2B2318] sm:text-[23px]">
                           {chain.name}
