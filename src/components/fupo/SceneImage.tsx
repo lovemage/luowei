@@ -43,7 +43,7 @@ export default function SceneImage({
   return (
     <div
       className={`relative overflow-hidden ${className}`}
-      style={{ aspectRatio: ratio, background: "#14110D" }}
+      style={{ aspectRatio: ratio, background: "#EFE7DA" }}
     >
       {!failed ? (
         // eslint-disable-next-line @next/next/no-img-element
@@ -61,10 +61,10 @@ export default function SceneImage({
           className="flex h-full w-full items-center justify-center"
           style={{
             background:
-              "radial-gradient(120% 90% at 20% 15%, rgba(226,193,145,0.20), transparent 60%), radial-gradient(100% 80% at 85% 85%, rgba(229,183,168,0.16), transparent 60%), #14110D",
+              "radial-gradient(120% 90% at 20% 15%, rgba(176,141,79,0.22), transparent 60%), radial-gradient(100% 80% at 85% 85%, rgba(201,143,128,0.20), transparent 60%), #EFE7DA",
           }}
         >
-          <span className="px-6 text-center text-[11px] tracking-[0.35em] text-[#E2C191]/45">
+          <span className="px-6 text-center text-[11px] tracking-[0.35em] text-[#7E5D28]">
             {placeholder}
           </span>
         </div>
@@ -73,7 +73,7 @@ export default function SceneImage({
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          background: `linear-gradient(180deg, rgba(9,8,7,${scrim * 0.5}) 0%, rgba(9,8,7,0) 40%, rgba(9,8,7,${scrim}) 100%)`,
+          background: `linear-gradient(180deg, rgba(250,247,242,${scrim * 0.5}) 0%, rgba(250,247,242,0) 40%, rgba(250,247,242,${scrim}) 100%)`,
         }}
       />
       {children}

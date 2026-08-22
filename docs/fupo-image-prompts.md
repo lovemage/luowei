@@ -1,157 +1,174 @@
-# 情境圖 Prompt（給 image2 生成）
+# 富婆頁情境圖 Prompt（淺色系版本）
+
+頁面已改為淺色系，原本那組暗調的圖在象牙底上會發灰，**7 張全部要重生**。
 
 ## 使用方式
 
 1. 用下列 prompt 產圖。
-2. 依「檔名」欄位命名，放進 `public/images/fupo/`（第 8 張放 `public/images/`）。
-3. 重新整理頁面即可看到。圖片還沒放進去之前，頁面會自動退回金色漸層裝飾底，不會破版。
+2. 依「檔名」命名，覆蓋 `public/images/fupo/` 裡的同名舊檔。
+3. 重新整理即可。圖片缺席時頁面會退回暖色漸層底，不會破版。
 
-## 共通風格（建議每次都帶）
+## 頁面配色（讓圖能融進版面）
 
-> Cinematic editorial photography, near-black warm background (#090807),
-> champagne-gold key light (#E2C191), soft rim light, shallow depth of field,
-> film grain, elegant and restrained, luxury brand campaign aesthetic.
-> Subjects are East Asian (Taiwanese) women. Natural skin texture, no plastic retouching.
+| 用途 | 色碼 |
+| --- | --- |
+| 主底（暖象牙） | `#FAF7F2` |
+| 交替色帶（沙色） | `#F3ECE1` |
+| 標題文字 | `#2B2318` |
+| 金色 | `#7E5D28` |
 
-**共通負向條件（每張都要加）**
+## 共通風格（每張都帶）
+
+> High-key editorial photography, bright natural daylight from large windows,
+> warm ivory and champagne palette, soft diffused light, low contrast, airy,
+> generous negative space, fine film grain, understated modern luxury.
+> Subjects are East Asian (Taiwanese) women. Cream, beige, ivory and blush
+> tailoring. Natural skin texture, no heavy retouching.
+
+## 共通負向條件（每張都帶）
 
 > No text, no letters, no logos, no watermark, no captions, no signage.
-> No collage, no split frame borders, no cartoon, no 3D render, no distorted hands or faces.
+> No dark or moody lighting, no black background, no night scene, no heavy
+> shadows, no harsh contrast. No collage, no split-frame borders, no cartoon,
+> no 3D render, no distorted hands or faces.
+
+> [!IMPORTANT]
+> `01`、`04`、`07` 這三張會被當成**整段的背景**（壓透明度＋蓋一層象牙色遮罩），
+> 所以必須又亮又低對比。畫面偏暗或對比太強，蓋上遮罩後會變成一片灰。
 
 ---
 
 ## 01 ─ 封面主視覺
 
-- **檔名**：`public/images/fupo/01-hero.jpg`
-- **比例**：16:9（建議 1920×1080 以上，會被當全螢幕背景，臉部請靠右或靠中，左側留空給標題）
-- **用在**：頁面最上方「富婆組建籌備會」全螢幕背景
+- **檔名**：`01-hero.jpg`　**比例**：16:9（1920×1080 以上）
+- **關鍵**：標題是深色字壓在左側，**左三分之一必須是明亮的空景**（牆面、窗光、留白），不要有人臉或深色物件。
 
 ```
-A group of five confident East Asian businesswomen in their 30s–40s standing together
-in a dark, elegant private lounge at night. Tailored blazers, silk, understated jewellery.
-Warm champagne-gold key light from the right, deep shadow on the left third of the frame
-so the left side stays almost black and empty. Cinematic editorial photography,
-shallow depth of field, subtle film grain, luxury brand campaign aesthetic.
-Composition: subjects grouped on the right two-thirds, negative space on the left.
-No text, no letters, no logos, no watermark, no signage, no distorted hands or faces.
+A group of five confident East Asian businesswomen in their 30s–40s standing
+together in a bright, airy loft lounge flooded with soft morning daylight from
+tall windows. Cream, ivory and camel tailoring, minimal gold jewellery.
+Pale plaster walls, light oak floor, white sheer curtains.
+Composition: the women grouped on the right two-thirds; the left third is
+bright empty wall and window light with no subjects and no dark objects.
+High-key editorial photography, low contrast, warm ivory palette, film grain.
+No text, no letters, no logos, no watermark, no dark or moody lighting,
+no black background, no heavy shadows, no distorted hands or faces.
 ```
 
 ---
 
 ## 02 ─ 創會理念
 
-- **檔名**：`public/images/fupo/02-belief.jpg`
-- **比例**：4:5 直式
-- **用在**：「創會理念 ─ 她們很努力，卻很少有人陪她們一起走」
+- **檔名**：`02-belief.jpg`　**比例**：4:5 直式
+- **用在**：「她們很努力，卻很少有人陪她們一起走」
 
 ```
-A single East Asian woman entrepreneur in her late 30s sitting alone at night in her
-own studio or office, one warm desk lamp lighting her face, the rest of the room in
-deep shadow. Quiet, thoughtful, self-possessed — not sad, not defeated.
-Vertical portrait composition, champagne-gold light, near-black surroundings,
-shallow depth of field, cinematic editorial photography, film grain.
-No text, no letters, no logos, no watermark, no distorted hands or faces.
+A single East Asian woman entrepreneur in her late 30s sitting alone beside a
+large window in a bright minimal studio, soft overcast daylight wrapping her
+face. Ivory knit and cream trousers, a notebook and a cup on the pale table.
+Quiet and self-possessed — reflective, not sad. Plenty of bright empty space
+around her. Vertical portrait, high-key editorial photography, low contrast,
+warm ivory palette, shallow depth of field, film grain.
+No text, no letters, no logos, no watermark, no dark or moody lighting,
+no black background, no heavy shadows, no distorted hands or faces.
 ```
 
 ---
 
 ## 03 ─ 為什麼想組建這個團隊
 
-- **檔名**：`public/images/fupo/03-foundation.jpg`
-- **比例**：3:4 直式
-- **用在**：「為什麼我想組建這個團隊？」四點論述旁
+- **檔名**：`03-foundation.jpg`　**比例**：3:4 直式
 
 ```
-Four East Asian businesswomen sitting around a small round table in a warm, dimly lit
-private room, mid-conversation, one of them laughing, coffee cups and notebooks on the table.
-Intimate and relaxed rather than formal — a real conversation, not a stock meeting photo.
-Vertical composition, champagne-gold warm light, near-black background,
-cinematic editorial photography, shallow depth of field, film grain.
-No text, no letters, no logos, no watermark, no distorted hands or faces.
-```
-
----
-
-## 04 ─ 我們要挖一個魚池
-
-- **檔名**：`public/images/fupo/04-pond.jpg`
-- **比例**：16:9（會被壓到 45% 不透明度當背景，主體請簡單、對比別太強）
-- **用在**：「我們要挖一個魚池 / 產業鏈倍增」整段背景
-
-```
-Abstract conceptual image of an interconnected network: dozens of small glowing
-champagne-gold nodes joined by thin light threads, spreading outward across a
-near-black background, like a constellation or a river delta seen from above.
-Soft bloom, depth of field falloff at the edges, elegant and quiet, not sci-fi, not neon.
-Wide horizontal composition with the densest cluster slightly off-centre.
-No text, no letters, no numbers, no logos, no watermark, no UI elements.
+Four East Asian businesswomen sitting around a small round table in a sunlit
+room, mid-conversation, one of them laughing. Linen and cream clothing, coffee
+cups, notebooks and a small vase of white flowers on a pale wood table.
+Warm daylight through sheer curtains, bright walls behind them.
+Intimate and relaxed — a real conversation, not a posed stock meeting.
+Vertical composition, high-key editorial photography, low contrast, film grain.
+No text, no letters, no logos, no watermark, no dark or moody lighting,
+no black background, no heavy shadows, no distorted hands or faces.
 ```
 
 ---
 
-## 05 ─ 地推 × 天推
+## 04 ─ 我們要挖一個魚池（整段背景）
 
-- **檔名**：`public/images/fupo/05-engine.jpg`
-- **比例**：21:9 寬幅（很扁，主體請放中間水平帶）
-- **用在**：「富婆成會兩條線｜地推 × 天推」
+- **檔名**：`04-pond.jpg`　**比例**：16:9
+- **關鍵**：整段背景，會壓到 45% 並蓋象牙遮罩。**必須非常淡、幾乎像壓紋**，主體集中在中央，四周留白。
 
 ```
-Ultra-wide cinematic image: on the left, East Asian businesswomen walking together
-through a city street at dusk, grounded and real; on the right, the same warm light
-opening upward into a soft glowing haze, as if the scene dissolves into light.
-One continuous frame, no hard split, no border between the two halves.
-Champagne-gold light, near-black shadows, film grain, editorial photography.
-No text, no letters, no logos, no watermark, no collage, no split frame borders.
+A very light, delicate abstract network on a warm ivory background: dozens of
+small soft gold nodes joined by fine thin gold threads, spreading outward like
+a constellation or a river delta seen from above. Extremely low contrast,
+pale and airy, like a faint watermark or embossed pattern on ivory paper.
+The densest cluster sits slightly off-centre; the edges fade to plain ivory.
+Warm champagne gold on #FAF7F2. Not neon, not sci-fi, not glowing.
+No text, no letters, no numbers, no logos, no watermark, no UI elements,
+no dark background, no strong contrast.
+```
+
+---
+
+> [!NOTE]
+> 頁面已於後續改為三段式形象頁，`05-engine` 與 `07-roadmap` 目前沒有版位
+> （「天推 × 地推」屬內部手段、「最後的機會」屬招募話術，皆依業主指示移除）。
+> 這兩段 prompt 先保留備查，暫時不需要重新生成。
+
+## 05 ─ 地推 × 天推（目前未使用）
+
+- **檔名**：`05-engine.jpg`　**比例**：21:9 寬幅（很扁，主體放中央水平帶）
+
+```
+Ultra-wide bright daylight scene: East Asian businesswomen walking together
+along a sunlit riverside promenade on the left, grounded and real; toward the
+right the scene opens into soft pale haze and bright sky, as if dissolving
+into light. One continuous frame — no hard split, no border between halves.
+Cream and ivory clothing, warm morning sun, pale washed-out sky.
+High-key editorial photography, low contrast, film grain.
+No text, no letters, no logos, no watermark, no night scene, no dark or moody
+lighting, no collage, no split-frame borders, no distorted hands or faces.
 ```
 
 ---
 
 ## 06 ─ 創會領頭羊
 
-- **檔名**：`public/images/fupo/06-founder.jpg`
-- **比例**：4:5 直式
-- **用在**：「我要找的，是創會領頭羊」
+- **檔名**：`06-founder.jpg`　**比例**：4:5 直式
 
 ```
-Portrait of a poised East Asian woman leader in her 40s, three-quarter view,
-arms relaxed, looking straight into the lens with quiet authority.
-Tailored dark blazer, minimal gold jewellery. Single champagne-gold key light,
-deep black background, strong rim light along the jaw and shoulder.
-Vertical portrait, cinematic editorial photography, shallow depth of field, film grain.
-No text, no letters, no logos, no watermark, no distorted hands or faces.
-```
-
----
-
-## 07 ─ 最後的機會
-
-- **檔名**：`public/images/fupo/07-roadmap.jpg`
-- **比例**：16:9（會被壓到 55% 不透明度當背景）
-- **用在**：頁尾「最後的機會 / 位子只有一個」
-
-```
-A long elegant dark wood table in a dimly lit private dining room, every chair occupied
-except one empty chair in the foreground, lit by a single warm champagne-gold spotlight.
-The occupied seats fade into shadow so only the empty chair is clearly readable.
-Wide horizontal composition, near-black room, cinematic editorial photography, film grain.
-No text, no letters, no logos, no watermark, no distorted hands or faces.
+Studio portrait of a poised East Asian woman leader in her 40s, three-quarter
+view, arms relaxed, looking straight into the lens with quiet authority.
+Ivory blazer, minimal gold jewellery. Large soft key light against a plain
+warm ivory seamless backdrop, gentle falloff, no hard shadow.
+Vertical portrait, high-key editorial photography, low contrast, film grain,
+natural skin texture.
+No text, no letters, no logos, no watermark, no dark or moody lighting,
+no black background, no heavy shadows, no distorted hands or faces.
 ```
 
 ---
 
-## 08 ─（另外一張）短影音頁主視覺替換
+## 07 ─ 最後的機會（目前未使用）
 
-舊的 `/short-video` 主視覺是「短影音變現課」，已依業主指示從程式端移除。
-若要放新的主視覺，用這張，然後從 **後台 → 頁面管理 → short-video → 主視覺** 上傳。
-
-- **檔名**：`public/images/short-video-hero.jpg`（或直接用後台上傳）
-- **比例**：16:9
+- **檔名**：`07-roadmap.jpg`　**比例**：16:9
+- **關鍵**：整段背景，會壓到 55% 並蓋象牙遮罩。空椅子要看得出來，但整體要亮、要淡。
 
 ```
-A professional short-video shoot in progress: an East Asian woman business owner in her
-30s–40s speaking to a camera on a gimbal, softbox lighting, a small crew silhouetted
-in the foreground. Warm, clean, modern studio in a bright blue-grey palette
-(the page background is #EFF6FC), amber accent light on the subject.
-Editorial commercial photography, shallow depth of field.
-No text, no letters, no logos, no watermark, no distorted hands or faces.
+A long pale oak table in a bright sunlit dining room with tall windows and
+white sheer curtains. Every chair is occupied by softly blurred seated figures
+except one empty cream upholstered chair in the foreground, which is clearly
+in focus and catches the daylight. The occupied seats fade into soft bright
+haze so only the empty chair reads clearly.
+Wide horizontal composition, warm ivory and pale wood palette, high-key
+editorial photography, very low contrast, film grain.
+No text, no letters, no logos, no watermark, no dark or moody lighting,
+no black background, no heavy shadows, no distorted hands or faces.
 ```
+
+---
+
+## 08 ─ 短影音頁主視覺（不用重做）
+
+`public/images/short-video-hero.jpg` 已經在用，`/short-video` 這次沒有改配色，
+所以這張維持原樣，不需要重新生成。

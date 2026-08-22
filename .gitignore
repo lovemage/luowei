@@ -44,3 +44,7 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
+
+# 業主語音需求與逐字稿 — 本 repo 為公開，這些屬內部素材不進版控
+docs/*.m4a
+docs/fupo-業主語音需求逐字稿.md

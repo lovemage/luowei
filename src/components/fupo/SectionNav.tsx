@@ -13,8 +13,9 @@ interface SectionNavProps {
   sections: NavSection[];
   /** 品牌字樣，點擊回到頁首 */
   brand: string;
-  ctaHref: string;
-  ctaLabel: string;
+  /** 選用的行動呼籲。形象頁不放，招募頁才給。 */
+  ctaHref?: string;
+  ctaLabel?: string;
 }
 
 const NAV_HEIGHT = 58;
@@ -90,8 +91,8 @@ export default function SectionNav({ sections, brand, ctaHref, ctaLabel }: Secti
       className="sticky top-0 z-50 w-full border-b transition-colors duration-500"
       style={{
         height: NAV_HEIGHT,
-        borderColor: condensed ? "rgba(226,193,145,0.22)" : "rgba(226,193,145,0.08)",
-        background: condensed ? "rgba(9,8,7,0.92)" : "rgba(9,8,7,0.55)",
+        borderColor: condensed ? "rgba(126,93,40,0.24)" : "rgba(126,93,40,0.10)",
+        background: condensed ? "rgba(250,247,242,0.94)" : "rgba(250,247,242,0.72)",
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
       }}
@@ -101,7 +102,7 @@ export default function SectionNav({ sections, brand, ctaHref, ctaLabel }: Secti
         <button
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex shrink-0 items-center text-[13px] font-semibold tracking-[0.22em] text-[#E2C191] sm:text-sm"
+          className="flex shrink-0 items-center text-[13px] font-semibold tracking-[0.22em] text-[#7E5D28] sm:text-sm"
         >
           {brand}
         </button>
@@ -125,13 +126,13 @@ export default function SectionNav({ sections, brand, ctaHref, ctaLabel }: Secti
                   aria-current={active ? "true" : undefined}
                   className={`relative flex shrink-0 items-center gap-1.5 px-3 text-[12px] tracking-[0.12em] whitespace-nowrap transition-colors duration-300 sm:px-4 sm:text-[13px] ${
                     active
-                      ? "bg-[#E2C191] font-bold text-[#0B0A09]"
-                      : "text-[#9d9285] hover:text-[#E2C191]"
+                      ? "bg-[#7E5D28] font-bold text-[#FAF7F2]"
+                      : "text-[#6B5F51] hover:text-[#7E5D28]"
                   }`}
                 >
                   <span
                     className={`font-[family-name:var(--font-cormorant)] text-[11px] ${
-                      active ? "text-[#0B0A09]/60" : "text-[#E2C191]/40"
+                      active ? "text-[#FAF7F2]/70" : "text-[#B08D4F]"
                     }`}
                   >
                     {section.index}
@@ -143,16 +144,18 @@ export default function SectionNav({ sections, brand, ctaHref, ctaLabel }: Secti
           </div>
         </nav>
 
-        {/* CTA */}
-        <a
-          href={ctaHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden shrink-0 items-center px-4 text-[12px] font-semibold tracking-[0.14em] text-[#0B0A09] transition-opacity duration-300 hover:opacity-85 sm:flex"
-          style={{ background: "#E2C191" }}
-        >
-          {ctaLabel}
-        </a>
+        {/* CTA（選用） */}
+        {ctaHref && ctaLabel && (
+          <a
+            href={ctaHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden shrink-0 items-center px-4 text-[12px] font-semibold tracking-[0.14em] text-[#FAF7F2] transition-opacity duration-300 hover:opacity-85 sm:flex"
+            style={{ background: "#7E5D28" }}
+          >
+            {ctaLabel}
+          </a>
+        )}
       </div>
 
       {/* 進度條 */}
@@ -161,7 +164,7 @@ export default function SectionNav({ sections, brand, ctaHref, ctaLabel }: Secti
         style={{
           width: "100%",
           transform: `scaleX(${progress})`,
-          background: "linear-gradient(90deg, #B98A54, #E2C191, #F3DFC4)",
+          background: "linear-gradient(90deg, #5E4418, #8F6B2E, #B08D4F)",
           transition: "transform 120ms linear",
         }}
       />

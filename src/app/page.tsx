@@ -4,12 +4,13 @@ import VideoBackground from "@/components/VideoBackground";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 
-// 企業品牌影響力包班實戰課（/course）依業主指示暫時隱藏，路由保留可直接訪問。
+// 兩個路由刻意不放進首頁導覽，皆保留可直接訪問：
+//   /course 企業包班 — 依業主指示暫時隱藏
+//   /fupo   富婆組建籌備會 — 獨立形象頁，只透過直接連結分享
 const navItems: { label: string; href: string; external?: boolean; tag?: string }[] = [
   { label: "短影音代操與短影音孵化", href: "/short-video", tag: "企業專屬" },
   { label: "廣告投放", href: "/short-video-ad", tag: "官方二級代理" },
   { label: "素人代操與課程案例", href: "/cases" },
-  { label: "富婆組建籌備會", href: "/fupo", tag: "女性企業主" },
 ];
 
 export default function Home() {
