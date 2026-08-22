@@ -19,7 +19,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}/course`,
+      url: `${BASE_URL}/short-video-ad`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/fupo`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,

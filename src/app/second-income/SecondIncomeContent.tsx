@@ -3,8 +3,15 @@
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import RegistrationForm from "@/components/RegistrationForm";
+import FAQAccordion from "@/components/FAQAccordion";
 
-export default function SecondIncomeContent() {
+interface FAQ {
+  id: string;
+  question: string;
+  answer: string;
+}
+
+export default function SecondIncomeContent({ faqs }: { faqs: FAQ[] }) {
   return (
     <main className="min-h-screen bg-bg-primary px-4 py-12 sm:px-6">
       <div className="mx-auto max-w-lg">
@@ -102,6 +109,10 @@ export default function SecondIncomeContent() {
 
         {/* Form — loaded from API, editable in admin */}
         <RegistrationForm pageSlug="second-income" />
+
+        {faqs.length > 0 && (
+          <FAQAccordion title="常見問題" items={faqs} />
+        )}
 
         {/* 最後說明 */}
         <section className="animate-fade-up mb-12 rounded-2xl border border-divider bg-bg-surface p-6">

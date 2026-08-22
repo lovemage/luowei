@@ -3,6 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import FAQAccordion from "@/components/FAQAccordion";
+
+interface FAQ {
+  id: string;
+  question: string;
+  answer: string;
+}
 
 const COURSE_OPTIONS = [
   "AI 影像力應用軟體課程",
@@ -14,7 +21,7 @@ const HEADCOUNT_OPTIONS = ["1-10 人", "11-20 人", "21-30 人"];
 
 const INDUSTRY_OPTIONS = ["餐飲", "房產", "美容", "傳產", "科技", "教育", "其他"];
 
-export default function CourseContent() {
+export default function CourseContent({ faqs }: { faqs: FAQ[] }) {
   const [selectedCourse, setSelectedCourse] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -393,6 +400,12 @@ export default function CourseContent() {
           </div>
         )}
       </section>
+
+      {faqs.length > 0 && (
+        <section className="px-6 pb-8 max-w-2xl mx-auto w-full">
+          <FAQAccordion title="常見問題" items={faqs} />
+        </section>
+      )}
 
       {/* Back link bottom */}
       <div className="px-6 pb-8 max-w-2xl mx-auto w-full">

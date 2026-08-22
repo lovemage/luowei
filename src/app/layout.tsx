@@ -57,7 +57,7 @@ export default function RootLayout({
         }} />
       </head>
       <body>
-        <div className="relative z-10 mx-auto max-w-[430px] min-h-dvh">
+        <div className="site-shell relative z-10 min-h-dvh">
           <AnnouncementBar />
           {children}
         </div>

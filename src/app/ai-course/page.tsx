@@ -1,6 +1,7 @@
 import AICourseContent from "./AICourseContent";
 import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
+import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
   title: "AI 影像力變現課程 | LUOWEI MEDIA",
@@ -10,6 +11,11 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function AICoursePage() {
+  const faqs = await prisma.fAQ.findMany({
+    where: { pageSlug: "ai-course" },
+    orderBy: { order: "asc" },
+  });
+
   return (
     <>
       <JsonLd data={{
@@ -32,7 +38,7 @@ export default async function AICoursePage() {
           availability: "https://schema.org/InStock",
         },
       }} />
-      <AICourseContent />
+      <AICourseContent faqs={faqs} />
     </>
   );
 }

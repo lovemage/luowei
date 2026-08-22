@@ -4,6 +4,13 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import RegistrationForm from "@/components/RegistrationForm";
 import PainPointHook from "@/components/PainPointHook";
+import FAQAccordion from "@/components/FAQAccordion";
+
+interface FAQ {
+  id: string;
+  question: string;
+  answer: string;
+}
 
 const painPoints = [
   "以為 AI 只是玩具 -- 很多人還在研究工具，但真正厲害的人已經用 AI 重組工作流程、放大產能、接住商機",
@@ -75,7 +82,7 @@ const caseStudies = [
   },
 ];
 
-export default function AICourseContent() {
+export default function AICourseContent({ faqs }: { faqs: FAQ[] }) {
   return (
     <main className="relative z-10 flex min-h-dvh flex-col px-6 pt-10 pb-12">
       {/* Back link top */}
@@ -312,7 +319,7 @@ export default function AICourseContent() {
       </section>
 
       {/* Registration Form */}
-      <RegistrationForm courseOptions={dateOptions} />
+      <RegistrationForm pageSlug="ai-course" courseOptions={dateOptions} />
 
       {/* Payment Info */}
       <section className="animate-fade-up mb-12">
@@ -353,6 +360,10 @@ export default function AICourseContent() {
           </ol>
         </div>
       </section>
+
+      {faqs.length > 0 && (
+        <FAQAccordion title="常見問題" items={faqs} />
+      )}
 
       {/* Case Studies */}
       <section className="animate-fade-up mb-12">

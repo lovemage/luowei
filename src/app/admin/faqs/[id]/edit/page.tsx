@@ -6,8 +6,11 @@ import Link from "next/link";
 
 const PAGE_OPTIONS = [
   { value: "short-video", label: "short-video" },
+  { value: "short-video-incubation", label: "short-video-incubation" },
   { value: "short-video-ad", label: "short-video-ad" },
   { value: "course", label: "course" },
+  { value: "ai-course", label: "ai-course" },
+  { value: "second-income", label: "second-income" },
 ];
 
 export default function EditFAQPage() {

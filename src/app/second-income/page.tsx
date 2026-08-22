@@ -1,6 +1,7 @@
 import SecondIncomeContent from "./SecondIncomeContent";
 import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
+import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
   title: "下班後第二收入計劃 | LUOWEI MEDIA",
@@ -8,7 +9,12 @@ export const metadata: Metadata = {
     "普通人翻身合作申請。在2027年前，幫助100個人年收入突破100萬台幣。產業、流量、收入結構。",
 };
 
-export default function SecondIncomePage() {
+export default async function SecondIncomePage() {
+  const faqs = await prisma.fAQ.findMany({
+    where: { pageSlug: "second-income" },
+    orderBy: { order: "asc" },
+  });
+
   return (
     <>
       <JsonLd
@@ -26,7 +32,7 @@ export default function SecondIncomePage() {
           },
         }}
       />
-      <SecondIncomeContent />
+      <SecondIncomeContent faqs={faqs} />
     </>
   );
 }

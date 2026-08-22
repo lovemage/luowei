@@ -194,3 +194,115 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ===== Site Shell ===== */
+/* 一般頁面維持 430px 手機殼；獨立長頁（data-standalone）解除寬度限制。 */
+
+.site-shell {
+  margin-inline: auto;
+  max-width: 430px;
+}
+
+.site-shell:has([data-standalone]) {
+  max-width: none;
+}
+
+.site-shell:has([data-standalone]) .announcement-bar {
+  display: none;
+}
+
+/* ===== Scroll Reveal ===== */
+
+.reveal {
+  opacity: 0;
+  transition:
+    opacity 0.85s var(--ease-out-quart),
+    transform 0.85s var(--ease-out-quart),
+    filter 0.85s var(--ease-out-quart);
+  will-change: opacity, transform;
+}
+
+.reveal-up { transform: translateY(40px); }
+.reveal-down { transform: translateY(-32px); }
+.reveal-left { transform: translateX(-48px); }
+.reveal-right { transform: translateX(48px); }
+.reveal-scale { transform: scale(0.9); }
+.reveal-blur { transform: translateY(24px); filter: blur(14px); }
+.reveal-rotate { transform: perspective(900px) rotateX(14deg) translateY(32px); transform-origin: top center; }
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* 裁切式進場（wipe / curtain）。
+   clip-path 必須套在「子元素」上：若套在被 IntersectionObserver 觀察的節點本身，
+   Chrome 會把交集比例算成 0，觀察器永遠不會觸發。 */
+.reveal-wipe,
+.reveal-curtain {
+  opacity: 1;
+}
+
+.reveal-wipe > *,
+.reveal-curtain > * {
+  transition: clip-path 1s var(--ease-out-quart);
+  transition-delay: inherit;
+}
+
+.reveal-wipe > * { clip-path: inset(0 100% 0 0); }
+.reveal-curtain > * { clip-path: inset(100% 0 0 0); }
+
+.reveal-wipe.is-in > *,
+.reveal-curtain.is-in > * {
+  clip-path: inset(0 0 0 0);
+}
+
+/* 逐項浮現：交由 --i 控制序列延遲 */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s var(--ease-out-quart),
+    transform 0.7s var(--ease-out-quart);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.is-in .stagger-item {
+  opacity: 1;
+  transform: none;
+}
+
+/* 進度條 */
+@keyframes fp-glow-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.75; transform: scale(1.08); }
+}
+
+@keyframes fp-drift {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -14px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes fp-sheen {
+  0% { background-position: -160% 0; }
+  100% { background-position: 260% 0; }
+}
+
+.fp-scroll-root {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fp-scroll-root { scroll-behavior: auto; }
+  .reveal,
+  .stagger-item,
+  .reveal-wipe > *,
+  .reveal-curtain > * {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+  }
+}

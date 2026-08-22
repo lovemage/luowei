@@ -4,10 +4,12 @@ import VideoBackground from "@/components/VideoBackground";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 
+// 企業品牌影響力包班實戰課（/course）依業主指示暫時隱藏，路由保留可直接訪問。
 const navItems: { label: string; href: string; external?: boolean; tag?: string }[] = [
-  { label: "短影音代操與廣告投放", href: "/short-video", tag: "企業專屬" },
+  { label: "短影音代操與短影音孵化", href: "/short-video", tag: "企業專屬" },
+  { label: "廣告投放", href: "/short-video-ad", tag: "官方二級代理" },
   { label: "素人代操與課程案例", href: "/cases" },
-  { label: "企業品牌影響力包班實戰課", href: "/course", tag: "企業培訓" },
+  { label: "富婆組建籌備會", href: "/fupo", tag: "女性企業主" },
 ];
 
 export default function Home() {
@@ -18,7 +20,7 @@ export default function Home() {
         "@type": "WebSite",
         name: "羅威傳媒 LUOWEI MEDIA",
         url: "https://luowei-media.com",
-        description: "無限進步｜個人成長。短影音代操、影響力變現課程、AI影像力變現。",
+        description: "無限進步｜個人成長。短影音代操、短影音孵化、廣告投放，專為女性企業主打造。",
         potentialAction: {
           "@type": "SearchAction",
           target: "https://luowei-media.com/?q={search_term_string}",

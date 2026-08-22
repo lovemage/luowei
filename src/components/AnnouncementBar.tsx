@@ -78,7 +78,7 @@ export default function AnnouncementBar() {
   const fullText = config.items.map((a) => a.text).join(separator);
 
   return (
-    <div className="sticky top-0 z-50 w-full bg-accent/10 border-b border-accent/20 overflow-hidden backdrop-blur-sm">
+    <div className="announcement-bar sticky top-0 z-50 w-full bg-accent/10 border-b border-accent/20 overflow-hidden backdrop-blur-sm">
       {/* 右至左 */}
       {config.effect === "right-to-left" && (
         <div
