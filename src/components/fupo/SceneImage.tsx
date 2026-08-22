@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { useState } from "react";
 
 interface SceneImageProps {
   src: string;
@@ -8,16 +9,25 @@ interface SceneImageProps {
   /** 圖片缺席時顯示的裝飾字樣 */
   placeholder: string;
   className?: string;
-  /** 圖片比例，例如 "16/9"、"4/5" */
+  /** 圖片比例，例如 "16/9"、"4/5"、"auto"（由外層容器決定高度） */
   ratio?: string;
-  /** 疊在圖片上的暗化程度 0-1 */
+  /** 疊在圖片上的淺色遮罩濃度 0-1 */
   scrim?: number;
+  /**
+   * 版面配置提示，交給 next/image 決定要送哪一階尺寸。
+   * 手機一律只會拿到約 360-640px 寬的檔案，而不是原始的 1920px。
+   */
+  sizes?: string;
+  /** 首屏圖片設 true：改為 eager 載入並提高抓取優先度（LCP） */
+  priority?: boolean;
   children?: React.ReactNode;
 }
 
 /**
- * 情境圖。圖片檔尚未產出（或載入失敗）時，退回金色漸層裝飾底，
- * 版面不會塌掉，之後把檔案放進 public/images/fupo/ 即可自動生效。
+ * 情境圖。走 next/image 產生 AVIF/WebP 與多尺寸 srcset，
+ * 手機不會再下載桌機用的大圖。
+ *
+ * 圖片檔尚未產出（或載入失敗）時退回暖色漸層裝飾底，版面不會塌掉。
  */
 export default function SceneImage({
   src,
@@ -26,19 +36,11 @@ export default function SceneImage({
   className = "",
   ratio = "16/9",
   scrim = 0.35,
+  sizes = "100vw",
+  priority = false,
   children,
 }: SceneImageProps) {
   const [failed, setFailed] = useState(false);
-  const imgRef = useRef<HTMLImageElement>(null);
-
-  // SSR 產生的 <img> 可能在 React 掛上 onError 之前就已載入失敗，
-  // 掛載後補檢查一次，否則會留下破圖的 alt 文字。
-  useEffect(() => {
-    const img = imgRef.current;
-    if (!img || !img.complete || img.naturalWidth !== 0) return;
-    const raf = requestAnimationFrame(() => setFailed(true));
-    return () => cancelAnimationFrame(raf);
-  }, []);
 
   return (
     <div
@@ -46,15 +48,14 @@ export default function SceneImage({
       style={{ aspectRatio: ratio, background: "#EFE7DA" }}
     >
       {!failed ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          ref={imgRef}
+        <Image
           src={src}
           alt={alt}
-          loading="lazy"
-          decoding="async"
+          fill
+          sizes={sizes}
+          priority={priority}
           onError={() => setFailed(true)}
-          className="h-full w-full object-cover"
+          className="object-cover"
         />
       ) : (
         <div

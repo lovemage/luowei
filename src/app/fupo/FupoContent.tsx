@@ -146,7 +146,7 @@ export default function FupoContent() {
       <SectionNav sections={NAV_SECTIONS} brand="BNI - 富婆分會" />
 
       {/* ══════════ 封面 ══════════ */}
-      <div className="relative min-h-[88vh] w-full overflow-hidden">
+      <div className="relative min-h-[88dvh] w-full overflow-hidden">
         <div className="absolute inset-0">
           <SceneImage
             src={SCENE.hero}
@@ -154,6 +154,8 @@ export default function FupoContent() {
             placeholder="情境圖 01 ─ 封面"
             ratio="auto"
             scrim={0.35}
+            sizes="100vw"
+            priority
             className="h-full w-full"
           />
         </div>
@@ -165,7 +167,7 @@ export default function FupoContent() {
           }}
         />
 
-        <div className="relative mx-auto flex min-h-[88vh] max-w-6xl flex-col justify-center px-6 py-24 sm:px-10">
+        <div className="relative mx-auto flex min-h-[88dvh] max-w-6xl flex-col justify-center px-6 py-24 sm:px-10">
           <Reveal variant="wipe">
             <p className="text-[11px] font-semibold tracking-[0.5em] text-[#7E5D28]">
               以女性商業為主的團隊
@@ -215,7 +217,7 @@ export default function FupoContent() {
 
       {/* ══════════ 01 創會理念 ══════════ */}
       <section id="belief" className="border-t" style={{ borderColor: LINE_SOFT }}>
-        <div className="mx-auto max-w-6xl px-6 py-24 sm:px-10 sm:py-32">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-32">
           <SectionHeading
             eyebrow="WHY ─ 01"
             title="創會理念"
@@ -243,6 +245,7 @@ export default function FupoContent() {
                 placeholder="情境圖 02 ─ 創會理念"
                 ratio="4/5"
                 scrim={0.18}
+                sizes="(min-width: 768px) 42vw, 100vw"
               />
             </Reveal>
           </div>
@@ -265,7 +268,7 @@ export default function FupoContent() {
 
       {/* ══════════ 02 我們用的系統 ══════════ */}
       <section id="system" className="border-t" style={{ borderColor: LINE_SOFT, background: C.band }}>
-        <div className="mx-auto max-w-6xl px-6 py-24 sm:px-10 sm:py-32">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-32">
           <SectionHeading eyebrow="HOW ─ 02" title="我們用的系統" lead={SYSTEM_INTRO} />
 
           {/* 規模佐證 */}
@@ -294,6 +297,7 @@ export default function FupoContent() {
                 placeholder="情境圖 03 ─ 聚會"
                 ratio="4/5"
                 scrim={0.18}
+                sizes="(min-width: 768px) 42vw, 100vw"
               />
             </Reveal>
 
@@ -324,6 +328,7 @@ export default function FupoContent() {
               placeholder="情境圖 04 ─ 產業鏈"
               ratio="auto"
               scrim={0}
+              sizes="100vw"
               className="h-full w-full"
             />
           </div>
@@ -335,7 +340,7 @@ export default function FupoContent() {
             }}
           />
 
-          <div className="relative mx-auto max-w-6xl px-6 py-24 sm:px-10 sm:py-32">
+          <div className="relative mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-32">
             <SectionHeading
               eyebrow="WHO ─ 03"
               title="需要的人脈"
@@ -402,7 +407,7 @@ export default function FupoContent() {
 
         {/* 15 條鏈細節 */}
         <div className="border-t" style={{ borderColor: LINE_SOFT, background: C.band }}>
-          <div className="mx-auto max-w-5xl px-6 py-24 sm:px-10 sm:py-32">
+          <div className="mx-auto max-w-5xl px-6 py-16 sm:px-10 sm:py-32">
             <div className="flex flex-col gap-px" style={{ background: LINE }}>
               {CHAINS.map((chain) => (
                 <Reveal key={chain.no} id={`chain-${chain.no}`} variant="up" threshold={0.08} className="scroll-mt-20">
@@ -463,6 +468,7 @@ export default function FupoContent() {
             placeholder="情境圖 05 ─ 收尾"
             ratio="auto"
             scrim={0}
+            sizes="100vw"
             className="h-full w-full"
           />
         </div>
