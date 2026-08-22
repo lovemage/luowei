@@ -9,6 +9,10 @@ export const metadata: Metadata = {
     "普通人翻身合作申請。在2027年前，幫助100個人年收入突破100萬台幣。產業、流量、收入結構。",
 };
 
+// 這頁會在 render 時查 FAQ；Railway 建置階段連不到 postgres.railway.internal，
+// 不標 force-dynamic 會在 prerender 時整個 build 失敗。
+export const dynamic = "force-dynamic";
+
 export default async function SecondIncomePage() {
   const faqs = await prisma.fAQ.findMany({
     where: { pageSlug: "second-income" },
