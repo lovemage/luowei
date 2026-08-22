@@ -6,6 +6,7 @@ import SceneImage from "@/components/fupo/SceneImage";
 import SectionNav from "@/components/fupo/SectionNav";
 import {
   BELIEF_CLOSING,
+  BELIEF_INTRO,
   BELIEF_POINTS,
   CHAINS,
   CHAIN_GROUPS,
@@ -36,6 +37,33 @@ const C = {
 const LINE = "rgba(126,93,40,0.16)";
 const LINE_SOFT = "rgba(126,93,40,0.11)";
 const TINT = "rgba(126,93,40,0.06)";
+
+/**
+ * 產業鏈 icon。SVG 是黑色填色路徑，改用 mask-image 上色，
+ * 可直接套成頁面的深金而不必改動原始檔。
+ */
+function ChainIcon({ name, size }: { name: string; size: number }) {
+  const url = `/images/fupo/icons/icon-${name}.svg`;
+  return (
+    <span
+      aria-hidden
+      className="block shrink-0"
+      style={{
+        width: size,
+        height: size,
+        backgroundColor: C.gold,
+        WebkitMaskImage: `url(${url})`,
+        maskImage: `url(${url})`,
+        WebkitMaskRepeat: "no-repeat",
+        maskRepeat: "no-repeat",
+        WebkitMaskPosition: "center",
+        maskPosition: "center",
+        WebkitMaskSize: "contain",
+        maskSize: "contain",
+      }}
+    />
+  );
+}
 
 /**
  * 統一的段落標題。三段都用同一組版式，不再一段一個花樣——
@@ -189,9 +217,9 @@ export default function FupoContent() {
       <section id="belief" className="border-t" style={{ borderColor: LINE_SOFT }}>
         <div className="mx-auto max-w-6xl px-6 py-24 sm:px-10 sm:py-32">
           <SectionHeading
-            eyebrow="OUR BELIEF ─ 01"
+            eyebrow="WHY ─ 01"
             title="創會理念"
-            lead="整體的核心概念，是以女性創造一個以女性商業為主的團隊。"
+            lead={BELIEF_INTRO}
           />
 
           <div className="grid gap-14 md:grid-cols-[1.25fr_1fr] md:items-start">
@@ -238,7 +266,7 @@ export default function FupoContent() {
       {/* ══════════ 02 我們用的系統 ══════════ */}
       <section id="system" className="border-t" style={{ borderColor: LINE_SOFT, background: C.band }}>
         <div className="mx-auto max-w-6xl px-6 py-24 sm:px-10 sm:py-32">
-          <SectionHeading eyebrow="THE SYSTEM ─ 02" title="我們用的系統" lead={SYSTEM_INTRO} />
+          <SectionHeading eyebrow="HOW ─ 02" title="我們用的系統" lead={SYSTEM_INTRO} />
 
           {/* 規模佐證 */}
           <Reveal variant="up">
@@ -309,7 +337,7 @@ export default function FupoContent() {
 
           <div className="relative mx-auto max-w-6xl px-6 py-24 sm:px-10 sm:py-32">
             <SectionHeading
-              eyebrow="THE NETWORK ─ 03"
+              eyebrow="WHO ─ 03"
               title="需要的人脈"
               lead={NETWORK_INTRO}
             />
@@ -354,7 +382,7 @@ export default function FupoContent() {
                             className="stagger-item group flex flex-col items-center gap-2 px-4 py-7 transition-colors hover:bg-[#F7F1E6]"
                             style={{ background: C.card, ["--i" as string]: i }}
                           >
-                            <span className="text-[26px] leading-none">{chain.emoji}</span>
+                            <ChainIcon name={chain.icon} size={30} />
                             <span className="font-[family-name:var(--font-noto-serif-tc)] text-[12px] font-bold text-[#B08D4F]">
                               {chain.no}
                             </span>
@@ -383,7 +411,7 @@ export default function FupoContent() {
                     style={{ background: C.card }}
                   >
                     <div className="flex items-center gap-4 sm:w-[92px] sm:flex-col sm:items-start sm:gap-2">
-                      <span className="text-[34px] leading-none">{chain.emoji}</span>
+                      <ChainIcon name={chain.icon} size={38} />
                       <p className="font-[family-name:var(--font-noto-serif-tc)] text-[26px] leading-none font-bold text-[#B08D4F]">
                         {chain.no}
                       </p>

@@ -7,6 +7,8 @@ export interface NavSection {
   label: string;
   /** 導覽列上的小序號 */
   index: string;
+  /** 敘事角色（WHY / HOW / WHO），點出這一段在全頁起承轉合的位置 */
+  role?: string;
 }
 
 interface SectionNavProps {
@@ -146,6 +148,15 @@ export default function SectionNav({ sections, brand, ctaHref, ctaLabel }: Secti
                     {section.index}
                   </span>
                   {section.label}
+                  {section.role && (
+                    <span
+                      className={`text-[9px] tracking-[0.18em] ${
+                        active ? "text-[#FAF7F2]/60" : "text-[#B08D4F]/80"
+                      }`}
+                    >
+                      {section.role}
+                    </span>
+                  )}
                 </button>
               );
             })}

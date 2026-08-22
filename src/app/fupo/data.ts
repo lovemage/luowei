@@ -11,13 +11,15 @@ export interface NavSectionMeta {
   id: string;
   label: string;
   index: string;
+  /** 敘事角色，點出這一段在全頁起承轉合裡扮演的位置 */
+  role: string;
 }
 
-/** 頂部分段導覽（3 段） */
+/** 頂部分段導覽（3 段）。全頁的敘事主線：為什麼 → 怎麼做 → 需要誰 */
 export const NAV_SECTIONS: NavSectionMeta[] = [
-  { id: "belief", label: "創會理念", index: "01" },
-  { id: "system", label: "我們用的系統", index: "02" },
-  { id: "network", label: "需要的人脈", index: "03" },
+  { id: "belief", label: "創會理念", index: "01", role: "WHY" },
+  { id: "system", label: "我們用的系統", index: "02", role: "HOW" },
+  { id: "network", label: "需要的人脈", index: "03", role: "WHO" },
 ];
 
 /** 情境圖。檔案放進 public/images/fupo/ 後自動生效。 */
@@ -36,6 +38,11 @@ export const MANIFESTO = {
   lead: "妳不是誰的媽媽、誰的女兒、誰的老婆。",
   emphasis: "妳可以選擇自己要當女生、女孩，還是女人。",
 };
+
+/** 01 創會理念：承接封面，點出這群女生為什麼要聚在一起 */
+export const BELIEF_INTRO =
+  "整體的核心概念，只有一句話：以女性，創造一個以女性商業為主的團隊。" +
+  "為什麼要這樣做？往下看三層原因。";
 
 export const BELIEF_POINTS = [
   {
@@ -69,8 +76,9 @@ export const BELIEF_CLOSING = [
 
 /* ── 我們用的系統 ── */
 
+/** 02 我們用的系統：理念有了，接著講用什麼方法落地 */
 export const SYSTEM_INTRO =
-  "我們沒有自己發明一套規則，而是沿用一個已經被驗證過的商業引薦系統。" +
+  "理念是方向，方法才是關鍵。我們沒有自己發明一套規則，而是沿用一個已經被驗證過的商業引薦系統。" +
   "它不是社團，是以生意為導向、建立長期關係的機制。";
 
 export const SYSTEM_RULES = [
@@ -106,8 +114,10 @@ export const SYSTEM_STATS = [
 
 /* ── 需要的人脈 ── */
 
+/** 03 需要的人脈：系統有了，最後講需要誰一起組建 */
 export const NETWORK_INTRO =
-  "把服務女性的行業，放進同一個環境裡。一個人的需求，會在這裡被接手好幾次。";
+  "系統是骨架，人脈是血肉。分會要組建起來，靠的就是這 15 條產業鏈——" +
+  "把服務女性的行業放進同一個環境，一個人的需求，會在這裡被接手好幾次。";
 
 /** 一個女性客戶會被接住的每一段 */
 export const TOUCHPOINTS = [
@@ -123,7 +133,8 @@ export const TOUCHPOINTS = [
 /* ── 15 條產業鏈：分會需要什麼樣的人脈 ── */
 export interface Chain {
   no: string;
-  emoji: string;
+  /** 對應 public/images/fupo/icons/ 底下的 SVG 檔名（不含副檔名） */
+  icon: string;
   name: string;
   group: string;
   items: string[];
@@ -139,7 +150,7 @@ export const CHAIN_GROUPS = [
 export const CHAINS: Chain[] = [
   {
     no: "01",
-    emoji: "💇",
+    icon: "beauty",
     name: "美業鏈",
     group: "外在魅力與健康",
     items: ["醫美診所", "皮膚科", "整形外科", "美容工作室", "美甲", "美睫", "紋繡", "除毛"],
@@ -148,7 +159,7 @@ export const CHAINS: Chain[] = [
   },
   {
     no: "02",
-    emoji: "💈",
+    icon: "hair",
     name: "頭皮毛髮鏈",
     group: "外在魅力與健康",
     items: ["美髮沙龍", "頭皮養護", "增髮接髮", "韓式繡眉", "假髮訂製", "植髮診所"],
@@ -157,7 +168,7 @@ export const CHAINS: Chain[] = [
   },
   {
     no: "03",
-    emoji: "🩺",
+    icon: "health-care",
     name: "健康醫療鏈",
     group: "外在魅力與健康",
     items: ["高端健檢", "婦產科", "家醫科", "中醫養生", "牙醫", "眼科", "復健科", "營養師"],
@@ -166,7 +177,7 @@ export const CHAINS: Chain[] = [
   },
   {
     no: "04",
-    emoji: "💎",
+    icon: "fashion",
     name: "時尚精品鏈",
     group: "外在魅力與健康",
     items: ["精品服飾", "珠寶訂製", "名錶精品代購", "精品眼鏡", "內衣訂製", "香水香氛"],
@@ -175,7 +186,7 @@ export const CHAINS: Chain[] = [
   },
   {
     no: "05",
-    emoji: "🧘",
+    icon: "hobby",
     name: "心理身心鏈",
     group: "外在魅力與健康",
     items: ["身心科", "心理諮商", "正念冥想", "瑜珈教室", "皮拉提斯", "SPA芳療"],
@@ -184,7 +195,7 @@ export const CHAINS: Chain[] = [
   },
   {
     no: "06",
-    emoji: "🏠",
+    icon: "home",
     name: "居家生活鏈",
     group: "生活與心靈",
     items: ["豪宅仲介", "室內設計", "精品家具", "燈飾軟裝", "家事管家", "月子中心", "花藝", "私廚"],
@@ -193,7 +204,7 @@ export const CHAINS: Chain[] = [
   },
   {
     no: "07",
-    emoji: "🐾",
+    icon: "pet",
     name: "寵物生活鏈",
     group: "生活與心靈",
     items: ["寵物美容", "寵物旅館", "寵物醫院", "寵物訓練", "寵物用品"],
@@ -202,7 +213,7 @@ export const CHAINS: Chain[] = [
   },
   {
     no: "08",
-    emoji: "🍽️",
+    icon: "kitchen",
     name: "美食餐飲鏈",
     group: "生活與心靈",
     items: ["精緻食材", "進口酒", "烘焙甜點", "私廚體驗", "品茶會所", "餐廳經營"],
@@ -211,7 +222,7 @@ export const CHAINS: Chain[] = [
   },
   {
     no: "09",
-    emoji: "✈️",
+    icon: "outdoor",
     name: "休閒體驗鏈",
     group: "生活與心靈",
     items: ["高端旅遊", "郵輪包機", "遊艇露營", "藝文策展", "高爾夫馬術", "表演藝術票券"],
@@ -220,7 +231,7 @@ export const CHAINS: Chain[] = [
   },
   {
     no: "10",
-    emoji: "🎓",
+    icon: "baby",
     name: "家庭教育鏈",
     group: "生活與心靈",
     items: ["私校顧問", "留學代辦", "才藝老師", "家教媒合", "蒙特梭利教育", "升學顧問"],
@@ -229,7 +240,7 @@ export const CHAINS: Chain[] = [
   },
   {
     no: "11",
-    emoji: "📣",
+    icon: "camera",
     name: "行銷鏈",
     group: "擴張與資本",
     items: [
@@ -247,7 +258,7 @@ export const CHAINS: Chain[] = [
   },
   {
     no: "12",
-    emoji: "💰",
+    icon: "wealth",
     name: "財富管理鏈",
     group: "擴張與資本",
     items: ["保險經紀", "產險", "財富管理", "會計師", "稅務顧問", "家族信託", "投資顧問", "銀行理專"],
@@ -256,7 +267,7 @@ export const CHAINS: Chain[] = [
   },
   {
     no: "13",
-    emoji: "⚖️",
+    icon: "legal",
     name: "法律規範鏈",
     group: "擴張與資本",
     items: ["律師", "地政士", "專利商標", "合約顧問"],
@@ -265,7 +276,7 @@ export const CHAINS: Chain[] = [
   },
   {
     no: "14",
-    emoji: "🤝",
+    icon: "capital",
     name: "資本募資鏈",
     group: "擴張與資本",
     items: ["創投募資顧問", "遺產規劃師", "企業顧問"],
@@ -274,7 +285,7 @@ export const CHAINS: Chain[] = [
   },
   {
     no: "15",
-    emoji: "🏗️",
+    icon: "lifestyle",
     name: "飯店與工程鏈",
     group: "擴張與資本",
     items: [
