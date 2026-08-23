@@ -106,7 +106,7 @@ const incubationTypes = [
     items: ["直銷體系領導人", "保險、房仲團隊主管", "社群團購主"],
   },
   {
-    key: "數位型",
+    key: "數位項目型",
     desc: "交付不受場地限制，多賣一份幾乎沒有邊際成本",
     items: ["線上課程", "知識付費、講師", "線上諮詢", "命理、身心靈"],
   },
@@ -196,7 +196,7 @@ const incubationFAQs = [
     id: "i-faq-3",
     question: "什麼樣的生意適合孵化？",
     answer:
-      "只做三種，賣貨型（保健食品、保養品自有品牌、輕奢珠寶精品、選品電商）、人傳人型（直銷體系領導人、保險與房仲團隊主管、社群團購主）、數位型（線上課程、知識付費講師、線上諮詢、命理身心靈）。共通點是產能不被場地與人力綁住，流量放大時收入才跟得上，這樣分潤對雙方才有意義。",
+      "只做三種，賣貨型（保健食品、保養品自有品牌、輕奢珠寶精品、選品電商）、人傳人型（直銷體系領導人、保險與房仲團隊主管、社群團購主）、數位項目型（線上課程、知識付費講師、線上諮詢、命理身心靈）。共通點是產能不被場地與人力綁住，流量放大時收入才跟得上，這樣分潤對雙方才有意義。",
   },
   {
     id: "i-faq-4",
@@ -719,11 +719,17 @@ export default function ShortVideoContent({
                 <div key={type.key} className="bg-bg-surface border border-divider rounded-xl p-5">
                   <h3 className="text-base font-bold text-accent mb-1">{type.key}</h3>
                   <p className="text-xs text-text-secondary/70 leading-[1.8] mb-4">{type.desc}</p>
-                  <div className="flex flex-wrap gap-2">
+                  {/* 標籤一律排成一行。窄螢幕放不下就左右滑，不折行——
+                      折行會讓三張卡片高度不一，整段看起來參差。
+                      負邊距讓滑動區貼到卡片邊緣，滑到底不會有一截空白。 */}
+                  <div
+                    className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1"
+                    style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(126,93,40,0.3) transparent" }}
+                  >
                     {type.items.map((item) => (
                       <span
                         key={item}
-                        className="border border-divider rounded-md px-2.5 py-1.5 text-[11px] text-text-primary"
+                        className="shrink-0 whitespace-nowrap border border-divider rounded-md px-2.5 py-1.5 text-[11px] text-text-primary"
                       >
                         {item}
                       </span>
@@ -796,7 +802,7 @@ export default function ShortVideoContent({
             </h2>
             <ul className="flex flex-col gap-2">
               {[
-                "女性企業主，且生意屬於賣貨型、人傳人型或數位型",
+                "女性企業主，且生意屬於賣貨型、人傳人型或數位項目型",
                 "品牌與預算都有，缺的是流量",
                 "認同「先賣人再賣產品」觀念",
                 "想衝曝光，同時要求有保底成果",
@@ -816,7 +822,7 @@ export default function ShortVideoContent({
 
           <RegistrationForm
             pageSlug="short-video-incubation"
-            courseOptions={["短影音孵化 — 賣貨型", "短影音孵化 — 人傳人型", "短影音孵化 — 數位型"]}
+            courseOptions={["短影音孵化 — 賣貨型", "短影音孵化 — 人傳人型", "短影音孵化 — 數位項目型"]}
           />
 
           <section className="animate-fade-up mb-12 rounded-xl bg-accent/10 border border-accent/30 p-6 text-center">
