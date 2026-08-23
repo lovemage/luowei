@@ -37,7 +37,6 @@ const C = {
   deco: "#B08D4F",
 } as const;
 
-const LINE_SOFT = "rgba(126,93,40,0.11)";
 const TINT = "rgba(126,93,40,0.06)";
 
 /**
@@ -121,6 +120,45 @@ const TEX_CHIP = "touch-a";
 const TEX_CHAIN_LABEL = "chain-label-12";
 /** 需要的人脈．產業鏈細節卡 ×15 */
 const TEX_CHAIN_BG = "chain-bg-01";
+
+/**
+ * section 之間的手撕分隔線。全頁的材質都是手撕紙，接縫再用一條 1px 直線
+ * 就露餡了，所以線本身也要有撕開的起伏。
+ *
+ * path 是離線用固定種子生成後寫死的——不能在 render 時隨機，SSR 與 client
+ * 會對不起來。preserveAspectRatio="none" 讓它橫向拉伸填滿任何寬度，起伏
+ * 幅度只由 8px 的高度決定，所以寬螢幕上不會被拉成一條平線；stroke 用
+ * non-scaling-stroke，橫向拉伸也不會把線變粗。
+ * 兩端遮罩淡出，避免線頭硬生生頂在視窗邊緣。
+ */
+const TORN_PATH =
+  "M0 4.0L34 4.4L40 4.3L58 3.2L64 4.7L87 4.3L98 4.0L132 2.7L166 2.5L175 4.9L184 3.7L202 3.7L225 4.1L239 3.6L267 5.0L273 4.7L296 1.1L330 3.2L358 3.9L369 3.4L383 3.6L406 4.5L434 4.0L443 4.6L461 3.0L489 2.5L512 3.6L526 4.0L560 3.8L574 3.7L592 3.7L620 3.6L634 4.6L645 4.6L654 3.5L672 5.9L695 3.3L729 4.4L757 4.6L763 4.6L777 3.3L805 4.0L811 5.7L822 3.5L831 3.6L854 4.0L865 4.9L899 3.8L905 5.6L911 4.5L925 3.9L934 3.1L948 4.0L957 4.0L963 4.4L969 2.6L992 5.6L1003 2.5L1026 3.7L1035 3.8L1063 2.9L1072 4.3L1100 4.0L1106 3.9L1134 5.9L1145 4.3L1156 5.2L1165 3.9L1199 3.0L1200 3.9";
+
+const TORN_FADE =
+  "linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%)";
+
+function TornRule({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 1200 8"
+      preserveAspectRatio="none"
+      className={`pointer-events-none block h-[8px] w-full ${className}`}
+      style={{ WebkitMaskImage: TORN_FADE, maskImage: TORN_FADE }}
+    >
+      <path
+        d={TORN_PATH}
+        fill="none"
+        stroke={C.deco}
+        strokeOpacity={0.55}
+        strokeWidth={1.1}
+        strokeLinejoin="round"
+        strokeLinecap="round"
+        vectorEffect="non-scaling-stroke"
+      />
+    </svg>
+  );
+}
 
 /**
  * 產業鏈 icon。SVG 是黑色填色路徑，改用 mask-image 上色，
@@ -369,7 +407,8 @@ export default function FupoContent() {
       </div>
 
       {/* ══════════ 01 創會理念 ══════════ */}
-      <section id="belief" className="border-t" style={{ borderColor: LINE_SOFT }}>
+      <section id="belief">
+        <TornRule />
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-32">
           <SectionHeading
             eyebrow="WHY ─ 01"
@@ -380,7 +419,7 @@ export default function FupoContent() {
           <div className="grid gap-14 md:grid-cols-[1.25fr_1fr] md:items-start">
             <div className="min-w-0">
               {BELIEF_POINTS.map((point, i) => (
-                <Reveal key={point.no} variant="up" delay={i * 90}>
+                <Reveal key={point.no} variant="sweep" delay={i * 90}>
                   <NumberedRow
                     no={point.no}
                     title={point.title}
@@ -424,7 +463,8 @@ export default function FupoContent() {
       </section>
 
       {/* ══════════ 02 我們用的系統 ══════════ */}
-      <section id="system" className="border-t" style={{ borderColor: LINE_SOFT, background: C.band }}>
+      <section id="system" style={{ background: C.band }}>
+        <TornRule />
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-32">
           <SectionHeading eyebrow="HOW ─ 02" title="我們用的系統" lead={SYSTEM_INTRO} />
 
@@ -463,7 +503,7 @@ export default function FupoContent() {
 
             <div className="min-w-0">
               {SYSTEM_RULES.map((rule, i) => (
-                <Reveal key={rule.no} variant="up" delay={i * 90}>
+                <Reveal key={rule.no} variant="sweep" delay={i * 90}>
                   <NumberedRow
                     no={rule.no}
                     title={rule.title}
@@ -479,7 +519,8 @@ export default function FupoContent() {
       </section>
 
       {/* ══════════ 03 需要的人脈 ══════════ */}
-      <section id="network" className="relative border-t" style={{ borderColor: LINE_SOFT }}>
+      <section id="network" className="relative">
+        <TornRule className="relative z-10" />
         {/* 開場：客戶會被接手好幾次 */}
         <div className="relative overflow-hidden">
           <div className="absolute inset-0 opacity-40">
@@ -549,7 +590,7 @@ export default function FupoContent() {
                             className="stagger-item group relative flex flex-col items-center gap-2 px-4 py-7"
                             style={{ ["--i" as string]: i }}
                           >
-                            <Texture src={TEX_CHAIN_LABEL} />
+                            <Texture src={TEX_CHAIN_LABEL} plate={C.bg} />
                             <span className="relative z-10 flex flex-col items-center gap-2">
                               <ChainIcon name={chain.icon} size={30} />
                               <span className="font-[family-name:var(--font-noto-serif-tc)] text-[12px] font-bold text-[#B08D4F]">
@@ -571,7 +612,8 @@ export default function FupoContent() {
         </div>
 
         {/* 15 條鏈細節 */}
-        <div className="border-t" style={{ borderColor: LINE_SOFT, background: C.band }}>
+        <div style={{ background: C.band }}>
+          <TornRule />
           <div className="mx-auto max-w-5xl px-6 py-16 sm:px-10 sm:py-32">
             <div className="flex flex-col gap-5">
               {CHAINS.map((chain) => (
@@ -579,7 +621,7 @@ export default function FupoContent() {
                   <article
                     className="relative grid gap-6 px-6 py-10 sm:grid-cols-[auto_1fr] sm:gap-8 sm:px-10 sm:py-12"
                   >
-                    <Texture src={TEX_CHAIN_BG} />
+                    <Texture src={TEX_CHAIN_BG} plate={C.bg} />
                     <div className="relative z-10 flex items-center gap-4 sm:w-[92px] sm:flex-col sm:items-start sm:gap-2">
                       <ChainIcon name={chain.icon} size={38} />
                       <p className="font-[family-name:var(--font-noto-serif-tc)] text-[26px] leading-none font-bold text-[#B08D4F]">
@@ -628,8 +670,9 @@ export default function FupoContent() {
       </section>
 
       {/* ══════════ 收尾 ══════════ */}
-      <section className="relative overflow-hidden border-t" style={{ borderColor: LINE_SOFT }}>
-        <div className="absolute inset-0 opacity-35">
+      <section className="relative overflow-hidden">
+        <TornRule className="relative z-10" />
+        <div className="absolute inset-0 opacity-75">
           <SceneImage
             src={SCENE.closing}
             alt="女性經營者"
@@ -637,6 +680,7 @@ export default function FupoContent() {
             ratio="auto"
             scrim={0}
             sizes="100vw"
+            objectPosition="50% 0%"
             className="h-full w-full"
           />
         </div>
@@ -644,11 +688,11 @@ export default function FupoContent() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(250,247,242,0.94) 0%, rgba(250,247,242,0.88) 45%, rgba(250,247,242,0.98) 100%)",
+              "linear-gradient(180deg, rgba(250,247,242,0.34) 0%, rgba(250,247,242,0.52) 22%, rgba(250,247,242,0.90) 44%, rgba(250,247,242,0.97) 100%)",
           }}
         />
 
-        <div className="relative mx-auto max-w-3xl px-6 py-28 text-center sm:px-10 sm:py-36">
+        <div className="relative mx-auto max-w-3xl px-6 pt-44 pb-28 text-center sm:px-10 sm:pt-64 sm:pb-36">
           <Reveal variant="up">
             <p className="font-[family-name:var(--font-noto-serif-tc)] text-[24px] leading-[1.9] font-bold text-[#2B2318] sm:text-[32px]">
               把這群女生組建在一起，
@@ -673,7 +717,8 @@ export default function FupoContent() {
         </div>
       </section>
 
-      <footer className="border-t px-6 py-14 text-center sm:px-10" style={{ borderColor: LINE_SOFT }}>
+      <footer className="px-6 pb-14 text-center sm:px-10">
+        <TornRule className="-mx-6 mb-14 w-auto sm:-mx-10" />
         <Image
           src="/images/fupo/owl-logo.webp"
           alt="BNI - 富婆分會．雅典娜美人團"

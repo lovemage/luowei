@@ -258,6 +258,37 @@ body {
   clip-path: inset(0 0 0 0);
 }
 
+/* 由左而右羽化掃出。wipe 是硬邊揭開，sweep 改用漸層遮罩掃過去，
+   邊界是柔的，文字看起來像慢慢浮出來而不是被刷開。
+
+   遮罩寬度取元素的 3 倍，靠 mask-position 從右端移到左端來掃。漸層的
+   全黑段（0–33.3%）剛好等於一個可見窗，透明段從 45% 起——所以起點
+   落在純透明區、終點落在純黑區，兩端都不會殘留半透明。 */
+.reveal-sweep {
+  opacity: 1;
+}
+
+.reveal-sweep > * {
+  --sweep-mask: linear-gradient(90deg, #000 0%, #000 33.3%, transparent 45%);
+  -webkit-mask-image: var(--sweep-mask);
+  mask-image: var(--sweep-mask);
+  -webkit-mask-size: 300% 100%;
+  mask-size: 300% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: 100% 0;
+  mask-position: 100% 0;
+  transition:
+    -webkit-mask-position 1.15s var(--ease-out-quart),
+    mask-position 1.15s var(--ease-out-quart);
+  transition-delay: inherit;
+}
+
+.reveal-sweep.is-in > * {
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+}
+
 /* 逐項浮現：交由 --i 控制序列延遲 */
 .stagger-item {
   opacity: 0;
@@ -299,11 +330,14 @@ body {
   .reveal,
   .stagger-item,
   .reveal-wipe > *,
-  .reveal-curtain > * {
+  .reveal-curtain > *,
+  .reveal-sweep > * {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
     clip-path: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
   }
 }
 

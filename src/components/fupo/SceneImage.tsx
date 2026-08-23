@@ -20,6 +20,11 @@ interface SceneImageProps {
   sizes?: string;
   /** 首屏圖片設 true：改為 eager 載入並提高抓取優先度（LCP） */
   priority?: boolean;
+  /**
+   * object-position。直式人像放進寬幅容器時，cover 會以寬度為準放大，
+   * 預設的 center 只會留下中段衣服——人臉整個被裁掉。用這個把裁切窗往上移。
+   */
+  objectPosition?: string;
   children?: React.ReactNode;
 }
 
@@ -38,6 +43,7 @@ export default function SceneImage({
   scrim = 0.35,
   sizes = "100vw",
   priority = false,
+  objectPosition,
   children,
 }: SceneImageProps) {
   const [failed, setFailed] = useState(false);
@@ -56,6 +62,7 @@ export default function SceneImage({
           priority={priority}
           onError={() => setFailed(true)}
           className="object-cover"
+          style={objectPosition ? { objectPosition } : undefined}
         />
       ) : (
         <div

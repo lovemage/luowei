@@ -11,7 +11,8 @@ export type RevealVariant =
   | "blur"
   | "rotate"
   | "wipe"
-  | "curtain";
+  | "curtain"
+  | "sweep";
 
 interface RevealProps {
   children: ReactNode;
