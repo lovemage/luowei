@@ -52,93 +52,75 @@ const TEX_OPACITY = 0.55;
  *
  * fit="stretch"（預設）讓手撕邊剛好落在容器邊界；cover 用在高度只有
  * 30 幾 px 的小標籤，那個尺寸看不見手撕邊，拉伸反而會把紋理扯糊。
+ *
+ * plate 給那些原本有實心卡片底色的容器用。直接把底色留在容器上的話，
+ * 手撕邊外圍會露出一圈白矩形；改成用同一張素材的 alpha 去 mask 一塊
+ * 純色，底色就跟著裁成手撕形狀。素材仍疊在這塊純色之上，所以對比度
+ * 與 check-textures.mjs 量到的（55% 疊白底）完全一致。
  */
 function Texture({
   src,
-  flip = false,
   fit = "stretch",
+  plate,
 }: {
   src: string;
-  flip?: boolean;
   fit?: "stretch" | "cover";
+  plate?: string;
 }) {
+  const url = `url(/images/fupo/tex/${src}.webp)`;
+  const size = fit === "cover" ? "cover" : "100% 100%";
+
   return (
-    <span
-      aria-hidden
-      className="pointer-events-none absolute inset-0 z-0"
-      style={{
-        backgroundImage: `url(/images/fupo/tex/${src}.webp)`,
-        backgroundSize: fit === "cover" ? "cover" : "100% 100%",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        opacity: TEX_OPACITY,
-        transform: flip ? "scaleX(-1)" : undefined,
-      }}
-    />
+    <>
+      {plate && (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            background: plate,
+            WebkitMaskImage: url,
+            maskImage: url,
+            WebkitMaskSize: size,
+            maskSize: size,
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskPosition: "center",
+            maskPosition: "center",
+          }}
+        />
+      )}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          backgroundImage: url,
+          backgroundSize: size,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: TEX_OPACITY,
+        }}
+      />
+    </>
   );
 }
 
-interface TexRef {
-  src: string;
-  flip?: boolean;
-}
-
-/* 素材配置。同族群只用少數幾張輪替，靠順序與鏡射讓相鄰容器不撞在一起。
+/* 素材配置。**同一區塊裡的同一類卡片共用同一張素材**——先前是每張卡輪替不同
+   紋理再加鏡射，單看每格都成立，整段捲下來卻像一頁拼貼。挑選以
+   check-textures.mjs 量到的對比度最高者為準。
    完整推導見 docs/plans/2026-08-23-fupo-texture-prompts.md */
-const TEX_BELIEF: TexRef[] = [
-  { src: "belief-01" },
-  { src: "belief-02" },
-  { src: "belief-03" },
-];
 
-const TEX_SYSTEM: TexRef[] = [
-  { src: "system-01" },
-  { src: "system-03" },
-  { src: "system-04" },
-  // 第 4 條重用理念區的素材並鏡射；兩處隔了一整個 section，看不出來
-  { src: "belief-02", flip: true },
-];
-
-const TEX_STAT: TexRef[] = [
-  { src: "stat-04" },
-  { src: "stat-03" },
-  { src: "stat-04", flip: true },
-  { src: "stat-03", flip: true },
-];
-
-const TEX_TOUCH = ["touch-a", "touch-b"];
-
-/** 產業鏈 label：5 張輪替，配合 (i + gi * 2) % 5 讓同一欄上下三格都不同 */
-const TEX_CHAIN_LABEL = [
-  "chain-label-02",
-  "chain-label-03",
-  "chain-label-05",
-  "chain-label-08",
-  "chain-label-12",
-];
-
-/** 產業鏈細節卡：4 張輪替 + 鏡射穿插，上下相鄰永遠不是同一張同方向 */
-const TEX_CHAIN_BG: TexRef[] = [
-  { src: "chain-bg-01" },
-  { src: "chain-bg-03" },
-  { src: "chain-bg-04" },
-  { src: "chain-bg-08" },
-  { src: "chain-bg-01", flip: true },
-  { src: "chain-bg-04", flip: true },
-  { src: "chain-bg-08", flip: true },
-  { src: "chain-bg-01" },
-  { src: "chain-bg-03", flip: true },
-  { src: "chain-bg-04" },
-  { src: "chain-bg-03" },
-  { src: "chain-bg-04" },
-  { src: "chain-bg-08" },
-  { src: "chain-bg-01", flip: true },
-  { src: "chain-bg-03", flip: true },
-];
-
-/** 產業鏈項目標籤與「舉個例」的輪替素材 */
-const TEX_ITEM_CHIP = ["chain-label-12", "chain-label-03"];
-const TEX_EXAMPLE = ["system-01", "system-03", "belief-02"];
+/** 創會理念．編號條目 ×3 */
+const TEX_BELIEF = "belief-02";
+/** 我們用的系統．編號條目 ×4 */
+const TEX_SYSTEM = "system-01";
+/** 我們用的系統．規模數字 ×4 */
+const TEX_STAT = "stat-04";
+/** 小標籤：客戶接觸點與產業鏈項目——同一種元件，就用同一張 */
+const TEX_CHIP = "touch-a";
+/** 需要的人脈．產業鏈導覽格 ×15 */
+const TEX_CHAIN_LABEL = "chain-label-12";
+/** 需要的人脈．產業鏈細節卡 ×15 */
+const TEX_CHAIN_BG = "chain-bg-01";
 
 /**
  * 產業鏈 icon。SVG 是黑色填色路徑，改用 mask-image 上色，
@@ -219,7 +201,7 @@ function NumberedRow({
   title: string;
   body: string;
   first: boolean;
-  tex: TexRef;
+  tex: string;
 }) {
   return (
     // 原本用 borderTop 當分隔線，改鋪素材後拿掉：1px 線會從手撕邊的破口
@@ -229,7 +211,7 @@ function NumberedRow({
         first ? "" : "mt-5"
       }`}
     >
-      <Texture {...tex} />
+      <Texture src={tex} />
       <p className="relative z-10 font-[family-name:var(--font-noto-serif-tc)] text-[26px] leading-none font-bold text-[#B08D4F]">
         {no}
       </p>
@@ -404,7 +386,7 @@ export default function FupoContent() {
                     title={point.title}
                     body={point.body}
                     first={i === 0}
-                    tex={TEX_BELIEF[i]}
+                    tex={TEX_BELIEF}
                   />
                 </Reveal>
               ))}
@@ -455,7 +437,7 @@ export default function FupoContent() {
                   className="stagger-item relative px-4 py-9 text-center"
                   style={{ background: C.band, ["--i" as string]: i }}
                 >
-                  <Texture {...TEX_STAT[i]} />
+                  <Texture src={TEX_STAT} />
                   <p className="relative z-10 font-[family-name:var(--font-noto-serif-tc)] text-[30px] leading-none font-black text-[#7E5D28] sm:text-[38px]">
                     <CountUp to={stat.value} suffix={stat.suffix} grouped={stat.value >= 1000} />
                   </p>
@@ -487,7 +469,7 @@ export default function FupoContent() {
                     title={rule.title}
                     body={rule.body}
                     first={i === 0}
-                    tex={TEX_SYSTEM[i]}
+                    tex={TEX_SYSTEM}
                   />
                 </Reveal>
               ))}
@@ -534,7 +516,7 @@ export default function FupoContent() {
                     className="stagger-item relative overflow-hidden border px-4 py-2 text-[14px] tracking-wide text-[#7E5D28]"
                     style={{ borderColor: "rgba(126,93,40,0.28)", background: TINT, ["--i" as string]: i }}
                   >
-                    <Texture src={TEX_TOUCH[i % TEX_TOUCH.length]} fit="cover" />
+                    <Texture src={TEX_CHIP} fit="cover" />
                     <span className="relative z-10">{t}</span>
                   </span>
                 ))}
@@ -564,11 +546,10 @@ export default function FupoContent() {
                           <a
                             key={chain.no}
                             href={`#chain-${chain.no}`}
-                            className="stagger-item group relative flex flex-col items-center gap-2 px-4 py-7 transition-colors hover:bg-[#F7F1E6]"
-                            style={{ background: C.card, ["--i" as string]: i }}
+                            className="stagger-item group relative flex flex-col items-center gap-2 px-4 py-7"
+                            style={{ ["--i" as string]: i }}
                           >
-                            {/* (i + gi * 2) % 5：每組換起始變體，讓同一欄上下三格都不同 */}
-                            <Texture src={TEX_CHAIN_LABEL[(i + gi * 2) % TEX_CHAIN_LABEL.length]} />
+                            <Texture src={TEX_CHAIN_LABEL} />
                             <span className="relative z-10 flex flex-col items-center gap-2">
                               <ChainIcon name={chain.icon} size={30} />
                               <span className="font-[family-name:var(--font-noto-serif-tc)] text-[12px] font-bold text-[#B08D4F]">
@@ -593,13 +574,12 @@ export default function FupoContent() {
         <div className="border-t" style={{ borderColor: LINE_SOFT, background: C.band }}>
           <div className="mx-auto max-w-5xl px-6 py-16 sm:px-10 sm:py-32">
             <div className="flex flex-col gap-5">
-              {CHAINS.map((chain, ci) => (
+              {CHAINS.map((chain) => (
                 <Reveal key={chain.no} id={`chain-${chain.no}`} variant="up" threshold={0.08} className="scroll-mt-20">
                   <article
                     className="relative grid gap-6 px-6 py-10 sm:grid-cols-[auto_1fr] sm:gap-8 sm:px-10 sm:py-12"
-                    style={{ background: C.card }}
                   >
-                    <Texture {...TEX_CHAIN_BG[ci]} />
+                    <Texture src={TEX_CHAIN_BG} />
                     <div className="relative z-10 flex items-center gap-4 sm:w-[92px] sm:flex-col sm:items-start sm:gap-2">
                       <ChainIcon name={chain.icon} size={38} />
                       <p className="font-[family-name:var(--font-noto-serif-tc)] text-[26px] leading-none font-bold text-[#B08D4F]">
@@ -624,18 +604,17 @@ export default function FupoContent() {
                             className="stagger-item relative overflow-hidden border px-3 py-1.5 text-[12.5px] text-[#4C4236]"
                             style={{ borderColor: "rgba(126,93,40,0.26)", ["--i" as string]: k }}
                           >
-                            <Texture src={TEX_ITEM_CHIP[k % TEX_ITEM_CHIP.length]} fit="cover" />
+                            <Texture src={TEX_CHIP} fit="cover" />
                             <span className="relative z-10">{item}</span>
                           </span>
                         ))}
                       </div>
 
-                      <div className="relative mt-6 px-5 py-4" style={{ background: TINT }}>
-                        <Texture src={TEX_EXAMPLE[ci % TEX_EXAMPLE.length]} fit="cover" />
-                        <p className="relative z-10 mb-2 text-[11px] font-semibold tracking-[0.3em] text-[#7E5D28]">
+                      <div className="mt-6 px-5 py-4" style={{ background: TINT }}>
+                        <p className="mb-2 text-[11px] font-semibold tracking-[0.3em] text-[#7E5D28]">
                           舉個例
                         </p>
-                        <p className="relative z-10 text-[14px] leading-[2] text-[#6B5F51]">
+                        <p className="text-[14px] leading-[2] text-[#6B5F51]">
                           {chain.example}
                         </p>
                       </div>

@@ -20,6 +20,7 @@ const C = {
 
 const LINE = "rgba(126,93,40,0.22)";
 const TINT = "rgba(126,93,40,0.06)";
+const PAPER = "url(/images/fupo/tex/modal-bg.webp)";
 
 interface JoinModalProps {
   open: boolean;
@@ -261,48 +262,64 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
         }}
       />
 
-      {/* 卡片 */}
+      {/* 卡片。本體不設底色與外框——整張卡就是一張手抄紙，形狀由素材決定。 */}
       <div
-        className="relative w-full max-w-[452px] shadow-[0_28px_80px_-24px_rgba(43,35,24,0.5)]"
+        className="relative w-full max-w-[452px]"
         style={{
-          background: C.card,
-          border: `1px solid ${LINE}`,
           opacity: entered ? 1 : 0,
           transform: entered ? "translateY(0)" : "translateY(18px)",
           transition: "opacity 340ms cubic-bezier(0.16,1,0.3,1), transform 340ms cubic-bezier(0.16,1,0.3,1)",
         }}
       >
-        {/* 手抄紙材質。55% 疊在卡片白底上——與全頁其他素材同一組規則，
+        {/* 白底不能直接留在卡片上：手撕邊外圍會露出一圈白矩形。改成用素材的
+            alpha 去 mask 一塊白，紙張就跟著裁成手撕形狀。
+
+            drop-shadow 必須掛在外層而不是被 mask 的那一層——CSS 的 filter
+            先於 mask 套用，寫在同一層的話陰影會從矩形長出來、再被裁掉。 */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{ filter: "drop-shadow(0 24px 60px rgba(43,35,24,0.45))" }}
+        >
+          <span
+            className="absolute inset-0"
+            style={{
+              background: C.card,
+              WebkitMaskImage: PAPER,
+              maskImage: PAPER,
+              WebkitMaskSize: "100% 100%",
+              maskSize: "100% 100%",
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat",
+            }}
+          />
+        </span>
+
+        {/* 紙張紋理，55% 疊在上面那塊白之上——與全頁其他素材同一組規則，
             詳見 FupoContent 的 TEX_OPACITY 註解。 */}
         <span
           aria-hidden
           className="pointer-events-none absolute inset-0 z-0"
           style={{
-            backgroundImage: "url(/images/fupo/tex/modal-bg.webp)",
+            backgroundImage: PAPER,
             backgroundSize: "100% 100%",
             backgroundRepeat: "no-repeat",
             opacity: 0.55,
           }}
         />
 
-        {/* 頂部金線 */}
-        <div
-          className="relative z-10 h-[3px] w-full"
-          style={{ background: `linear-gradient(90deg, #5E4418, #B08D4F 50%, #5E4418)` }}
-        />
-
         <button
           type="button"
           onClick={onClose}
           aria-label="關閉"
-          className="absolute top-4 right-3 z-20 flex h-9 w-9 items-center justify-center text-[#6B5F51] transition-colors hover:text-[#7E5D28]"
+          className="absolute top-6 right-5 z-20 flex h-9 w-9 items-center justify-center text-[#6B5F51] transition-colors hover:text-[#7E5D28]"
         >
           <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.6}>
             <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
           </svg>
         </button>
 
-        <div className="relative z-10 px-6 pt-8 pb-9 sm:px-10 sm:pt-10">
+        <div className="relative z-10 px-8 pt-10 pb-11 sm:px-11 sm:pt-12">
           {/* ── 表頭：Logo 置中 ── */}
           <div className="text-center">
             <Image
@@ -438,8 +455,10 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
                   <legend className="mb-2 text-[11px] font-semibold tracking-[0.26em] text-[#7E5D28]">
                     性別
                   </legend>
-                  <div className="grid grid-cols-3 gap-px" style={{ background: LINE }}>
-                    {GENDERS.map((g) => {
+                  {/* 未選取一律透明，讓底下的紙紋透出來；原本填白色會在紙上
+                      壓出一塊突兀的白方塊。分隔線改用 border，不再靠 gap-px。 */}
+                  <div className="grid grid-cols-3" style={{ border: `1px solid ${LINE}` }}>
+                    {GENDERS.map((g, i) => {
                       const active = values.gender === g;
                       return (
                         <button
@@ -452,7 +471,10 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
                               ? "font-bold text-[#FAF7F2]"
                               : "text-[#6B5F51] hover:text-[#7E5D28]"
                           }`}
-                          style={{ background: active ? C.gold : C.card }}
+                          style={{
+                            background: active ? C.gold : "transparent",
+                            borderLeft: i === 0 ? undefined : `1px solid ${LINE}`,
+                          }}
                         >
                           {g}
                         </button>
@@ -521,8 +543,8 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
                     </span>
                     <span className="text-[11px] tracking-[0.1em] text-[#6B5F51]/70">選填</span>
                   </div>
-                  <div className="grid grid-cols-4 gap-px" style={{ background: LINE }}>
-                    {SOCIALS.map((s) => {
+                  <div className="grid grid-cols-4" style={{ border: `1px solid ${LINE}` }}>
+                    {SOCIALS.map((s, i) => {
                       const active = values.socialPlatform === s;
                       return (
                         <button
@@ -535,7 +557,10 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
                               ? "font-bold text-[#FAF7F2]"
                               : "text-[#6B5F51] hover:text-[#7E5D28]"
                           }`}
-                          style={{ background: active ? C.gold : C.card }}
+                          style={{
+                            background: active ? C.gold : "transparent",
+                            borderLeft: i === 0 ? undefined : `1px solid ${LINE}`,
+                          }}
                         >
                           {s}
                         </button>
