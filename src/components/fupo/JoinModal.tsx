@@ -290,11 +290,24 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
           }}
         />
 
-        {/* 紙的厚度：一圈切口細線，加上往內收的暗角，讓紙面中央微微浮起來。 */}
+        {/* 紙面受光：四角比中央沉一點，整張紙才不會看起來像一塊平色。
+            用暖褐而不是灰，才跟紙的色溫是同一件事。 */}
         <span
           aria-hidden
           className="pointer-events-none absolute inset-0 z-0"
-          style={{ boxShadow: `inset 0 0 0 1px ${EDGE}, inset 0 0 40px rgba(126,93,40,0.05)` }}
+          style={{
+            background:
+              "radial-gradient(118% 76% at 50% 38%, rgba(126,93,40,0) 52%, rgba(126,93,40,0.075) 100%)",
+          }}
+        />
+
+        {/* 紙的厚度：一圈切口細線，上緣補一道亮邊當作裁切面的反光。 */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            boxShadow: `inset 0 0 0 1px ${EDGE}, inset 0 1px 0 rgba(255,255,255,0.66)`,
+          }}
         />
 
         <button

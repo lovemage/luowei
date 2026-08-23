@@ -226,6 +226,22 @@ highlights. Pure material surface, nothing else. High detail, 4K.
 表單裡的輸入框底線、分隔線都是既有的細線設計，素材**絕對不能有任何線條**，
 否則會跟欄位底線打架。
 
+### 後續：改用 `modal-paper.webp`
+
+手撕毛邊放在整張表單卡上太吵，彈窗改成「一張裁邊的信紙」——直角、四邊乾淨，
+邊的厚度與受光改由 CSS 畫（切口細線、上緣反光、四角暖褐暗角）。
+
+素材不是重生成，而是把 `modal-bg.webp` 的毛邊裁掉再撐回原尺寸，
+紙纖維與色溫因此跟全頁其他素材完全一致：
+
+```bash
+magick modal-bg.png -crop 512x1078+44+44 +repage -resize '600x1166!' \
+  -alpha off -define webp:method=6 -quality 88 modal-paper.webp
+```
+
+`check-textures.mjs` 的 `DISPLAY` 也跟著換成 `modal-paper`（452×880）；
+裁切後最低對比度 4.92，仍高於 4.5 的門檻。`modal-bg.webp` 已無人引用。
+
 ---
 
 ## 0. 淺色 BASE / NEGATIVE PROMPT（補產 `modal-bg` 時使用）

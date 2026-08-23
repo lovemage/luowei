@@ -14,7 +14,7 @@ const dir = "public/images/fupo/tex";
 const DISPLAY = {
   "belief-closing": [1072, 160], "belief-": [564, 220], "system-": [564, 220],
   "chain-bg-": [944, 380], "chain-label-": [214, 145], "stat-": [268, 140],
-  "touch-": [96, 40], "modal-bg": [452, 880],
+  "touch-": [96, 40], "modal-paper": [452, 880],
 };
 // CTA 是深色實心底＋象牙白文字，判準相反，不走這支腳本
 const SKIP = ["cta-idle.webp", "cta-active.webp"];
