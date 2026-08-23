@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { INDUSTRY_GROUPS, TAIWAN_REGIONS } from "@/app/fupo/data";
 
 const GENDERS = ["女", "男", "其他"] as const;
 const SOCIALS = ["IG", "FB", "Threads", "其他"] as const;
@@ -35,8 +36,11 @@ interface FormValues {
   gender: (typeof GENDERS)[number];
   phone: string;
   lineId: string;
+  industry: string;
+  region: string;
   socialPlatform: (typeof SOCIALS)[number];
   socialLink: string;
+  referral: string;
   captchaInput: string;
   website: string;
 }
@@ -52,13 +56,24 @@ const EMPTY: FormValues = {
   gender: "女",
   phone: "",
   lineId: "",
+  industry: "",
+  region: "",
   socialPlatform: "IG",
   socialLink: "",
+  referral: "",
   captchaInput: "",
   website: "",
 };
 
-type FieldKey = "name" | "phone" | "lineId" | "socialLink" | "captchaInput";
+type FieldKey =
+  | "name"
+  | "phone"
+  | "lineId"
+  | "industry"
+  | "region"
+  | "socialLink"
+  | "referral"
+  | "captchaInput";
 
 /** 前端先擋一次，錯誤訊息與後端一致；真正的把關仍在 API。 */
 function validate(values: FormValues): Partial<Record<FieldKey, string>> {
@@ -76,7 +91,12 @@ function validate(values: FormValues): Partial<Record<FieldKey, string>> {
   else if (lineId.length < 2) errors.lineId = "LINE ID 過短";
   else if (!/^[A-Za-z0-9._@-]+$/.test(lineId)) errors.lineId = "只能包含英數字與 . _ - @";
 
+  if (!values.industry) errors.industry = "請選擇行業別";
+  if (!values.region) errors.region = "請選擇居住地區";
+
   if (values.socialLink.trim().length > 200) errors.socialLink = "連結過長";
+
+  if (values.referral.trim().length > 50) errors.referral = "介紹來源過長";
 
   if (!values.captchaInput.trim()) errors.captchaInput = "請填寫驗證碼";
 
@@ -207,8 +227,11 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
           gender: values.gender,
           phone: values.phone,
           lineId: values.lineId.trim(),
+          industry: values.industry,
+          region: values.region,
           socialPlatform: values.socialPlatform,
           socialLink: values.socialLink.trim(),
+          referral: values.referral.trim(),
           captchaToken: captcha.token,
           captchaInput: values.captchaInput,
           website: values.website,
@@ -239,6 +262,11 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
 
   const inputClass =
     "w-full bg-transparent py-2.5 text-[15px] text-[#2B2318] outline-none transition-colors placeholder:text-[#6B5F51]/35";
+
+  // 原生下拉的箭頭在各家瀏覽器長得都不一樣，關掉改自己畫，才跟紙面是同一套。
+  const selectClass = `${inputClass} cursor-pointer appearance-none pr-7`;
+  // 展開後的清單不吃卡片的透明底色，選項得自己帶底色，不然某些平台會變成白字白底。
+  const optionStyle = { background: C.card, color: C.ink };
 
   function fieldBorder(key: FieldKey) {
     return { borderBottom: `1px solid ${errors[key] ? C.danger : LINE}` };
@@ -533,6 +561,105 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
                   )}
                 </div>
 
+                {/* 行業別 */}
+                <div>
+                  <label
+                    htmlFor="fp-industry"
+                    className="mb-1 block text-[11px] font-semibold tracking-[0.26em] text-[#7E5D28]"
+                  >
+                    行業別
+                  </label>
+                  <div className="relative">
+                    <select
+                      id="fp-industry"
+                      value={values.industry}
+                      onChange={(e) => update("industry", e.target.value)}
+                      className={selectClass}
+                      style={{
+                        ...fieldBorder("industry"),
+                        color: values.industry ? C.ink : "rgba(107,95,81,0.35)",
+                      }}
+                    >
+                      <option value="" disabled style={optionStyle}>
+                        請選擇行業別
+                      </option>
+                      {INDUSTRY_GROUPS.map((group) => (
+                        <optgroup key={group.label} label={group.label} style={optionStyle}>
+                          {group.options.map((option) => (
+                            <option key={option} value={option} style={optionStyle}>
+                              {option}
+                            </option>
+                          ))}
+                        </optgroup>
+                      ))}
+                    </select>
+                    <svg
+                      aria-hidden
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke={C.gold}
+                      strokeWidth={1.6}
+                      className="pointer-events-none absolute top-1/2 right-1 h-4 w-4 -translate-y-1/2"
+                    >
+                      <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                  <p className="mt-1.5 text-[11.5px] leading-[1.7] text-[#6B5F51]/75">
+                    選最接近的一項即可，分會一個行業只收一位代表。
+                  </p>
+                  {errors.industry && (
+                    <p className="mt-1.5 text-[12px]" style={{ color: C.danger }}>
+                      {errors.industry}
+                    </p>
+                  )}
+                </div>
+
+                {/* 居住地區 */}
+                <div>
+                  <label
+                    htmlFor="fp-region"
+                    className="mb-1 block text-[11px] font-semibold tracking-[0.26em] text-[#7E5D28]"
+                  >
+                    居住地區
+                  </label>
+                  <div className="relative">
+                    <select
+                      id="fp-region"
+                      value={values.region}
+                      onChange={(e) => update("region", e.target.value)}
+                      className={selectClass}
+                      style={{
+                        ...fieldBorder("region"),
+                        color: values.region ? C.ink : "rgba(107,95,81,0.35)",
+                      }}
+                    >
+                      <option value="" disabled style={optionStyle}>
+                        請選擇居住地區
+                      </option>
+                      {TAIWAN_REGIONS.map((region) => (
+                        <option key={region} value={region} style={optionStyle}>
+                          {region}
+                        </option>
+                      ))}
+                    </select>
+                    <svg
+                      aria-hidden
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke={C.gold}
+                      strokeWidth={1.6}
+                      className="pointer-events-none absolute top-1/2 right-1 h-4 w-4 -translate-y-1/2"
+                    >
+                      <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                  {errors.region && (
+                    <p className="mt-1.5 text-[12px]" style={{ color: C.danger }}>
+                      {errors.region}
+                    </p>
+                  )}
+                </div>
+
                 {/* 社群連結（選填） */}
                 <div>
                   <div className="mb-2 flex items-baseline justify-between">
@@ -579,6 +706,33 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
                   {errors.socialLink && (
                     <p className="mt-1.5 text-[12px]" style={{ color: C.danger }}>
                       {errors.socialLink}
+                    </p>
+                  )}
+                </div>
+
+                {/* 介紹來源（選填） */}
+                <div>
+                  <div className="mb-1 flex items-baseline justify-between">
+                    <label
+                      htmlFor="fp-referral"
+                      className="text-[11px] font-semibold tracking-[0.26em] text-[#7E5D28]"
+                    >
+                      介紹來源
+                    </label>
+                    <span className="text-[11px] tracking-[0.1em] text-[#6B5F51]/70">選填</span>
+                  </div>
+                  <input
+                    id="fp-referral"
+                    type="text"
+                    value={values.referral}
+                    onChange={(e) => update("referral", e.target.value)}
+                    placeholder="介紹人姓名，或從哪裡得知"
+                    className={inputClass}
+                    style={fieldBorder("referral")}
+                  />
+                  {errors.referral && (
+                    <p className="mt-1.5 text-[12px]" style={{ color: C.danger }}>
+                      {errors.referral}
                     </p>
                   )}
                 </div>

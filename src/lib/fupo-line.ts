@@ -17,8 +17,11 @@ export interface FupoJoinData {
   gender: string;
   phone: string;
   lineId: string;
+  industry: string;
+  region: string;
   socialPlatform: string;
   socialLink: string;
+  referral: string;
 }
 
 /** 送出後直接帶進 LINE 對話框的訊息，使用者只要按送出。 */
@@ -30,9 +33,12 @@ export function buildLineMessage(data: FupoJoinData): string {
     `性別：${data.gender}`,
     `手機：${data.phone}`,
     `LINE ID：${data.lineId}`,
+    `行業別：${data.industry}`,
+    `居住地區：${data.region}`,
   ];
 
   if (data.socialLink) lines.push(`${data.socialPlatform}：${data.socialLink}`);
+  if (data.referral) lines.push(`介紹來源：${data.referral}`);
 
   lines.push("", "（此訊息由官網表單自動帶入，直接按送出即可）");
   return lines.join("\n");

@@ -307,3 +307,49 @@ export const CHAINS: Chain[] = [
   },
 ];
 
+
+/* ── 加入表單的選項 ── */
+
+/**
+ * 行業別下拉：直接長在上面 15 條產業鏈上，選項就是各鏈底下的細項。
+ * 分會「一個行業一位代表」，所以填的人選的是哪一格，而不是自由輸入。
+ * 沒對到的填「其他」，由分會端人工歸位。
+ */
+export const INDUSTRY_OTHER = "其他（未列出）";
+
+export const INDUSTRY_GROUPS: { label: string; options: string[] }[] = [
+  ...CHAINS.map((chain) => ({ label: `${chain.no}　${chain.name}`, options: chain.items })),
+  { label: "其他", options: [INDUSTRY_OTHER] },
+];
+
+/** 後端驗證用的扁平清單 */
+export const INDUSTRY_VALUES: string[] = INDUSTRY_GROUPS.flatMap((g) => g.options);
+
+/** 居住地區下拉：台灣 22 縣市，另留一格海外給旅外的人。 */
+export const TAIWAN_REGIONS = [
+  "台北市",
+  "新北市",
+  "基隆市",
+  "桃園市",
+  "新竹市",
+  "新竹縣",
+  "苗栗縣",
+  "台中市",
+  "彰化縣",
+  "南投縣",
+  "雲林縣",
+  "嘉義市",
+  "嘉義縣",
+  "台南市",
+  "高雄市",
+  "屏東縣",
+  "宜蘭縣",
+  "花蓮縣",
+  "台東縣",
+  "澎湖縣",
+  "金門縣",
+  "連江縣",
+  "海外",
+] as const;
+
+export type TaiwanRegion = (typeof TAIWAN_REGIONS)[number];

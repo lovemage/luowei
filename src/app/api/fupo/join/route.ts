@@ -9,6 +9,7 @@ import {
   buildLineMessage,
   buildLineUrl,
 } from "@/lib/fupo-line";
+import { INDUSTRY_VALUES, TAIWAN_REGIONS } from "@/app/fupo/data";
 
 /** 統一成 09xxxxxxxx；使用者常會打成 +886 或帶分隔符號。 */
 function normalizePhone(raw: string): string {
@@ -31,8 +32,15 @@ const joinSchema = z.object({
     .min(2, "請填寫 LINE ID")
     .max(40, "LINE ID 過長")
     .regex(/^[A-Za-z0-9._@-]+$/, "LINE ID 只能包含英數字與 . _ - @"),
+  // 行業別對回頁面上那 15 條產業鏈的細項，前端只給選、不給打
+  industry: z
+    .string()
+    .trim()
+    .refine((v) => INDUSTRY_VALUES.includes(v), "請選擇行業別"),
+  region: z.enum(TAIWAN_REGIONS, { message: "請選擇居住地區" }),
   socialPlatform: z.enum(["IG", "FB", "Threads", "其他"]).default("IG"),
   socialLink: z.string().trim().max(200, "社群連結過長").default(""),
+  referral: z.string().trim().max(50, "介紹來源過長").default(""),
   captchaToken: z.string().min(1),
   captchaInput: z.string().trim().min(1, "請填寫驗證碼"),
   /** 蜜罐欄位：正常使用者看不到，填了就是機器人。 */
@@ -88,8 +96,13 @@ export async function POST(request: Request) {
   }
 
   const socialLink = data.socialLink;
-  const messageLines = [`【性別】${data.gender}`];
+  const messageLines = [
+    `【性別】${data.gender}`,
+    `【行業別】${data.industry}`,
+    `【居住地區】${data.region}`,
+  ];
   if (socialLink) messageLines.push(`【${data.socialPlatform}】${socialLink}`);
+  if (data.referral) messageLines.push(`【介紹來源】${data.referral}`);
 
   try {
     await prisma.registration.create({
@@ -127,8 +140,11 @@ export async function POST(request: Request) {
     gender: data.gender,
     phone: data.phone,
     lineId: data.lineId,
+    industry: data.industry,
+    region: data.region,
     socialPlatform: data.socialPlatform,
     socialLink,
+    referral: data.referral,
   });
   const { url, prefilled } = buildLineUrl(lineMessage);
 

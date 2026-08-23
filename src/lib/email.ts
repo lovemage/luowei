@@ -75,7 +75,7 @@ export async function sendAdminNotificationEmail(to: string, data: RegistrationD
   ]
     .map(
       ([label, value]) =>
-        `<tr><td style="padding:8px 0;color:#cccccc;border-bottom:1px solid #2A2218;width:80px">${label}</td><td style="padding:8px 0;color:#f5eae6;border-bottom:1px solid #2A2218">${value}</td></tr>`
+        `<tr><td style="padding:8px 0;color:#cccccc;border-bottom:1px solid #2A2218;width:80px">${label}</td><td style="padding:8px 0;color:#f5eae6;border-bottom:1px solid #2A2218;white-space:pre-line">${value}</td></tr>`
     )
     .join("");
 

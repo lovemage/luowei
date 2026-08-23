@@ -95,7 +95,8 @@ export default function RegistrationDetailPage() {
             <div className="w-full sm:w-32 px-4 pt-3 sm:py-3 bg-gray-50 text-xs sm:text-sm font-medium text-gray-600 sm:shrink-0">
               {f.label}
             </div>
-            <div className="px-4 pb-3 sm:py-3 text-sm text-gray-900 break-all">
+            {/* 留言是多行的（性別、行業別、居住地區…），保留換行才不會擠成一串 */}
+            <div className="px-4 pb-3 sm:py-3 text-sm text-gray-900 break-all whitespace-pre-line">
               {f.value || <span className="text-gray-400">-</span>}
             </div>
           </div>
