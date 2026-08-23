@@ -71,19 +71,21 @@ z-index: -1;
 | 系統．編號條目 | 4 | `system-01` |
 | 系統．規模數字 | 4 | `stat-04` |
 | 小標籤（接觸點＋產業鏈項目） | 7 + 全部 | `touch-a`（`cover`） |
-| 產業鏈．導覽格 | 15 | `chain-label-12`（`plate` #FAF7F2） |
+| 產業鏈．導覽格 | 15 | **不鋪素材**，改用細框＋淡金底（同接觸點標籤那套） |
 | 產業鏈．細節卡 | 15 | `chain-bg-01`（`plate` #FAF7F2） |
 | 產業鏈．「舉個例」 | 15 | **不鋪素材**，維持既有的淡金底 |
 
 接觸點標籤與產業鏈項目標籤是同一種視覺元件（細框小標籤），所以合併成同一張。
 
-頁面實際引用的素材從 20 張降到 7 張（另加 `cta-idle`、`cta-active`、`modal-bg` 共 10 張）。
+頁面實際引用的素材從 20 張降到 6 張（另加 `cta-idle`、`cta-active`、`modal-bg` 共 9 張）。
 `Texture` 元件的 `flip` 參數一併移除——沒有任何呼叫端需要鏡射了。
 
 ### 3-0-1 `plate` 為什麼從純白換成 `#FAF7F2`
 
 導覽格與細節卡原本墊 `#FFFFFF`。手撕邊的起伏在這兩種尺寸下被拉得很平，
 純白襯在米色 `#F3ECE1` 上就成了一塊白方塊，業主看了以為素材沒去背。
+
+（導覽格後來整個不鋪素材了，這一節只剩細節卡適用。）
 
 先試過整個拿掉 `plate`，讓素材直接疊在區塊底色上（理念／系統兩段就是這樣）。
 視覺上對了，但對比度不夠——底色從白換成 band，14px 內文掉到 **4.45**，低於 AA：
@@ -271,9 +273,11 @@ node scripts/check-textures.mjs
 
 ```
 belief-01  belief-03  system-03  system-04  stat-03  touch-b
-chain-label-02  chain-label-03  chain-label-05  chain-label-08
+chain-label-02  chain-label-03  chain-label-05  chain-label-08  chain-label-12
 chain-bg-03  chain-bg-04  chain-bg-08
 ```
+
+毛絨那一族（`chain-label-*`）現在整組都沒用到——導覽格改成細框後不再需要材質。
 
 初版就沒接進頁面的 18 張：
 

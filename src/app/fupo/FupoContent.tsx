@@ -116,8 +116,6 @@ const TEX_SYSTEM = "system-01";
 const TEX_STAT = "stat-04";
 /** 小標籤：客戶接觸點與產業鏈項目——同一種元件，就用同一張 */
 const TEX_CHIP = "touch-a";
-/** 需要的人脈．產業鏈導覽格 ×15 */
-const TEX_CHAIN_LABEL = "chain-label-12";
 /** 需要的人脈．產業鏈細節卡 ×15 */
 const TEX_CHAIN_BG = "chain-bg-01";
 
@@ -587,18 +585,15 @@ export default function FupoContent() {
                           <a
                             key={chain.no}
                             href={`#chain-${chain.no}`}
-                            className="stagger-item group relative flex flex-col items-center gap-2 px-4 py-7"
-                            style={{ ["--i" as string]: i }}
+                            className="stagger-item group flex flex-col items-center gap-2 border bg-[rgba(126,93,40,0.05)] px-4 py-7 transition-colors duration-300 hover:bg-[rgba(126,93,40,0.10)]"
+                            style={{ borderColor: "rgba(126,93,40,0.22)", ["--i" as string]: i }}
                           >
-                            <Texture src={TEX_CHAIN_LABEL} plate={C.bg} />
-                            <span className="relative z-10 flex flex-col items-center gap-2">
-                              <ChainIcon name={chain.icon} size={30} />
-                              <span className="font-[family-name:var(--font-noto-serif-tc)] text-[12px] font-bold text-[#B08D4F]">
-                                {chain.no}
-                              </span>
-                              <span className="text-[13.5px] font-semibold text-[#2B2318] transition-colors group-hover:text-[#7E5D28]">
-                                {chain.name}
-                              </span>
+                            <ChainIcon name={chain.icon} size={30} />
+                            <span className="font-[family-name:var(--font-noto-serif-tc)] text-[12px] font-bold text-[#B08D4F]">
+                              {chain.no}
+                            </span>
+                            <span className="text-[13.5px] font-semibold text-[#2B2318] transition-colors group-hover:text-[#7E5D28]">
+                              {chain.name}
                             </span>
                           </a>
                         ))}
