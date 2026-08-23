@@ -16,28 +16,28 @@ const phases = [
   {
     number: "01",
     title: "基礎紮根",
-    subtitle: "數據驅動的品牌成長系統",
+    subtitle: "先把平台現在推什麼摸清楚",
     details: [
-      "深度拆解平台演算法，掌握流量密碼",
-      "建立高頻內容產出機制，持續累積品牌聲量",
-      "透過數據回饋，快速迭代內容方向",
+      "拆解平台演算法，看它這一季在推哪一類內容",
+      "固定頻率出片，聲量才累積得起來",
+      "看數據回頭修內容方向，不對就換",
     ],
   },
   {
     number: "02",
     title: "靈魂定位",
-    subtitle: "打造不可取代的品牌人格",
+    subtitle: "讓人滑過就認得出是你",
     details: [
-      "視覺符號 — 一眼可辨識的品牌視覺體系",
-      "語言風格 — 獨特的表達方式與口頭禪",
-      "專家權威 — 透過專業內容建立行業話語權",
+      "一眼可辨識的畫面與配色",
+      "固定的語氣、慣用語與節奏，讓人聽得出是誰在講",
+      "把行業裡的判斷講出來，累積話語權",
     ],
   },
   {
     number: "03",
     title: "模組化執行",
-    subtitle: "4 步驟高效產出",
-    details: ["策略會議 → 腳本開發 → 高效拍攝 → 後製精修", "一次拍攝多支素材，最大化效率"],
+    subtitle: "一次拍完一個月的量",
+    details: ["策略會議 → 腳本開發 → 高效拍攝 → 後製精修", "一次拍攝多支素材，把來回的時間省掉"],
   },
   {
     number: "04",
@@ -54,30 +54,30 @@ const phases = [
 const videoWhyChooseUs = [
   {
     title: "一條龍代操",
-    points: ["不用剪輯", "不用想腳本", "不用懂演算法"],
+    points: ["腳本、拍攝、剪輯、發布排程都我們處理", "演算法的事不用你研究"],
     cta: "你專心做老闆",
     highlight: false,
   },
   {
     title: "業界唯一",
-    points: ["保證流量未達標全額退費"],
-    cta: "我們承擔風險",
+    points: ["保證流量，未達標全額退費"],
+    cta: "成效的風險我們一起扛",
     highlight: true,
   },
   {
-    title: "拒絕素人接案｜實體傳媒公司操盤",
-    points: ["數百位學員驗證", "多案例可複製"],
+    title: "實體傳媒公司操盤",
+    points: ["數百位學員驗證", "做過的案例可以複製到你身上"],
     cta: "",
     highlight: false,
   },
 ];
 
 const videoComparisonItems = [
-  { label: "內容品質", left: "缺乏專業，品質不穩定", right: "專業團隊，品質保證" },
-  { label: "時間成本", left: "每天花 3-5 小時", right: "只需 1 次策略會議/月" },
-  { label: "演算法", left: "靠感覺猜測", right: "數據驅動，精準破解" },
+  { label: "內容品質", left: "缺乏專業，品質不穩定", right: "固定團隊執行，品質有底線" },
+  { label: "時間成本", left: "每天花 3-5 小時", right: "每月一次策略會議" },
+  { label: "演算法", left: "靠感覺猜測", right: "看數據決定拍什麼" },
   { label: "產出量", left: "一個月 2-4 支", right: "一個月 12-20 支" },
-  { label: "變現能力", left: "不知如何導流", right: "完整流量變現閉環" },
+  { label: "變現能力", left: "不知如何導流", right: "把觀看帶到私訊與成交" },
 ];
 
 /* 適合代操的產業 */
@@ -132,49 +132,49 @@ const videoBuiltInFAQs = [
     id: "v-faq-1",
     question: "短影音代操包含哪些服務？",
     answer:
-      "我們提供一條龍服務：策略規劃、腳本撰寫、專業拍攝、後製剪輯、字幕音效、發布排程、數據追蹤。老闆不用剪輯、不用想腳本、不用懂演算法，只需要出席拍攝即可。",
+      "從策略規劃、腳本撰寫、專業拍攝、後製剪輯、字幕音效，到發布排程與數據追蹤，整條做完。老闆這邊只需要出席拍攝，剪輯、腳本、演算法都不用自己碰。",
   },
   {
     id: "v-faq-2",
     question: "每月可以產出多少支影片？",
     answer:
-      "菁英 IP 啟航版可依預算選擇 8 萬、12 萬、24 萬三種月費，對應每月 8 支、12 支、24 支短影音（每支 1 萬元）。所有影片皆由專業團隊拍攝製作，品質穩定且符合演算法邏輯。",
+      "菁英 IP 啟航版依預算選 8 萬、12 萬、24 萬三種月費，對應每月 8 支、12 支、24 支短影音，每支 1 萬元。所有影片都由專業團隊拍攝製作，品質穩定，內容也照演算法的邏輯排。",
   },
   {
     id: "v-faq-3",
     question: "保證流量是怎麼計算的？沒達標怎麼辦？",
     answer:
-      "流量以全網年度總觀看次數計算（含 TikTok、Reels、YouTube Shorts 等平台）。菁英 IP 啟航版依月費方案對應保底觀看量：8 萬方案保底 300 萬、12 萬方案保底 600 萬、24 萬方案保底 800 萬。若年度結算未達標，全額退費，業界唯一。",
+      "流量以全網年度總觀看次數計算，含 TikTok、Reels、YouTube Shorts 等平台。菁英 IP 啟航版依月費方案對應保底觀看量，8 萬方案保底 300 萬、12 萬方案保底 600 萬、24 萬方案保底 800 萬。年度結算沒有達標就全額退費，業界唯一。",
   },
   {
     id: "v-faq-4",
     question: "我需要自己出鏡嗎？",
     answer:
-      "建議老闆娘出鏡建立個人 IP，這是打造品牌信任最有效的方式。我們會提供完整的腳本提詞卡、表情引導、現場指導，即使完全沒有拍攝經驗也能自然表現。如果真的無法出鏡，我們也能規劃純產品/素材類的內容方向。",
+      "建議老闆娘出鏡，這是建立信任最快的方式。我們會準備腳本提詞卡、表情引導與現場指導，沒有拍攝經驗也能自然表現。真的無法出鏡，我們也能規劃純產品或素材類的內容方向。",
   },
   {
     id: "v-faq-5",
     question: "多久可以看到成效？",
     answer:
-      "通常第一個月即可看到流量數據的明顯提升。2-3 個月開始建立穩定的品牌認知與粉絲基礎。6 個月後進入流量變現階段，開始將觀看轉化為實際營收。我們每月提供完整數據報表追蹤進度。",
+      "通常第一個月流量數據就會有明顯提升。2-3 個月開始建立穩定的品牌認知與粉絲基礎。6 個月後進入變現階段，把觀看轉成實際營收。每月提供完整數據報表追蹤進度。",
   },
   {
     id: "v-faq-6",
     question: "跟自己請一個剪輯師比，哪個划算？",
     answer:
-      "請一個全職剪輯師月薪約 3-5 萬，但你還需要企劃、攝影、營運人員，加起來每月人事成本超過 10 萬，還不含設備與場地。我們的菁英 IP 啟航版可依預算選擇 8 萬、12 萬、24 萬（每支 1 萬元）並涵蓋完整團隊執行，且保證流量成效，風險更低、效率更高。",
+      "全職剪輯師月薪約 3-5 萬，但你還需要企劃、攝影、營運，加起來每月人事成本超過 10 萬，設備與場地還沒算。菁英 IP 啟航版依預算選 8 萬、12 萬、24 萬，每支 1 萬元，整個團隊的執行都含在裡面，還有保底流量的條款。",
   },
   {
     id: "v-faq-7",
     question: "合約期間是多長？可以中途終止嗎？",
     answer:
-      "保證流量方案為年度合約（12 個月），因為品牌 IP 的建立需要時間累積。合約明確列出雙方權利義務，若因不可抗力因素需提前終止，可依合約條款協商處理。",
+      "保證流量方案是年度合約，12 個月，因為品牌 IP 要時間累積。合約會把雙方的權利義務列清楚，若遇不可抗力因素需要提前終止，可依合約條款協商處理。",
   },
   {
     id: "v-faq-8",
     question: "為什麼只服務女性企業主？",
     answer:
-      "我們把資源集中在真正擅長的族群。羅威的內容方法論、鏡頭語言、選題角度與合作的產業鏈，都是圍繞女性客群與女性經營者長出來的，做熟悉的題目才能穩定產出成果。因此短影音製作（代操與孵化）目前只承接女性企業主的案子。",
+      "我們把資源集中在真正擅長的族群。羅威的內容方法論、鏡頭語言、選題角度與合作的產業鏈，都是圍繞女性客群與女性經營者長出來的，做熟悉的題目才能穩定產出成果。短影音製作（代操與孵化）目前只承接女性企業主的案子。",
   },
 ];
 
@@ -184,37 +184,37 @@ const incubationFAQs = [
     id: "i-faq-1",
     question: "短影音孵化跟一般代操差在哪？",
     answer:
-      "代操是你付月費、我們交付影片與流量，成效由合約的保底條款保障。孵化則是我們各出 50% 預算一起投資這個 IP，我們從延伸出來的淨利潤分潤 30%。做不起來，我們拿不到錢——利益直接綁在一起。",
+      "代操是你付月費，我們交付影片與流量，成效由合約的保底條款保障。孵化是我們各出 50% 預算一起投資這個 IP，我方從延伸出來的淨利潤分潤 30%。做不起來，我們也拿不到錢，利益直接綁在一起。",
   },
   {
     id: "i-faq-2",
     question: "各出 50% 預算，我的公司會被干涉嗎？",
     answer:
-      "不會。你保留 100% 公司股權（一毛不動）與 100% 經營決策權（絕不干涉）。我們投入的是預算與製作能量，不是股權，也不進你的公司治理。",
+      "不會。你保留 100% 公司股權（一毛不動）與 100% 經營決策權（絕不干涉）。我們投入的是預算與製作能量，不碰股權，也不進你的公司治理。",
   },
   {
     id: "i-faq-3",
     question: "什麼樣的生意適合孵化？",
     answer:
-      "只做三種：賣貨型（保健食品、保養品自有品牌、輕奢珠寶精品、選品電商）、人傳人型（直銷體系領導人、保險與房仲團隊主管、社群團購主）、數位型（線上課程、知識付費講師、線上諮詢、命理身心靈）。共通點是產能不被場地與人力綁住，流量放大時收入才跟得上，這樣分潤對雙方才有意義。",
+      "只做三種，賣貨型（保健食品、保養品自有品牌、輕奢珠寶精品、選品電商）、人傳人型（直銷體系領導人、保險與房仲團隊主管、社群團購主）、數位型（線上課程、知識付費講師、線上諮詢、命理身心靈）。共通點是產能不被場地與人力綁住，流量放大時收入才跟得上，這樣分潤對雙方才有意義。",
   },
   {
     id: "i-faq-4",
     question: "我是實體服務業，為什麼不適合孵化？",
     answer:
-      "實體服務的產能有天花板——一天能看幾個客人、一間店能坐幾桌，是固定的。流量再大，接不住就是浪費。這種生意用代操把人帶進來，比分潤划算得多，我們會直接建議你走代操方案。",
+      "實體服務的產能有天花板，一天能看幾個客人、一間店能坐幾桌，都是固定的。流量再大，接不住就是浪費。這種生意用代操把人帶進來，比分潤划算得多，我們會直接建議你走代操方案。",
   },
   {
     id: "i-faq-5",
     question: "分潤怎麼算？要分多久？",
     answer:
-      "從這個 IP 延伸出來的淨利潤，我方抽成 30%。合約為一年期，期滿後你有優先選擇權：繼續合作維持原分潤，或一次性買斷結束分潤與所有權利。細節會在律師擬定的客製化合約中逐條寫明。",
+      "從這個 IP 延伸出來的淨利潤，我方抽成 30%。合約為一年期，期滿後你有優先選擇權，可以繼續合作維持原分潤，也可以一次性買斷結束分潤與所有權利。細節會在律師擬定的客製化合約中逐條寫明。",
   },
   {
     id: "i-faq-6",
     question: "流程要走多久？",
     answer:
-      "審核 → 試拍 → 簽約。審核通常一週內完成，試拍安排在兩週內，雙方確認方向後才進簽約。整個前置流程大約一個月，正式啟動後以年度為單位執行。",
+      "審核、試拍、簽約三關。審核通常一週內完成，試拍安排在兩週內，雙方確認方向後才進簽約。整個前置流程大約一個月，正式啟動後以年度為單位執行。",
   },
 ];
 
@@ -267,6 +267,31 @@ const elitePricingOptions = [
   },
 ];
 
+/** 富婆分會那套暖米白／金褐，兩邊看起來才是同一家公司的頁面。
+    色票與對比度出處見 src/app/fupo/FupoContent.tsx 的 C。 */
+const FUPO_PALETTE = {
+  background: "#FAF7F2",
+  ["--color-bg-primary" as string]: "#FAF7F2",
+  ["--color-bg-surface" as string]: "#FFFFFF",
+  ["--color-bg-surface-light" as string]: "#F3ECE1",
+  ["--color-text-primary" as string]: "#2B2318",
+  ["--color-text-secondary" as string]: "#6B5F51",
+  ["--color-text-white" as string]: "#2B2318",
+  ["--color-accent" as string]: "#7E5D28",
+  ["--color-accent-hover" as string]: "#6B4F22",
+  ["--color-accent-warm" as string]: "#B08D4F",
+  ["--color-divider" as string]: "rgba(126,93,40,0.22)",
+  ["--color-glow" as string]: "rgba(126,93,40,0.06)",
+  /* 富婆頁的標題是實心墨色，把漸層三段收成同一個深色，
+     text-gold-shine 就等同純色標題，不必逐處改 class。 */
+  ["--color-gold-gradient-start" as string]: "#2B2318",
+  ["--color-gold-gradient-mid" as string]: "#4C4236",
+  ["--color-gold-gradient-end" as string]: "#2B2318",
+};
+
+/** 小標籤：金色、字距拉開，跟富婆頁的段落標一致 */
+const EYEBROW = "text-[10px] font-semibold tracking-[0.32em] text-accent";
+
 export default function ShortVideoContent({
   videoFaqs,
   incubationFaqs,
@@ -281,23 +306,7 @@ export default function ShortVideoContent({
   return (
     <main
       className="relative z-10 flex min-h-dvh flex-col px-6 pt-10 pb-12"
-      style={{
-        background: "#EFF6FC",
-        ["--color-bg-primary" as string]: "#EFF6FC",
-        ["--color-bg-surface" as string]: "#FFFFFF",
-        ["--color-bg-surface-light" as string]: "#F5F9FD",
-        ["--color-text-primary" as string]: "#1A2744",
-        ["--color-text-secondary" as string]: "#4A6178",
-        ["--color-text-white" as string]: "#1A2744",
-        ["--color-accent" as string]: "#D4870E",
-        ["--color-accent-hover" as string]: "#C07A0A",
-        ["--color-accent-warm" as string]: "#D4870E",
-        ["--color-divider" as string]: "#C8D8E8",
-        ["--color-glow" as string]: "rgba(46, 107, 198, 0.1)",
-        ["--color-gold-gradient-start" as string]: "#1A2744",
-        ["--color-gold-gradient-mid" as string]: "#2E6BC6",
-        ["--color-gold-gradient-end" as string]: "#1A2744",
-      }}
+      style={FUPO_PALETTE}
     >
       {/* Back link */}
       <Link
@@ -310,18 +319,18 @@ export default function ShortVideoContent({
       {/* Hero */}
       <HeroSection
         title="短影音代操與短影音孵化"
-        subtitle="兩種合作模式：付月費交給我們做，或各出一半預算一起投資一個 IP。"
+        subtitle="兩種合作方式。付月費交給我們做，或是各出一半預算，一起投資一個 IP。"
         imageUrl={heroImageUrl}
         imageUrls={heroImageUrls}
       />
 
       {/* 服務對象宣告 */}
       <section className="animate-fade-up mb-10 rounded-xl bg-accent/10 border border-accent/30 p-5">
-        <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">服務對象</p>
+        <p className={`${EYEBROW} mb-2`}>服務對象</p>
         <h2 className="text-base font-bold text-accent mb-2">只做女性企業主的短影音</h2>
         <p className="text-xs text-text-secondary leading-[1.9]">
           羅威的內容方法論、鏡頭語言與合作的產業鏈，都是圍繞女性客群長出來的。
-          短影音製作（代操與孵化）目前只承接女性企業主的案子，男性客戶的製作需求暫不受理；
+          短影音製作（代操與孵化）目前只承接女性企業主的案子，男性客戶的製作需求暫不受理。
           若您需要的是廣告投放，仍歡迎透過
           <Link href="/short-video-ad" className="text-accent underline decoration-accent/40 mx-1">
             廣告投放
@@ -339,10 +348,10 @@ export default function ShortVideoContent({
           <PainPointHook
             title="你是否也面臨這些困境？"
             points={[
-              "空有產品卻沒流量 -- 廣告費越來越貴，投報率卻直線下滑",
-              "想做影音卻沒方向 -- 拍了幾支片卻沒人看，完全不知道演算法要什麼",
-              "團隊人力成本太高 -- 找企劃、攝影、剪輯、營運，每月薪資支出驚人",
-              "有流量卻無法變現 -- 讚數很多，但私訊詢問度卻是零",
+              "產品有了，流量沒有。廣告費一年比一年貴，投報率卻往下掉",
+              "拍了幾支片沒人看，也不知道演算法現在要什麼",
+              "企劃、攝影、剪輯、營運各請一個人，每月薪資是一筆固定支出",
+              "讚數不少，私訊詢問度是零",
             ]}
           />
 
@@ -354,7 +363,7 @@ export default function ShortVideoContent({
             <div className="flex flex-col gap-10">
               {phases.map((phase) => (
                 <div key={phase.number} className="relative">
-                  <span className="text-5xl font-black text-accent/15 absolute -top-2 -left-1 leading-none select-none">
+                  <span className="font-[family-name:var(--font-cormorant)] text-6xl font-bold text-accent/20 absolute -top-3 -left-1 leading-none select-none">
                     {phase.number}
                   </span>
                   <div className="pl-12">
@@ -365,7 +374,7 @@ export default function ShortVideoContent({
                         {phase.details.map((detail) => (
                           <li
                             key={detail}
-                            className="text-xs text-text-secondary leading-[1.8] pl-3 relative before:content-['—'] before:absolute before:left-0 before:text-accent/40"
+                            className="text-xs text-text-secondary leading-[1.8] pl-3 relative before:content-['・'] before:absolute before:left-0 before:text-accent-warm"
                           >
                             {detail}
                           </li>
@@ -376,8 +385,10 @@ export default function ShortVideoContent({
                       <div className="flex gap-6 mt-3">
                         {phase.metrics.map((m) => (
                           <div key={m.label}>
-                            <p className="text-3xl font-black text-accent leading-none">{m.value}</p>
-                            <p className="text-[11px] text-text-secondary/60 mt-1">{m.label}</p>
+                            <p className="font-[family-name:var(--font-cormorant)] text-4xl font-bold text-accent leading-none">
+                              {m.value}
+                            </p>
+                            <p className="text-[11px] text-text-secondary/70 mt-1">{m.label}</p>
                           </div>
                         ))}
                       </div>
@@ -393,7 +404,7 @@ export default function ShortVideoContent({
             <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-2">
               適合代操的產業
             </h2>
-            <p className="text-xs text-text-secondary/60 mb-5">
+            <p className="text-xs text-text-secondary/70 mb-5">
               以實體服務為主、產能有上限的生意
             </p>
             <div className="grid grid-cols-2 gap-2.5">
@@ -406,7 +417,7 @@ export default function ShortVideoContent({
                 </div>
               ))}
             </div>
-            <p className="mt-4 text-[11px] text-text-secondary/60 leading-[1.9]">
+            <p className="mt-4 text-[11px] text-text-secondary/70 leading-[1.9]">
               產能有天花板的生意，用代操把人帶進來，比分潤划算。想走利益綁定的合作，請看
               <button
                 type="button"
@@ -459,8 +470,8 @@ export default function ShortVideoContent({
                     ))}
                   </ul>
                   {item.cta && (
-                    <p className={`font-semibold ${item.highlight ? "text-base text-accent" : "text-sm text-accent"}`}>
-                      👉 {item.cta}
+                    <p className={`font-semibold text-accent ${item.highlight ? "text-base" : "text-sm"}`}>
+                      → {item.cta}
                     </p>
                   )}
                 </div>
@@ -473,12 +484,12 @@ export default function ShortVideoContent({
             <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-2">
               方案選擇
             </h2>
-            <p className="text-xs text-text-secondary/60 mb-5">選擇最適合您的短影音代操方案</p>
+            <p className="text-xs text-text-secondary/70 mb-5">依每月預算選一個級距</p>
 
             <div className="bg-accent/10 border border-accent/30 rounded-xl p-5">
-              <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">保證流量方案</p>
+              <p className={`${EYEBROW} mb-2`}>保證流量方案</p>
               <h3 className="text-base font-bold text-accent mb-1">菁英 IP 啟航版</h3>
-              <p className="text-xs text-text-secondary/60 mb-4">一版整合三種價位自由選擇</p>
+              <p className="text-xs text-text-secondary/70 mb-4">一版整合三種價位自由選擇</p>
 
               <div className="grid grid-cols-3 gap-2 mb-4">
                 {elitePricingOptions.map((option) => (
@@ -498,13 +509,13 @@ export default function ShortVideoContent({
               </div>
 
               <p className="mb-1">
-                <span className="text-3xl font-black text-accent">
+                <span className="font-[family-name:var(--font-cormorant)] text-4xl font-bold text-accent">
                   ${selectedEliteOption.monthlyPrice.toLocaleString()}
                 </span>
-                <span className="text-xs text-text-secondary/60 ml-1">/ 月</span>
+                <span className="text-xs text-text-secondary/70 ml-1">/ 月</span>
               </p>
-              <p className="text-[11px] text-text-secondary/50 mb-4">
-                年度：${selectedEliteOption.yearlyPrice.toLocaleString()}（含稅）
+              <p className="text-[11px] text-text-secondary/60 mb-4">
+                年度 ${selectedEliteOption.yearlyPrice.toLocaleString()}（含稅）
               </p>
 
               <ul className="flex flex-col gap-1.5">
@@ -517,7 +528,7 @@ export default function ShortVideoContent({
                 ].map((p) => (
                   <li
                     key={p}
-                    className="text-[11px] text-text-secondary leading-[1.7] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent/40 before:text-[10px]"
+                    className="text-[11px] text-text-secondary leading-[1.7] pl-3 relative before:content-['◆'] before:absolute before:left-0 before:text-accent-warm before:text-[10px]"
                   >
                     {p}
                   </li>
@@ -532,11 +543,11 @@ export default function ShortVideoContent({
                   key={option.id}
                   className="bg-bg-surface border border-divider rounded-lg px-2 py-3 text-center"
                 >
-                  <p className="text-[11px] text-text-secondary/60 mb-1">{option.label}／月</p>
-                  <p className="text-base font-black text-accent leading-none">
+                  <p className="text-[11px] text-text-secondary/70 mb-1">{option.label}／月</p>
+                  <p className="font-[family-name:var(--font-cormorant)] text-xl font-bold text-accent leading-none">
                     {option.trafficGuarantee.replace("保底 ", "").replace("次觀看/年", "")}
                   </p>
-                  <p className="text-[10px] text-text-secondary/50 mt-1">保底觀看/年</p>
+                  <p className="text-[10px] text-text-secondary/60 mt-1">保底觀看/年</p>
                 </div>
               ))}
             </div>
@@ -554,16 +565,18 @@ export default function ShortVideoContent({
           />
 
           <section className="animate-fade-up mb-12 rounded-xl bg-accent/10 border border-accent/30 p-6 text-center">
-            <p className="text-xs text-text-secondary/60 mb-1 tracking-wide">名額有限</p>
+            <p className={`${EYEBROW} mb-1`}>名額有限</p>
             <p className="mb-3">
-              <span className="text-5xl font-black text-accent leading-none">3</span>
+              <span className="font-[family-name:var(--font-cormorant)] text-6xl font-bold text-accent leading-none">
+                3
+              </span>
               <span className="text-sm text-text-primary ml-2">位/月 深度合作客戶</span>
             </p>
             <Link
               href="https://lin.ee/htTdJSH"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block w-full rounded-full bg-accent py-3.5 text-center text-sm font-semibold text-bg-primary tracking-wider transition-opacity duration-200 hover:opacity-90"
+              className="inline-block w-full rounded-full bg-accent py-3.5 text-center text-sm font-semibold text-bg-primary tracking-[0.16em] transition-opacity duration-200 hover:opacity-90"
             >
               立即透過 LINE 諮詢
             </Link>
@@ -577,22 +590,21 @@ export default function ShortVideoContent({
           <PainPointHook
             title="為什麼會有孵化這個模式？"
             points={[
-              "收錢了事的過客心態 -- 行銷公司收完錢就結案，做不好說是產品問題，做好了說是自己厲害",
-              "風險全部壓在你身上 -- 預算你出、時間你花、賣不動也是你自己扛",
-              "找不到真的懂生意的人 -- 只會拍片的團隊，不知道你的毛利、庫存與客單怎麼算",
+              "行銷公司收完錢就結案。做不好說是產品問題，做好了說是自己厲害",
+              "預算你出、時間你花，賣不動也是你自己扛",
+              "只會拍片的團隊，不知道你的毛利、庫存與客單怎麼算",
             ]}
           />
 
           {/* 核心理念 */}
           <section className="animate-fade-up mb-12">
             <div className="bg-accent/10 border border-accent/30 rounded-xl p-6">
-              <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">合夥人模式</p>
+              <p className={`${EYEBROW} mb-2`}>合夥人模式</p>
               <h2 className="text-lg font-bold text-accent mb-3">什麼是短影音孵化？</h2>
               <p className="text-sm text-text-secondary leading-[1.9] mb-3">
-                我們不再只是領薪水的乙方，而是轉成
-                <span className="text-accent font-semibold">領分紅的合夥人</span>
-                ：總預算雙方各出 50%，一年之內把你的 IP 做起來，
-                我方從延伸出來的淨利潤抽成 30%。
+                總預算雙方各出 50%，一年之內把你的 IP 做起來，我方從延伸出來的淨利潤
+                <span className="text-accent font-semibold">抽成 30%</span>
+                。我們領的是分紅，不是月費。
               </p>
               <p className="text-sm text-text-primary font-semibold leading-[1.9]">
                 「我沒做起來，我也拿不到錢。」
@@ -605,7 +617,7 @@ export default function ShortVideoContent({
             <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-2">
               真正的利益共同體
             </h2>
-            <p className="text-xs text-text-secondary/60 mb-6">各出 50% 預算，一起扛一起分</p>
+            <p className="text-xs text-text-secondary/70 mb-6">各出 50% 預算，一起扛一起分</p>
 
             {/* 50/50 視覺 */}
             <div className="flex h-3 w-full overflow-hidden rounded-full mb-6">
@@ -615,7 +627,7 @@ export default function ShortVideoContent({
 
             <div className="grid grid-cols-1 gap-3">
               <div className="bg-bg-surface border border-divider rounded-xl p-5">
-                <p className="text-[10px] tracking-widest text-text-secondary/50 uppercase mb-2">
+                <p className="mb-2 text-[10px] font-semibold tracking-[0.32em] text-text-secondary/60">
                   你保留的
                 </p>
                 <ul className="flex flex-col gap-1.5">
@@ -631,7 +643,7 @@ export default function ShortVideoContent({
               </div>
 
               <div className="bg-accent/10 border border-accent/30 rounded-xl p-5">
-                <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">我投入的</p>
+                <p className={`${EYEBROW} mb-2`}>我投入的</p>
                 <ul className="flex flex-col gap-1.5">
                   {[
                     "50% 真金白銀預算支援",
@@ -666,7 +678,7 @@ export default function ShortVideoContent({
             </h2>
             <div className="overflow-hidden rounded-lg border border-divider">
               <div className="grid grid-cols-[1fr_1fr] bg-bg-surface">
-                <div className="px-3 py-3 text-center text-xs font-semibold text-text-secondary/60 border-r border-divider">
+                <div className="px-3 py-3 text-center text-xs font-semibold text-text-secondary/70 border-r border-divider">
                   傳統行銷公司
                 </div>
                 <div className="px-3 py-3 text-center text-xs font-semibold text-accent">
@@ -680,7 +692,7 @@ export default function ShortVideoContent({
                     i < partnerDifferences.length - 1 ? "border-b border-divider" : ""
                   }`}
                 >
-                  <div className="px-3 py-3.5 text-xs text-text-secondary/60 border-r border-divider leading-[1.6]">
+                  <div className="px-3 py-3.5 text-xs text-text-secondary/70 border-r border-divider leading-[1.6]">
                     {row.left}
                   </div>
                   <div
@@ -700,7 +712,7 @@ export default function ShortVideoContent({
             <h2 className="font-[family-name:var(--font-noto-serif-tc)] text-lg font-bold text-gold-shine mb-2">
               適合共同孵化的三種生意
             </h2>
-            <p className="text-xs text-text-secondary/60 mb-6">孵化只做這三類，其餘一律建議走代操</p>
+            <p className="text-xs text-text-secondary/70 mb-6">孵化只做這三類，其餘一律建議走代操</p>
 
             <div className="flex flex-col gap-4">
               {incubationTypes.map((type) => (
@@ -722,9 +734,9 @@ export default function ShortVideoContent({
             </div>
 
             <div className="mt-5 rounded-xl bg-accent/10 border border-accent/30 p-5">
-              <p className="text-[10px] tracking-widest text-accent/60 uppercase mb-2">共通點</p>
+              <p className={`${EYEBROW} mb-2`}>共通點</p>
               <p className="text-xs text-text-secondary leading-[1.9]">
-                產能不被場地與人力綁住。流量放大，收入才跟得上——這樣分潤對雙方才有意義。
+                產能不被場地與人力綁住。流量放大，收入才跟得上，這樣分潤對雙方才有意義。
               </p>
             </div>
           </section>
@@ -738,9 +750,9 @@ export default function ShortVideoContent({
               {incubationSteps.map((step, i) => (
                 <div key={step.number} className="relative flex gap-4 pb-8 last:pb-0">
                   {i < incubationSteps.length - 1 && (
-                    <div className="absolute left-4 top-8 bottom-0 border-l-2 border-accent/30" />
+                    <div className="absolute left-4 top-8 bottom-0 border-l border-accent/25" />
                   )}
-                  <div className="relative z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent text-bg-primary text-xs font-bold">
+                  <div className="relative z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent font-[family-name:var(--font-cormorant)] text-sm font-bold text-bg-primary">
                     {step.number}
                   </div>
                   <div className="flex-1">
@@ -750,7 +762,7 @@ export default function ShortVideoContent({
                 </div>
               ))}
             </div>
-            <p className="mt-2 text-[11px] text-text-secondary/60 leading-[1.9]">
+            <p className="mt-2 text-[11px] text-text-secondary/70 leading-[1.9]">
               與律師訂製客製化合約，保障雙方權益。流量未達標則合約不生效。
             </p>
           </section>
@@ -761,7 +773,7 @@ export default function ShortVideoContent({
               期滿退場機制
             </h2>
             <p className="text-xs text-text-secondary leading-[1.9] mb-4">
-              合約期滿一年後，甲方擁有優先選擇權：
+              合約期滿一年後，甲方有優先選擇權。
             </p>
             <div className="grid grid-cols-1 gap-3">
               <div className="bg-bg-surface border border-divider rounded-xl p-5">
@@ -785,10 +797,10 @@ export default function ShortVideoContent({
             <ul className="flex flex-col gap-2">
               {[
                 "女性企業主，且生意屬於賣貨型、人傳人型或數位型",
-                "擁有品牌與預算，但缺乏流量",
+                "品牌與預算都有，缺的是流量",
                 "認同「先賣人再賣產品」觀念",
-                "想要衝刺曝光並要求有保底成果",
-                "尋求長期利益綁定，而非單次合作",
+                "想衝曝光，同時要求有保底成果",
+                "想長期把利益綁在一起，不是做完一次就結束",
               ].map((p) => (
                 <li
                   key={p}
@@ -808,14 +820,14 @@ export default function ShortVideoContent({
           />
 
           <section className="animate-fade-up mb-12 rounded-xl bg-accent/10 border border-accent/30 p-6 text-center">
-            <p className="text-xs text-text-secondary/60 mb-3 tracking-wide">
+            <p className="text-xs text-text-secondary/70 mb-3 tracking-wide">
               孵化名額需經審核，每季僅開放少數合作
             </p>
             <Link
               href="https://lin.ee/htTdJSH"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block w-full rounded-full bg-accent py-3.5 text-center text-sm font-semibold text-bg-primary tracking-wider transition-opacity duration-200 hover:opacity-90"
+              className="inline-block w-full rounded-full bg-accent py-3.5 text-center text-sm font-semibold text-bg-primary tracking-[0.16em] transition-opacity duration-200 hover:opacity-90"
             >
               申請孵化資格審核
             </Link>

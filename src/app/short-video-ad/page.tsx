@@ -6,7 +6,7 @@ import AdContent from "./AdContent";
 export const metadata: Metadata = {
   title: "廣告投放 | LUOWEI MEDIA",
   description:
-    "TikTok 官方認證二級代理商。每月 3 萬 / 6 萬 / 8 萬與客製化方案，精準受眾、每日優化、透明報表。",
+    "TikTok 官方認證二級代理商。每月 3 萬 / 6 萬 / 8 萬與客製化方案，每天看數據調整出價與受眾，每月給一份看得懂的報表。",
 };
 
 export const dynamic = "force-dynamic";

@@ -25,6 +25,10 @@
 
 html {
   background-color: var(--color-bg-primary);
+  /* iOS Safari 不吃 body 的 overflow-x:hidden，橫向仍滑得出去。這裡用 clip
+     而不是 hidden：hidden 會讓 html 變成捲動容器，公告列與 fupo 導覽的
+     sticky 就會失效。clip 只裁不捲，Safari 16 以下忽略，無害。 */
+  overflow-x: clip;
 }
 
 body {
@@ -33,7 +37,12 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   font-family: var(--font-body);
-  word-break: keep-all;
+  /* 這裡原本是 word-break: keep-all，那會禁止中文在字元之間斷行——一段
+     沒有標點的長句就整串頂出容器，在 375px 以下的 iPhone 上尤其明顯。
+     改回 normal 讓中文正常斷行，長英文單字則交給 overflow-wrap 處理，
+     只有真的放不下時才拆，不會把單字攔腰切斷。 */
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 /* ===== Gold Text Shine Animation ===== */
