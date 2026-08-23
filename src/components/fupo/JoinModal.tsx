@@ -509,155 +509,161 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
                   </div>
                 </fieldset>
 
-                {/* 手機 */}
-                <div>
-                  <label
-                    htmlFor="fp-phone"
-                    className="mb-1 block text-[11px] font-semibold tracking-[0.26em] text-[#7E5D28]"
-                  >
-                    手機號碼
-                  </label>
-                  <input
-                    id="fp-phone"
-                    type="tel"
-                    inputMode="numeric"
-                    autoComplete="tel"
-                    value={values.phone}
-                    onChange={(e) => update("phone", e.target.value)}
-                    placeholder="09xxxxxxxx"
-                    className={inputClass}
-                    style={fieldBorder("phone")}
-                  />
-                  {errors.phone && (
-                    <p className="mt-1.5 text-[12px]" style={{ color: C.danger }}>
-                      {errors.phone}
-                    </p>
-                  )}
-                </div>
-
-                {/* LINE ID */}
-                <div>
-                  <label
-                    htmlFor="fp-lineid"
-                    className="mb-1 block text-[11px] font-semibold tracking-[0.26em] text-[#7E5D28]"
-                  >
-                    LINE ID
-                  </label>
-                  <input
-                    id="fp-lineid"
-                    type="text"
-                    autoCapitalize="none"
-                    autoCorrect="off"
-                    value={values.lineId}
-                    onChange={(e) => update("lineId", e.target.value)}
-                    placeholder="請填寫 LINE ID"
-                    className={inputClass}
-                    style={fieldBorder("lineId")}
-                  />
-                  {errors.lineId && (
-                    <p className="mt-1.5 text-[12px]" style={{ color: C.danger }}>
-                      {errors.lineId}
-                    </p>
-                  )}
-                </div>
-
-                {/* 行業別 */}
-                <div>
-                  <label
-                    htmlFor="fp-industry"
-                    className="mb-1 block text-[11px] font-semibold tracking-[0.26em] text-[#7E5D28]"
-                  >
-                    行業別
-                  </label>
-                  <div className="relative">
-                    <select
-                      id="fp-industry"
-                      value={values.industry}
-                      onChange={(e) => update("industry", e.target.value)}
-                      className={selectClass}
-                      style={{
-                        ...fieldBorder("industry"),
-                        color: values.industry ? C.ink : "rgba(107,95,81,0.35)",
-                      }}
+                {/* 手機 ／ LINE ID：兩欄併一列，表單才不會拉得太長 */}
+                <div className="grid grid-cols-2 gap-x-4">
+                  <div>
+                    <label
+                      htmlFor="fp-phone"
+                      className="mb-1 block text-[11px] font-semibold tracking-[0.26em] text-[#7E5D28]"
                     >
-                      <option value="" disabled style={optionStyle}>
-                        請選擇行業別
-                      </option>
-                      {INDUSTRY_GROUPS.map((group) => (
-                        <optgroup key={group.label} label={group.label} style={optionStyle}>
-                          {group.options.map((option) => (
-                            <option key={option} value={option} style={optionStyle}>
-                              {option}
+                      手機號碼
+                    </label>
+                    <input
+                      id="fp-phone"
+                      type="tel"
+                      inputMode="numeric"
+                      autoComplete="tel"
+                      value={values.phone}
+                      onChange={(e) => update("phone", e.target.value)}
+                      placeholder="09xxxxxxxx"
+                      className={inputClass}
+                      style={fieldBorder("phone")}
+                    />
+                    {errors.phone && (
+                      <p className="mt-1.5 text-[12px] leading-[1.6]" style={{ color: C.danger }}>
+                        {errors.phone}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="fp-lineid"
+                      className="mb-1 block text-[11px] font-semibold tracking-[0.26em] text-[#7E5D28]"
+                    >
+                      LINE ID
+                    </label>
+                    <input
+                      id="fp-lineid"
+                      type="text"
+                      autoCapitalize="none"
+                      autoCorrect="off"
+                      value={values.lineId}
+                      onChange={(e) => update("lineId", e.target.value)}
+                      placeholder="請填寫 ID"
+                      className={inputClass}
+                      style={fieldBorder("lineId")}
+                    />
+                    {errors.lineId && (
+                      <p className="mt-1.5 text-[12px] leading-[1.6]" style={{ color: C.danger }}>
+                        {errors.lineId}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* 行業別 ／ 居住地區：同上，兩個下拉併一列。
+                    欄位變窄，提示字一律縮成「請選擇」，才不會被截掉。 */}
+                <div>
+                  <div className="grid grid-cols-2 gap-x-4">
+                    <div>
+                      <label
+                        htmlFor="fp-industry"
+                        className="mb-1 block text-[11px] font-semibold tracking-[0.26em] text-[#7E5D28]"
+                      >
+                        行業別
+                      </label>
+                      <div className="relative">
+                        <select
+                          id="fp-industry"
+                          value={values.industry}
+                          onChange={(e) => update("industry", e.target.value)}
+                          className={selectClass}
+                          style={{
+                            ...fieldBorder("industry"),
+                            color: values.industry ? C.ink : "rgba(107,95,81,0.35)",
+                          }}
+                        >
+                          <option value="" disabled style={optionStyle}>
+                            請選擇
+                          </option>
+                          {INDUSTRY_GROUPS.map((group) => (
+                            <optgroup key={group.label} label={group.label} style={optionStyle}>
+                              {group.options.map((option) => (
+                                <option key={option} value={option} style={optionStyle}>
+                                  {option}
+                                </option>
+                              ))}
+                            </optgroup>
+                          ))}
+                        </select>
+                        <svg
+                          aria-hidden
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke={C.gold}
+                          strokeWidth={1.6}
+                          className="pointer-events-none absolute top-1/2 right-1 h-4 w-4 -translate-y-1/2"
+                        >
+                          <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                      {errors.industry && (
+                        <p className="mt-1.5 text-[12px] leading-[1.6]" style={{ color: C.danger }}>
+                          {errors.industry}
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="fp-region"
+                        className="mb-1 block text-[11px] font-semibold tracking-[0.26em] text-[#7E5D28]"
+                      >
+                        居住地區
+                      </label>
+                      <div className="relative">
+                        <select
+                          id="fp-region"
+                          value={values.region}
+                          onChange={(e) => update("region", e.target.value)}
+                          className={selectClass}
+                          style={{
+                            ...fieldBorder("region"),
+                            color: values.region ? C.ink : "rgba(107,95,81,0.35)",
+                          }}
+                        >
+                          <option value="" disabled style={optionStyle}>
+                            請選擇
+                          </option>
+                          {TAIWAN_REGIONS.map((region) => (
+                            <option key={region} value={region} style={optionStyle}>
+                              {region}
                             </option>
                           ))}
-                        </optgroup>
-                      ))}
-                    </select>
-                    <svg
-                      aria-hidden
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke={C.gold}
-                      strokeWidth={1.6}
-                      className="pointer-events-none absolute top-1/2 right-1 h-4 w-4 -translate-y-1/2"
-                    >
-                      <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                        </select>
+                        <svg
+                          aria-hidden
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke={C.gold}
+                          strokeWidth={1.6}
+                          className="pointer-events-none absolute top-1/2 right-1 h-4 w-4 -translate-y-1/2"
+                        >
+                          <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                      {errors.region && (
+                        <p className="mt-1.5 text-[12px] leading-[1.6]" style={{ color: C.danger }}>
+                          {errors.region}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                  <p className="mt-1.5 text-[11.5px] leading-[1.7] text-[#6B5F51]/75">
-                    選最接近的一項即可，分會一個行業只收一位代表。
-                  </p>
-                  {errors.industry && (
-                    <p className="mt-1.5 text-[12px]" style={{ color: C.danger }}>
-                      {errors.industry}
-                    </p>
-                  )}
-                </div>
 
-                {/* 居住地區 */}
-                <div>
-                  <label
-                    htmlFor="fp-region"
-                    className="mb-1 block text-[11px] font-semibold tracking-[0.26em] text-[#7E5D28]"
-                  >
-                    居住地區
-                  </label>
-                  <div className="relative">
-                    <select
-                      id="fp-region"
-                      value={values.region}
-                      onChange={(e) => update("region", e.target.value)}
-                      className={selectClass}
-                      style={{
-                        ...fieldBorder("region"),
-                        color: values.region ? C.ink : "rgba(107,95,81,0.35)",
-                      }}
-                    >
-                      <option value="" disabled style={optionStyle}>
-                        請選擇居住地區
-                      </option>
-                      {TAIWAN_REGIONS.map((region) => (
-                        <option key={region} value={region} style={optionStyle}>
-                          {region}
-                        </option>
-                      ))}
-                    </select>
-                    <svg
-                      aria-hidden
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke={C.gold}
-                      strokeWidth={1.6}
-                      className="pointer-events-none absolute top-1/2 right-1 h-4 w-4 -translate-y-1/2"
-                    >
-                      <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  {errors.region && (
-                    <p className="mt-1.5 text-[12px]" style={{ color: C.danger }}>
-                      {errors.region}
-                    </p>
-                  )}
+                  <p className="mt-1.5 text-[11.5px] leading-[1.7] text-[#6B5F51]/75">
+                    行業別選最接近的一項即可，分會一個行業只收一位代表。
+                  </p>
                 </div>
 
                 {/* 社群連結（選填） */}
