@@ -20,7 +20,10 @@ const C = {
 
 const LINE = "rgba(126,93,40,0.22)";
 const TINT = "rgba(126,93,40,0.06)";
-const PAPER = "url(/images/fupo/tex/modal-bg.webp)";
+/** 裁掉手撕毛邊後的紙面。整張卡是一張裁切過的信紙，邊由 CSS 畫，不由素材決定。 */
+const PAPER = "url(/images/fupo/tex/modal-paper.webp)";
+/** 紙的切口：比內文分隔線深一點，才看得出是紙的厚度而不是一條裝飾線。 */
+const EDGE = "rgba(126,93,40,0.20)";
 
 interface JoinModalProps {
   open: boolean;
@@ -262,40 +265,19 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
         }}
       />
 
-      {/* 卡片。本體不設底色與外框——整張卡就是一張手抄紙，形狀由素材決定。 */}
+      {/* 卡片。一張裁邊的信紙：直角、四邊乾淨，質感全部來自紙紋與邊緣的受光，
+          不再用素材的 alpha 去 mask 手撕邊。底色直接留在卡片上即可，矩形不會外露。 */}
       <div
         className="relative w-full max-w-[452px]"
         style={{
+          background: C.card,
+          boxShadow: "0 26px 64px rgba(43,35,24,0.42), 0 3px 10px rgba(43,35,24,0.16)",
           opacity: entered ? 1 : 0,
           transform: entered ? "translateY(0)" : "translateY(18px)",
           transition: "opacity 340ms cubic-bezier(0.16,1,0.3,1), transform 340ms cubic-bezier(0.16,1,0.3,1)",
         }}
       >
-        {/* 白底不能直接留在卡片上：手撕邊外圍會露出一圈白矩形。改成用素材的
-            alpha 去 mask 一塊白，紙張就跟著裁成手撕形狀。
-
-            drop-shadow 必須掛在外層而不是被 mask 的那一層——CSS 的 filter
-            先於 mask 套用，寫在同一層的話陰影會從矩形長出來、再被裁掉。 */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 z-0"
-          style={{ filter: "drop-shadow(0 24px 60px rgba(43,35,24,0.45))" }}
-        >
-          <span
-            className="absolute inset-0"
-            style={{
-              background: C.card,
-              WebkitMaskImage: PAPER,
-              maskImage: PAPER,
-              WebkitMaskSize: "100% 100%",
-              maskSize: "100% 100%",
-              WebkitMaskRepeat: "no-repeat",
-              maskRepeat: "no-repeat",
-            }}
-          />
-        </span>
-
-        {/* 紙張紋理，55% 疊在上面那塊白之上——與全頁其他素材同一組規則，
+        {/* 紙張紋理，55% 疊在卡片底色之上——與全頁其他素材同一組規則，
             詳見 FupoContent 的 TEX_OPACITY 註解。 */}
         <span
           aria-hidden
@@ -306,6 +288,13 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
             backgroundRepeat: "no-repeat",
             opacity: 0.55,
           }}
+        />
+
+        {/* 紙的厚度：一圈切口細線，加上往內收的暗角，讓紙面中央微微浮起來。 */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{ boxShadow: `inset 0 0 0 1px ${EDGE}, inset 0 0 40px rgba(126,93,40,0.05)` }}
         />
 
         <button
@@ -407,11 +396,7 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
           ) : (
             /* ══════════ 表單 ══════════ */
             <>
-              <p className="mt-6 text-center text-[13.5px] leading-[2] text-[#6B5F51]">
-                留下聯絡方式，我們會盡快與妳聯繫。
-              </p>
-
-              <form onSubmit={handleSubmit} noValidate className="mt-7 flex flex-col gap-6">
+              <form onSubmit={handleSubmit} noValidate className="mt-9 flex flex-col gap-6">
                 {/* 蜜罐：純給機器人填的隱藏欄位 */}
                 <input
                   type="text"
