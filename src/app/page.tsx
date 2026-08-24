@@ -9,7 +9,7 @@ import JsonLd from "@/components/JsonLd";
 //   /fupo   BNI - 富婆分會 — 獨立形象頁，只透過直接連結分享
 const navItems: { label: string; href: string; external?: boolean; tag?: string }[] = [
   { label: "短影音代操與短影音孵化", href: "/short-video", tag: "企業專屬" },
-  { label: "廣告投放", href: "/short-video-ad", tag: "官方二級代理" },
+  { label: "TIKTOK廣告投放", href: "/short-video-ad", tag: "官方二級代理" },
   { label: "素人代操與課程案例", href: "/cases" },
 ];
 

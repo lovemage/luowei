@@ -64,9 +64,10 @@ function getDefaultIcon(label: string): ReactNode {
   );
 }
 
-/* /fupo 是獨立形象頁，只掛一個 LINE 聯繫窗口，不沿用全站的社群清單。 */
+/* /fupo 是獨立形象頁，只掛 LINE 與 IG 兩個窗口，不沿用全站的社群清單。 */
 const FUPO_PATH = "/fupo";
 const FUPO_LINE_URL = "https://lin.ee/PQzIWDd";
+const FUPO_IG_URL = "https://www.instagram.com/bossluo__";
 
 export default function FloatingButtons() {
   const pathname = usePathname();
@@ -102,20 +103,38 @@ export default function FloatingButtons() {
       .catch(() => {});
   }, [isFupo]);
 
-  // 單一按鈕，直接連出去，不做展開；配色沿用該頁的深金／象牙。
+  // 兩顆按鈕直接連出去，不做展開；配色沿用該頁的深金／象牙。
+  // 靠右對齊而非撐滿，兩顆寬度不同時右緣才會切齊。
   if (isFupo) {
+    const pill =
+      "flex items-center gap-2 rounded-full py-3 pl-4 pr-5 shadow-lg transition-opacity duration-300 hover:opacity-90";
+    const pillStyle = { background: "#7E5D28", color: "#FAF7F2" };
+
     return (
-      <a
-        href={FUPO_LINE_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="透過 LINE 聯繫"
-        className="fixed bottom-6 right-4 z-50 flex items-center gap-2 rounded-full py-3 pl-4 pr-5 shadow-lg transition-opacity duration-300 hover:opacity-90"
-        style={{ background: "#7E5D28", color: "#FAF7F2" }}
-      >
-        {lineSvg}
-        <span className="text-[13px] font-semibold tracking-[0.1em]">LINE 聯繫</span>
-      </a>
+      <div className="fixed bottom-6 right-4 z-50 flex flex-col items-end gap-3">
+        <a
+          href={FUPO_IG_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="追蹤 Instagram"
+          className={pill}
+          style={pillStyle}
+        >
+          {instagramSvg}
+          <span className="text-[13px] font-semibold tracking-[0.1em]">IG 追蹤</span>
+        </a>
+        <a
+          href={FUPO_LINE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="透過 LINE 聯繫"
+          className={pill}
+          style={pillStyle}
+        >
+          {lineSvg}
+          <span className="text-[13px] font-semibold tracking-[0.1em]">LINE 聯繫</span>
+        </a>
+      </div>
     );
   }
 

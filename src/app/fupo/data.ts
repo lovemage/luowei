@@ -3,7 +3,7 @@
  *
  * 依業主語音需求重構（逐字稿為內部素材，未進版控）：
  * 這不是招募頁，不透過網站找人。全頁只講三件事——
- * 創會理念、我們用的系統、分會需要什麼樣的人脈。
+ * 創會理念、用我們BNI系統、分會需要什麼樣的人脈。
  * 「天推地推」屬內部手段、「尋找創會領頭羊」屬招募話術，皆已移除。
  */
 
@@ -18,7 +18,7 @@ export interface NavSectionMeta {
 /** 頂部分段導覽（3 段）。全頁的敘事主線：為什麼 → 怎麼做 → 需要誰 */
 export const NAV_SECTIONS: NavSectionMeta[] = [
   { id: "belief", label: "創會理念", index: "01", role: "WHY" },
-  { id: "system", label: "我們用的系統", index: "02", role: "HOW" },
+  { id: "system", label: "用我們BNI系統", index: "02", role: "HOW" },
   { id: "network", label: "需要的人脈", index: "03", role: "WHO" },
 ];
 
@@ -74,9 +74,9 @@ export const BELIEF_CLOSING = [
   "富婆，自己當；江山，自己扛。",
 ];
 
-/* ── 我們用的系統 ── */
+/* ── 用我們BNI系統 ── */
 
-/** 02 我們用的系統：理念有了，接著講用什麼方法落地 */
+/** 02 用我們BNI系統：理念有了，接著講用什麼方法落地 */
 export const SYSTEM_INTRO =
   "理念是方向，方法才是關鍵。我們沒有自己發明一套規則，而是沿用一個已經被驗證過的商業引薦系統。" +
   "它不是社團，是以生意為導向、建立長期關係的機制。";
@@ -108,7 +108,7 @@ export const SYSTEM_RULES = [
 export const SYSTEM_STATS = [
   { value: 41, suffix: " 年", label: "運作歷史" },
   { value: 76, suffix: " 國", label: "跨國佈局" },
-  { value: 35, suffix: " 萬", label: "全球會員" },
+  { value: 35, suffix: " 萬+", label: "全球會員" },
   { value: 8500, suffix: " 億", label: "去年會員生意額" },
 ];
 

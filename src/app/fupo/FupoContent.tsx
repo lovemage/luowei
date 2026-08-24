@@ -110,9 +110,9 @@ function Texture({
 
 /** 創會理念．編號條目 ×3 */
 const TEX_BELIEF = "belief-02";
-/** 我們用的系統．編號條目 ×4 */
+/** 用我們BNI系統．編號條目 ×4 */
 const TEX_SYSTEM = "system-01";
-/** 我們用的系統．規模數字 ×4 */
+/** 用我們BNI系統．規模數字 ×4 */
 const TEX_STAT = "stat-04";
 /** 小標籤：客戶接觸點 */
 const TEX_CHIP = "touch-a";
@@ -373,6 +373,13 @@ export default function FupoContent() {
             </h1>
           </Reveal>
 
+          {/* 副標。緊貼主標之下，字級與字距都退一階，讓它讀起來是同一組標題的第二行。 */}
+          <Reveal variant="up" delay={330}>
+            <p className="mt-4 font-[family-name:var(--font-noto-serif-tc)] text-[20px] font-semibold tracking-[0.3em] text-[#7E5D28] sm:text-[26px]">
+              雅典娜美人團
+            </p>
+          </Reveal>
+
           <Reveal variant="up" delay={420}>
             <p className="mt-9 max-w-[22ch] text-[17px] leading-[2] text-[#4C4236] sm:max-w-md sm:text-[19px]">
               {MANIFESTO.lead}
@@ -462,11 +469,11 @@ export default function FupoContent() {
         </div>
       </section>
 
-      {/* ══════════ 02 我們用的系統 ══════════ */}
+      {/* ══════════ 02 用我們BNI系統 ══════════ */}
       <section id="system" style={{ background: C.band }}>
         <TornRule />
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-32">
-          <SectionHeading eyebrow="HOW ─ 02" title="我們用的系統" lead={SYSTEM_INTRO} />
+          <SectionHeading eyebrow="HOW ─ 02" title="用我們BNI系統" lead={SYSTEM_INTRO} />
 
           {/* 規模佐證 */}
           <Reveal variant="up">
