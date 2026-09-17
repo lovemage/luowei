@@ -1,0 +1,6 @@
+{
+  "$schema": "https://railway.com/railway.schema.json",
+  "deploy": {
+    "startCommand": "MALLOC_ARENA_MAX=2 exec node node_modules/next/dist/bin/next start"
+  }
+}

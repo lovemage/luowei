@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createCasesClient } from "@/lib/prisma-cases";
+import { prisma } from "@/lib/prisma";
 
 function normalizeSlug(value: string) {
   return value
@@ -11,17 +11,13 @@ function normalizeSlug(value: string) {
     .replace(/^-|-$/g, "");
 }
 
-async function generateUniqueSlug(
-  db: ReturnType<typeof createCasesClient>,
-  rawSlug: string,
-  currentId: number
-) {
+async function generateUniqueSlug(rawSlug: string, currentId: number) {
   const base = normalizeSlug(rawSlug) || `case-${Date.now()}`;
   let candidate = base;
   let suffix = 1;
 
   while (true) {
-    const existing = await db.case.findUnique({
+    const existing = await prisma.case.findUnique({
       where: { slug: candidate },
       select: { id: true },
     });
@@ -36,9 +32,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const db = createCasesClient();
-  const found = await db.case.findUnique({ where: { id: Number(id) } });
-  await db.$disconnect();
+  const found = await prisma.case.findUnique({ where: { id: Number(id) } });
   if (!found) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
@@ -49,13 +43,12 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const db = createCasesClient();
   try {
     const { id } = await params;
     const body = await request.json();
     const numericId = Number(id);
-    const uniqueSlug = await generateUniqueSlug(db, String(body.name ?? ""), numericId);
-    const updated = await db.case.update({
+    const uniqueSlug = await generateUniqueSlug(String(body.name ?? ""), numericId);
+    const updated = await prisma.case.update({
       where: { id: numericId },
       data: {
         slug: uniqueSlug,
@@ -81,8 +74,6 @@ export async function PUT(
     }
     console.error("Update case failed:", error);
     return NextResponse.json({ error: "更新案例失敗" }, { status: 500 });
-  } finally {
-    await db.$disconnect();
   }
 }
 
@@ -91,8 +82,6 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const db = createCasesClient();
-  await db.case.delete({ where: { id: Number(id) } });
-  await db.$disconnect();
+  await prisma.case.delete({ where: { id: Number(id) } });
   return NextResponse.json({ success: true });
 }

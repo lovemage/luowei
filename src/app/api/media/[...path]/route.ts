@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
+let client: S3Client | undefined;
+
+// 重用同一個 S3Client，避免每次請求都重建連線池
 function getClient() {
-  return new S3Client({
+  return (client ??= new S3Client({
     region: process.env.AWS_REGION || "auto",
     endpoint:
       process.env.BUCKET_ENDPOINT || process.env.AWS_ENDPOINT_URL_S3 || "",
@@ -15,7 +18,7 @@ function getClient() {
         process.env.AWS_SECRET_ACCESS_KEY ||
         "",
     },
-  });
+  }));
 }
 
 export async function GET(
@@ -27,8 +30,7 @@ export async function GET(
   const bucket = process.env.BUCKET || "";
 
   try {
-    const client = getClient();
-    const res = await client.send(
+    const res = await getClient().send(
       new GetObjectCommand({ Bucket: bucket, Key: key })
     );
 
@@ -37,15 +39,18 @@ export async function GET(
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    const bytes = await body.transformToByteArray();
+    // 以串流回傳，不把整個檔案讀進記憶體
+    const headers: Record<string, string> = {
+      "Content-Type": res.ContentType || "application/octet-stream",
+      "Cache-Control": "public, max-age=31536000, immutable",
+    };
+    if (res.ContentLength != null) {
+      headers["Content-Length"] = String(res.ContentLength);
+    }
 
-    return new NextResponse(Buffer.from(bytes), {
+    return new NextResponse(body.transformToWebStream(), {
       status: 200,
-      headers: {
-        "Content-Type": res.ContentType || "application/octet-stream",
-        "Cache-Control": "public, max-age=31536000, immutable",
-        "Content-Length": String(bytes.length),
-      },
+      headers,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";

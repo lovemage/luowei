@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createCasesClient } from "@/lib/prisma-cases";
+import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
@@ -13,12 +13,12 @@ function normalizeSlug(value: string) {
     .replace(/^-|-$/g, "");
 }
 
-async function generateUniqueSlug(db: ReturnType<typeof createCasesClient>, rawSlug: string) {
+async function generateUniqueSlug(rawSlug: string) {
   const base = normalizeSlug(rawSlug) || `case-${Date.now()}`;
   let candidate = base;
   let suffix = 1;
 
-  while (await db.case.findUnique({ where: { slug: candidate }, select: { id: true } })) {
+  while (await prisma.case.findUnique({ where: { slug: candidate }, select: { id: true } })) {
     candidate = `${base}-${suffix}`;
     suffix += 1;
   }
@@ -27,21 +27,15 @@ async function generateUniqueSlug(db: ReturnType<typeof createCasesClient>, rawS
 }
 
 export async function GET() {
-  const db = createCasesClient();
-  try {
-    const cases = await db.case.findMany({ orderBy: { order: "asc" } });
-    return NextResponse.json(cases);
-  } finally {
-    await db.$disconnect();
-  }
+  const cases = await prisma.case.findMany({ orderBy: { order: "asc" } });
+  return NextResponse.json(cases);
 }
 
 export async function POST(request: Request) {
-  const db = createCasesClient();
   try {
     const body = await request.json();
-    const uniqueSlug = await generateUniqueSlug(db, String(body.name ?? ""));
-    const newCase = await db.case.create({
+    const uniqueSlug = await generateUniqueSlug(String(body.name ?? ""));
+    const newCase = await prisma.case.create({
       data: {
         slug: uniqueSlug,
         name: body.name,
@@ -58,7 +52,5 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Create case failed:", error);
     return NextResponse.json({ error: "建立案例失敗" }, { status: 500 });
-  } finally {
-    await db.$disconnect();
   }
 }
