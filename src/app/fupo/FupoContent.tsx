@@ -311,7 +311,7 @@ export default function FupoContent() {
       <SectionNav
         sections={NAV_SECTIONS}
         brand="BNI - 富婆分會"
-        markSrc="/images/fupo/owl-mark.webp"
+        markSrc="/images/fupo/athena-logo.png"
         ctaLabel="我想加入"
         onCtaClick={openJoin}
       />
@@ -341,12 +341,12 @@ export default function FupoContent() {
         <div className="relative mx-auto flex min-h-[88dvh] max-w-6xl flex-col justify-center px-6 py-24 sm:px-10">
           <Reveal variant="up">
             <Image
-              src="/images/fupo/owl-mark.webp"
+              src="/images/fupo/athena-logo.png"
               alt=""
               width={112}
               height={112}
               priority
-              className="mb-7 h-[72px] w-[72px] sm:h-[104px] sm:w-[104px]"
+              className="mb-7 h-[72px] w-[84px] object-contain sm:h-[104px] sm:w-[122px]"
             />
           </Reveal>
 
@@ -726,10 +726,10 @@ export default function FupoContent() {
       <footer className="px-6 pb-14 text-center sm:px-10">
         <TornRule className="-mx-6 mb-14 w-auto sm:-mx-10" />
         <Image
-          src="/images/fupo/owl-logo.webp"
-          alt="BNI - 富婆分會．雅典娜美人團"
-          width={760}
-          height={752}
+          src="/images/fupo/athena-logo.png"
+          alt="雅典娜美人團標誌"
+          width={1952}
+          height={1662}
           sizes="(min-width: 640px) 220px, 180px"
           className="mx-auto h-auto w-[180px] sm:w-[220px]"
         />

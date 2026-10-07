@@ -353,11 +353,11 @@ export default function JoinModal({ open, onClose }: JoinModalProps) {
           {/* ── 表頭：Logo 置中 ── */}
           <div className="text-center">
             <Image
-              src="/images/fupo/owl-mark.webp"
-              alt="BNI - 富婆分會"
-              width={112}
-              height={112}
-              className="mx-auto h-[58px] w-[58px]"
+              src="/images/fupo/athena-logo.png"
+              alt="雅典娜美人團標誌"
+              width={1952}
+              height={1662}
+              className="mx-auto h-[58px] w-[68px] object-contain"
             />
             <p className="mt-4 text-[10px] font-semibold tracking-[0.46em] text-[#7E5D28]">
               JOIN US

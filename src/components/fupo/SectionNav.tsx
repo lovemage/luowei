@@ -137,7 +137,7 @@ export default function SectionNav({
               width={30}
               height={30}
               priority
-              className="h-[28px] w-[28px] shrink-0 sm:h-[32px] sm:w-[32px]"
+              className="h-[28px] w-[28px] shrink-0 object-contain sm:h-[32px] sm:w-[32px]"
             />
           )}
           <span className="max-[440px]:hidden">{brand}</span>
